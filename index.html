@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VolPay Edge - Report Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon"></div>
+            VolPay Edge
+        </div>
+        <nav class="nav-links">
+            <a href="#" class="nav-item" onclick="switchView('catalogue')">
+                <i data-lucide="layout-grid"></i> Report Catalogue
+            </a>
+            <a href="#" class="nav-item active" onclick="switchView('builder')">
+                <i data-lucide="blocks"></i> Report Builder
+            </a>
+            <a href="#" class="nav-item" onclick="switchView('centre')">
+                <i data-lucide="pie-chart"></i> Reports Centre
+            </a>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar">JS</div>
+            <div>
+                <div style="font-size: 0.875rem; font-weight: 600;">John Smith</div>
+                <div style="font-size: 0.75rem; color: #94a3b8;">Payment Ops</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Workspace -->
+    <main class="workspace">
+        
+        <!-- Header -->
+        <header class="header">
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div class="page-title" id="page-title">Create New Report</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);" id="builder-mode-badge">Core Report</span>
+                    <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..." style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary"><i data-lucide="download"></i> Import Definition</button>
+                <button class="btn btn-secondary"><i data-lucide="settings"></i> Properties</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area with Split -->
+        <div class="content-area">
+            
+            <!-- Builder View -->
+            <div id="view-builder" class="view-container active" style="flex-grow:1;">
+                
+                <div class="banner banner-warning" style="margin-top: 24px;">
+                    <i data-lucide="alert-triangle"></i>
+                    Query may touch archived records. Ensure Date Range filters are applied to optimize performance.
+                </div>
+
+                <div class="main-content" style="padding-top:0;">
+                    <!-- Stage 1: Choose Dataset -->
+                    <div class="pipeline-stage active" id="stage-1">
+                        <div class="stage-header" onclick="toggleStage(1)">
+                            <div class="stage-title">
+                                <span class="stage-number">1</span>
+                                Choose Dataset
+                            </div>
+                            <i data-lucide="chevron-down" id="icon-stage-1"></i>
+                        </div>
+                        <div class="stage-content">
+                            <div id="stage-1-datasets" style="display: block;">
+                                <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select a foundational dataset to build your core report upon.</div>
+                                <div class="dataset-grid">
+                                <div class="dataset-card selected">
+                                    <div class="dataset-header">
+                                        <div class="dataset-icon" style="color: #2563eb; background: #eff6ff;"><i data-lucide="credit-card"></i></div>
+                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                    </div>
+                                    <div class="dataset-title">Payment Transactions</div>
+                                    <div class="dataset-desc">Core transactional data including SWIFT, FED, CHIPS, and SEPA flows.</div>
+                                    <div class="dataset-meta">
+                                        <span class="tag">142 Fields</span>
+                                        <span class="tag">Daily</span>
+                                        <span class="tag">Tier 1</span>
+                                    </div>
+                                </div>
+                                <div class="dataset-card">
+                                    <div class="dataset-header">
+                                        <div class="dataset-icon" style="color: #ea580c; background: #ffedd5;"><i data-lucide="alert-circle"></i></div>
+                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                    </div>
+                                    <div class="dataset-title">Exceptions & Repair</div>
+                                    <div class="dataset-desc">Payments flagged for manual intervention, repair queues, and routing failures.</div>
+                                    <div class="dataset-meta">
+                                        <span class="tag">85 Fields</span>
+                                        <span class="tag">Real-time</span>
+                                        <span class="tag">Tier 2</span>
+                                    </div>
+                                </div>
+                                <div class="dataset-card">
+                                    <div class="dataset-header">
+                                        <div class="dataset-icon" style="color: #16a34a; background: #dcfce7;"><i data-lucide="banknote"></i></div>
+                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                    </div>
+                                    <div class="dataset-title">Settlement & Liquidity</div>
+                                    <div class="dataset-desc">Account balances, Nostro/Vostro projections, and intraday liquidity data.</div>
+                                    <div class="dataset-meta">
+                                        <span class="tag">64 Fields</span>
+                                        <span class="tag">Hourly</span>
+                                        <span class="tag">Tier 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2: Choose Fields -->
+                    <div class="pipeline-stage" id="stage-2">
+                        <div class="stage-header" onclick="toggleStage(2)">
+                            <div class="stage-title">
+                                <span class="stage-number">2</span>
+                                Select Fields
+                            </div>
+                            <i data-lucide="chevron-right" id="icon-stage-2"></i>
+                        </div>
+                        <div class="stage-content">
+                            <div class="field-explorer">
+                                <div class="field-sidebar">
+                                    <div class="field-search">
+                                        <input type="text" class="search-input" placeholder="Search fields...">
+                                    </div>
+                                    <div class="folder-list">
+                                        <div class="folder-item active"><i data-lucide="folder-open"></i> All Fields</div>
+                                        <div class="folder-item"><i data-lucide="pin"></i> Pinned</div>
+                                        <div class="folder-item"><i data-lucide="clock"></i> Recently Used</div>
+                                        <div class="folder-item" style="margin-top: 12px; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; padding-left: 16px;">Categories</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Identifiers</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Amounts & Currency</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Parties (Debtor/Creditor)</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Status & Routing</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Dates & Timestamps</div>
+                                    </div>
+                                </div>
+                                <div class="field-center">
+                                    <div class="field-list-header">
+                                        Available Fields
+                                        <span id="btn-add-all" style="font-size: 0.875rem; color: var(--primary); cursor: pointer; font-weight: 500;">Add All</span>
+                                    </div>
+                                    <div class="field-items" id="available-fields-container">
+                                        <!-- Fields populated by BuilderManager -->
+                                    </div>
+                                </div>
+                                <div class="field-right">
+                                    <div class="field-list-header" style="background: var(--bg-panel);">
+                                        Selected (<span id="selected-fields-count">0</span>)
+                                        <span id="btn-clear-all" style="font-size: 0.875rem; color: var(--danger); cursor: pointer; font-weight: 500;">Clear</span>
+                                    </div>
+                                    <div class="selected-fields-list" id="selected-fields-list">
+                                        <!-- Fields populated by BuilderManager -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3: Filters -->
+                    <div class="pipeline-stage" id="stage-3">
+                        <div class="stage-header" onclick="toggleStage(3)">
+                            <div class="stage-title">
+                                <span class="stage-number">3</span>
+                                Apply Filters
+                            </div>
+                            <i data-lucide="chevron-right" id="icon-stage-3"></i>
+                        </div>
+                        <div class="stage-content">
+                            <div id="filters-container" style="display: flex; flex-direction: column; gap: 16px;">
+                                <!-- Dynamically populated by JS based on selected fields -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stage 4: Conditions -->
+                    <div class="pipeline-stage" id="stage-4">
+                        <div class="stage-header" onclick="toggleStage(4)">
+                            <div class="stage-title">
+                                <span class="stage-number">4</span>
+                                Apply Conditions
+                            </div>
+                            <i data-lucide="chevron-right" id="icon-stage-4"></i>
+                        </div>
+                        <div class="stage-content">
+                            <div class="filter-builder" id="conditions-container">
+                                <!-- Dynamically populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 5: Grouping & Sorting -->
+                    <div class="pipeline-stage" id="stage-5">
+                        <div class="stage-header" onclick="toggleStage(5)">
+                            <div class="stage-title"><span class="stage-number">5</span> Grouping & Sorting</div>
+                            <i data-lucide="chevron-right" id="icon-stage-5"></i>
+                        </div>
+                        <div class="stage-content" style="padding: 24px; color: var(--text-muted); text-align: center;">
+                            Grouping and Sorting options will appear here.
+                        </div>
+                    </div>
+
+                    <!-- Stage 6: Preview & Generate -->
+                    <div class="pipeline-stage" id="stage-6">
+                        <div class="stage-header" onclick="toggleStage(6)">
+                            <div class="stage-title"><span class="stage-number">6</span> Preview & Generate</div>
+                            <i data-lucide="chevron-right" id="icon-stage-6"></i>
+                        </div>
+                        <div class="stage-content" id="preview-container">
+                            <!-- Preview populated by PreviewEngine -->
+                        </div>
+                    </div>
+                    
+                    <!-- Padding for action bar -->
+                    <div style="height: 100px;"></div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="action-bar">
+                    <button class="btn btn-secondary">Reset</button>
+                    <button class="btn btn-secondary">Save Draft</button>
+                    <button class="btn btn-secondary" id="btn-preview-data"><i data-lucide="play"></i> Preview Data</button>
+                    <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
+                </div>
+            </div>
+
+            <!-- Other Views -->
+            <div id="view-catalogue" class="view-container">
+                <div class="main-content">
+                    <div class="view-header">
+                        <div class="view-title-container">
+                            <h2>Report Catalogue</h2>
+                            <p>Browse, execute, and manage the organization's standard Core Reports.</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="window.appBuilderManager.startNewReport('core')"><i data-lucide="plus"></i> New Core Report</button>
+                    </div>
+
+                    <div class="filters-bar">
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input type="text" placeholder="Search reports...">
+                        </div>
+                        <div class="filter-chip active">All Reports</div>
+                        <div class="filter-chip">Favorites <i data-lucide="star" style="width:14px; margin-left:4px;"></i></div>
+                        <div class="filter-chip">Recently Used</div>
+                        <div class="filter-chip">My Reports</div>
+                        <div style="flex-grow: 1;"></div>
+                        <button class="btn btn-secondary"><i data-lucide="filter"></i> Filters</button>
+                    </div>
+
+                    <div class="report-grid">
+                        <!-- Card 1 -->
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <div class="report-title">Daily SWIFT Outbound</div>
+                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                            </div>
+                            <div class="report-desc">Comprehensive list of all successful MT103 and MT202 messages sent out today.</div>
+                            <div style="margin-bottom: 16px;">
+                                <span class="tag">Payments</span>
+                                <span class="tag">Daily</span>
+                            </div>
+                            <div class="report-footer">
+                                <div class="report-author">
+                                    <div class="avatar-sm">JS</div>
+                                    Updated 2h ago
+                                </div>
+                                <div class="report-actions">
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Daily SWIFT Outbound')" title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Daily SWIFT Outbound')" title="Run Report"><i data-lucide="play"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <div class="report-title">Repair Queue Aging</div>
+                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                            </div>
+                            <div class="report-desc">Analysis of transactions stuck in repair queue broken down by SLA thresholds.</div>
+                            <div style="margin-bottom: 16px;">
+                                <span class="tag">Exceptions</span>
+                                <span class="tag">Compliance</span>
+                            </div>
+                            <div class="report-footer">
+                                <div class="report-author">
+                                    <div class="avatar-sm">AK</div>
+                                    Updated 1d ago
+                                </div>
+                                <div class="report-actions">
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Repair Queue Aging')" title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Repair Queue Aging')" title="Run Report"><i data-lucide="play"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="report-card">
+                            <div class="report-card-header">
+                                <div class="report-title">Nostro Balance Projections</div>
+                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                            </div>
+                            <div class="report-desc">Intraday liquidity projections based on settled and queued payments.</div>
+                            <div style="margin-bottom: 16px;">
+                                <span class="tag">Liquidity</span>
+                                <span class="tag">Hourly</span>
+                            </div>
+                            <div class="report-footer">
+                                <div class="report-author">
+                                    <div class="avatar-sm">SJ</div>
+                                    Updated 5h ago
+                                </div>
+                                <div class="report-actions">
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Nostro Balance Projections')" title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Nostro Balance Projections')" title="Run Report"><i data-lucide="play"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="view-centre" class="view-container">
+                <div class="main-content">
+                    <div class="view-header">
+                        <div class="view-title-container">
+                            <h2>Reports Centre</h2>
+                            <p>Monitor execution queues, download outputs, and view execution history.</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn btn-secondary"><i data-lucide="refresh-cw"></i> Refresh</button>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">
+                                <i data-lucide="loader"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>3</h3>
+                                <p>Running Now</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fef3c7; color: #d97706;">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>12</h3>
+                                <p>Queued</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">
+                                <i data-lucide="check-circle-2"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>145</h3>
+                                <p>Completed Today</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">
+                                <i data-lucide="x-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>2</h3>
+                                <p>Failed Jobs</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="font-size: 1rem; font-weight: 600;">Recent Executions</h3>
+                            <div class="search-box" style="width: 250px;">
+                                <i data-lucide="search"></i>
+                                <input type="text" placeholder="Search by Job ID or Name...">
+                            </div>
+                        </div>
+                        <div class="collapsible-section" style="margin-bottom: 16px;">
+                            <div class="collapsible-header" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
+                                <div><i data-lucide="folder" style="color: var(--primary); margin-right: 8px; width: 18px; vertical-align: middle;"></i> Core Reports Executions</div>
+                                <i data-lucide="chevron-right" class="collapsible-icon open"></i>
+                            </div>
+                            <div class="collapsible-content active">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Job ID</th>
+                                            <th>Report Name</th>
+                                            <th>Status</th>
+                                            <th>Progress</th>
+                                            <th>Started At</th>
+                                            <th>Duration</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reports-centre-core-tbody">
+                                        <!-- Populated by ReportManager -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="collapsible-section">
+                            <div class="collapsible-header" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
+                                <div><i data-lucide="file-text" style="color: var(--warning); margin-right: 8px; width: 18px; vertical-align: middle;"></i> Templates Executions</div>
+                                <i data-lucide="chevron-right" class="collapsible-icon open"></i>
+                            </div>
+                            <div class="collapsible-content active">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Job ID</th>
+                                            <th>Report Name</th>
+                                            <th>Status</th>
+                                            <th>Progress</th>
+                                            <th>Started At</th>
+                                            <th>Duration</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reports-centre-template-tbody">
+                                        <!-- Populated by ReportManager -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Summary Panel (only visible on Builder) -->
+            <aside class="summary-panel" id="summary-panel">
+                <div class="summary-header">
+                    Report Configuration Summary
+                </div>
+                <div class="summary-content">
+                    <div class="summary-stat">
+                        <span class="stat-label">Source Dataset</span>
+                        <span class="stat-value" style="color: var(--primary);">Payment Transactions</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Selected Fields</span>
+                        <span class="stat-value" id="summary-fields-count">0 Columns</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Active Filters</span>
+                        <span class="stat-value" id="summary-filters-count">0 Conditions</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Active Conditions</span>
+                        <span class="stat-value" id="summary-conditions-count">0 Rules</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Sorting</span>
+                        <span class="stat-value" style="color: var(--text-muted);">None applied</span>
+                    </div>
+                    
+                    <hr style="border: none; border-top: 1px solid var(--border-color); margin: 24px 0;">
+                    
+                    <div style="font-weight: 600; margin-bottom: 16px; font-size: 0.875rem;">Estimations</div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Estimated Output</span>
+                        <span class="stat-value">~1.2M Rows</span>
+                    </div>
+                    <div class="summary-stat">
+                        <span class="stat-label">Estimated File Size</span>
+                        <span class="stat-value">~145 MB (CSV)</span>
+                    </div>
+                    
+                    <div class="score-card">
+                        <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Performance Score</div>
+                        <div class="score-value">85/100</div>
+                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 4px;">Good query optimization</div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Run Report Modal -->
+    <div class="modal-overlay" id="run-report-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Run Report Execution</div>
+                <i data-lucide="x" style="cursor: pointer; color: var(--text-muted);" onclick="window.appReportManager.closeRunModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-workspace); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <div style="background: #eff6ff; color: #2563eb; padding: 8px; border-radius: 6px;"><i data-lucide="file-bar-chart-2"></i></div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.875rem;" id="run-modal-report-name">Report Name</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Standard Core Report</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Execution Frequency</label>
+                    <select class="form-control" id="run-modal-frequency">
+                        <option value="ad-hoc">One-time (Ad Hoc)</option>
+                        <option value="daily">Scheduled: Daily</option>
+                        <option value="weekly">Scheduled: Weekly</option>
+                        <option value="monthly">Scheduled: Monthly</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Reporting Period</label>
+                    <select class="form-control" id="run-modal-period">
+                        <option value="today">Today (Live)</option>
+                        <option value="yesterday">Yesterday (T-1)</option>
+                        <option value="this-week">This Week</option>
+                        <option value="last-month">Last Month</option>
+                        <option value="custom">Custom Date Range...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Output Format</label>
+                    <select class="form-control">
+                        <option value="csv">CSV Export</option>
+                        <option value="excel">Excel (.xlsx)</option>
+                        <option value="pdf">PDF Summary</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="window.appReportManager.closeRunModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="window.appReportManager.confirmRunModal()"><i data-lucide="play"></i> Execute Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="js/Core.js"></script>
+    <script src="js/UIComponents.js"></script>
+    <script src="js/DataEngine.js"></script>
+    <script src="js/Managers.js"></script>
+    <script src="js/App.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
