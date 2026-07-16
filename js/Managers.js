@@ -69,7 +69,8 @@ class BuilderManager {
         // Subscribe to state changes to update builder UI
         window.appState.subscribe(state => this.updateUI(state));
         this.bindEvents();
-        this.renderFieldsList();\n        if (window.appCoreReportSelector) window.appCoreReportSelector.init();
+        this.renderFieldsList();
+        if (window.appCoreReportSelector) window.appCoreReportSelector.init();
         
         // Ensure builder mode state defaults
         if(!window.appState.get().currentBuilder.mode) {
