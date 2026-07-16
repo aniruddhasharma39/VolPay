@@ -263,127 +263,103 @@
             <!-- Other Views -->
             <div id="view-catalogue" class="view-container active">
                 <div class="main-content">
-                    <div class="view-header">
-                        <div class="view-title-container">
-                            <h2>Report Catalogue</h2>
-                            <p>Browse, execute, and manage the organization's standard Core Reports.</p>
-                        </div>
-                        <button class="btn btn-primary" onclick="window.appBuilderManager.startNewReport('core')"><i
-                                data-lucide="plus"></i> New Core Report</button>
-                    </div>
 
-                    <div class="filters-bar">
-                        <div class="search-box">
+                    <!-- Single unified toolbar row -->
+                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 32px; flex-wrap: nowrap;">
+                        <div class="search-box" style="flex-shrink: 0;">
                             <i data-lucide="search"></i>
                             <input type="text" placeholder="Search reports...">
                         </div>
                         <div class="filter-chip active">All Reports</div>
-                        <div class="filter-chip">Favorites <i data-lucide="star"
-                                style="width:14px; margin-left:4px;"></i></div>
+                        <div class="filter-chip">Favourites <i data-lucide="star" style="width:13px; margin-left:3px;"></i></div>
                         <div class="filter-chip">Recently Used</div>
                         <div class="filter-chip">My Reports</div>
                         <div style="flex-grow: 1;"></div>
-                        <button class="btn btn-secondary"><i data-lucide="filter"></i> Filters</button>
+                        <button class="btn btn-secondary" style="flex-shrink:0;"><i data-lucide="filter"></i> Filters</button>
+                        <button class="btn btn-primary" style="flex-shrink:0;" onclick="window.appBuilderManager.startNewReport('core'); switchView('builder');"><i data-lucide="plus"></i> New Core Report</button>
                     </div>
 
-                    <div class="report-grid" id="catalogue-reports-grid">
-                        <!-- Card 1 -->
+                    <!-- Core Reports Section -->
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Core Reports</h3>
+                        <span style="background:#dbeafe; color:#2563eb; font-size:0.72rem; font-weight:600; padding:2px 10px; border-radius:20px;">Standard</span>
+                    </div>
+                    <div class="report-grid" id="catalogue-core-static" style="margin-bottom:40px;">
                         <div class="report-card">
                             <div class="report-card-header">
                                 <div class="report-title">Daily SWIFT Outbound</div>
-                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                                <button class="icon-btn" onclick="if(confirm('Delete this report?')) this.closest('.report-card').remove()" title="Delete Report" style="color:#ef4444;"><i data-lucide="trash-2"></i></button>
                             </div>
-                            <div class="report-desc">Comprehensive list of all successful MT103 and MT202 messages sent
-                                out today.</div>
-                            <div style="margin-bottom: 16px;">
+                            <div class="report-desc">Comprehensive list of all successful MT103 and MT202 messages sent out today.</div>
+                            <div style="margin-bottom:16px;">
+                                <span class="tag" style="background:#dbeafe;color:#2563eb;border:1px solid #bfdbfe;">Core</span>
                                 <span class="tag">Payments</span>
                                 <span class="tag">Daily</span>
                             </div>
                             <div class="report-footer">
-                                <div class="report-author">
-                                    <div class="avatar-sm">JS</div>
-                                    Updated 2h ago
-                                </div>
+                                <div class="report-author"><div class="avatar-sm">JS</div>Updated 2h ago</div>
                                 <div class="report-actions">
-                                    <button class="icon-btn"
-                                        onclick="window.appBuilderManager.startNewReport('template', 'Daily SWIFT Outbound')"
-                                        title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary"
-                                        onclick="window.appReportManager.openRunModal('Daily SWIFT Outbound')"
-                                        title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Daily SWIFT Outbound')" title="Use as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Daily SWIFT Outbound')" title="Run"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 2 -->
                         <div class="report-card">
                             <div class="report-card-header">
                                 <div class="report-title">Repair Queue Aging</div>
-                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                                <button class="icon-btn" onclick="if(confirm('Delete this report?')) this.closest('.report-card').remove()" title="Delete Report" style="color:#ef4444;"><i data-lucide="trash-2"></i></button>
                             </div>
-                            <div class="report-desc">Analysis of transactions stuck in repair queue broken down by SLA
-                                thresholds.</div>
-                            <div style="margin-bottom: 16px;">
+                            <div class="report-desc">Analysis of transactions stuck in repair queue broken down by SLA thresholds.</div>
+                            <div style="margin-bottom:16px;">
+                                <span class="tag" style="background:#dbeafe;color:#2563eb;border:1px solid #bfdbfe;">Core</span>
                                 <span class="tag">Exceptions</span>
                                 <span class="tag">Compliance</span>
                             </div>
                             <div class="report-footer">
-                                <div class="report-author">
-                                    <div class="avatar-sm">AK</div>
-                                    Updated 1d ago
-                                </div>
+                                <div class="report-author"><div class="avatar-sm">AK</div>Updated 1d ago</div>
                                 <div class="report-actions">
-                                    <button class="icon-btn"
-                                        onclick="window.appBuilderManager.startNewReport('template', 'Repair Queue Aging')"
-                                        title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary"
-                                        onclick="window.appReportManager.openRunModal('Repair Queue Aging')"
-                                        title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Repair Queue Aging')" title="Use as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Repair Queue Aging')" title="Run"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Card 3 -->
                         <div class="report-card">
                             <div class="report-card-header">
                                 <div class="report-title">Nostro Balance Projections</div>
-                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                                <button class="icon-btn" onclick="if(confirm('Delete this report?')) this.closest('.report-card').remove()" title="Delete Report" style="color:#ef4444;"><i data-lucide="trash-2"></i></button>
                             </div>
-                            <div class="report-desc">Intraday liquidity projections based on settled and queued
-                                payments.</div>
-                            <div style="margin-bottom: 16px;">
+                            <div class="report-desc">Intraday liquidity projections based on settled and queued payments.</div>
+                            <div style="margin-bottom:16px;">
+                                <span class="tag" style="background:#dbeafe;color:#2563eb;border:1px solid #bfdbfe;">Core</span>
                                 <span class="tag">Liquidity</span>
                                 <span class="tag">Hourly</span>
                             </div>
                             <div class="report-footer">
-                                <div class="report-author">
-                                    <div class="avatar-sm">SJ</div>
-                                    Updated 5h ago
-                                </div>
+                                <div class="report-author"><div class="avatar-sm">SJ</div>Updated 5h ago</div>
                                 <div class="report-actions">
-                                    <button class="icon-btn"
-                                        onclick="window.appBuilderManager.startNewReport('template', 'Nostro Balance Projections')"
-                                        title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary"
-                                        onclick="window.appReportManager.openRunModal('Nostro Balance Projections')"
-                                        title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Nostro Balance Projections')" title="Use as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Nostro Balance Projections')" title="Run"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Template Reports Section -->
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Template Reports</h3>
+                        <span style="background:#fdf4ff; color:#c026d3; font-size:0.72rem; font-weight:600; padding:2px 10px; border-radius:20px;">Custom</span>
+                    </div>
+                    <div class="report-grid" id="catalogue-reports-grid">
+                        <!-- Dynamically populated by Managers.js -->
+                    </div>
+
                 </div>
             </div>
 
             <div id="view-centre" class="view-container">
                 <div class="main-content">
-                    <div class="view-header">
-                        <div class="view-title-container">
-                            <h2>Reports Centre</h2>
-                            <p>Monitor execution queues, download outputs, and view execution history.</p>
-                        </div>
-                        <div class="header-actions">
-                            <button class="btn btn-secondary"><i data-lucide="refresh-cw"></i> Refresh</button>
-                        </div>
+                    <div style="display:flex; justify-content:flex-end; margin-bottom:24px;">
+                        <button class="btn btn-secondary" onclick="window.appReportManager && window.appReportManager.renderCentreUI()"><i data-lucide="refresh-cw"></i> Refresh</button>
                     </div>
 
                     <div class="stats-grid">

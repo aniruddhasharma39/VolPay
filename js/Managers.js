@@ -960,41 +960,40 @@ renderFieldsList() {
         if(summaryFiltersCount) summaryFiltersCount.innerText = `${totalFilters} Active`;
         
         // Update Catalogue UI
-        const catalogueGrid = document.getElementById('catalogue-reports-grid');
-        if (catalogueGrid) {
+        const templateGrid = document.getElementById('catalogue-reports-grid');
+        if (templateGrid) {
             const catalogue = state.catalogue || [];
             
-            // Generate some defaults if empty
-            if (catalogue.length === 0) {
-                catalogue.push({ id: 'DEF-1', name: 'Daily SWIFT Outbound', type: 'core', access: 'all', updatedAt: '2h ago', author: 'JS', desc: 'Comprehensive list of all successful MT103 and MT202 messages sent out today.', fields: [{id: 'trn', label: 'Transaction Reference', type: 'string'}, {id: 'uetr', label: 'UETR', type: 'string'}] });
-                catalogue.push({ id: 'DEF-2', name: 'Repair Queue Aging', type: 'core', access: 'admin', updatedAt: '1d ago', author: 'SYS', desc: 'Aging analysis of transactions stuck in the repair queue.', fields: [{id: 'repairQueue', label: 'Repair Queue', type: 'string'}] });
-                window.appState.update({ catalogue });
-                return; // Will re-trigger notify
-            }
+            // Only render template-type reports in the template section
+            const templateReports = catalogue.filter(r => r.type === 'template');
             
-            catalogueGrid.innerHTML = catalogue.map(r => `
-                <div class="report-card">
-                    <div class="report-card-header">
-                        <div class="report-title">${r.name}</div>
-                        <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
-                    </div>
-                    <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
-                    <div style="margin-bottom: 16px;">
-                        <span class="tag">${r.type === 'core' ? 'Core' : 'Template'}</span>
-                        <span class="tag" style="background: #e2e8f0; color: #475569;"><i data-lucide="users" style="width: 10px; margin-right: 4px;"></i> ${r.access}</span>
-                    </div>
-                    <div class="report-footer">
-                        <div class="report-author">
-                            <div class="avatar-sm">${r.author}</div>
-                            Updated ${r.updatedAt}
+            if (templateReports.length === 0) {
+                templateGrid.innerHTML = '<div style="color:#94a3b8; padding:20px 0; font-size:0.875rem;">No template reports yet. Save a Core Report as a template to see it here.</div>';
+            } else {
+                templateGrid.innerHTML = templateReports.map(r => `
+                    <div class="report-card" id="catalogue-card-${r.id}">
+                        <div class="report-card-header">
+                            <div class="report-title">${r.name}</div>
+                            <button class="icon-btn" onclick="if(confirm('Delete this report?')) { document.getElementById('catalogue-card-${r.id}').remove(); }" title="Delete" style="color:#ef4444;"><i data-lucide="trash-2"></i></button>
                         </div>
-                        <div class="report-actions">
-                            <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Customize as Template"><i data-lucide="copy"></i></button>
-                            <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run Report"><i data-lucide="play"></i></button>
+                        <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
+                        <div style="margin-bottom: 16px;">
+                            <span class="tag" style="background:#fdf4ff; color:#c026d3; border:1px solid #f5d0fe;">Template</span>
+                            <span class="tag" style="background:#e2e8f0; color:#475569;"><i data-lucide="users" style="width:10px; margin-right:4px;"></i>${r.access || 'private'}</span>
+                        </div>
+                        <div class="report-footer">
+                            <div class="report-author">
+                                <div class="avatar-sm">${r.author || 'JS'}</div>
+                                Updated ${r.updatedAt || 'Just now'}
+                            </div>
+                            <div class="report-actions">
+                                <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Customize as Template"><i data-lucide="copy"></i></button>
+                                <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run Report"><i data-lucide="play"></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
         
         lucide.createIcons();
