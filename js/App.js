@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Render of state
     window.appState.notify();
+    if (typeof switchView === 'function') switchView('catalogue');
     
     window.appToast.show('Application loaded successfully', 'success');
 });

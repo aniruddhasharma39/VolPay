@@ -3,23 +3,54 @@ function switchView(viewName) {
     // Update Navigation Active State
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
-        if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${viewName}'`)) {
-            item.classList.add('active');
-        }
     });
+    
+    if (viewName === 'builder') {
+        const state = window.appState.get();
+        document.getElementById('nav-builder-main').classList.add('active');
+        
+        // ensure submenu is open
+        const submenu = document.getElementById('nav-builder-submenu');
+        if (submenu) submenu.style.display = 'flex'; // our new css makes it flex
+        
+        if (state.currentBuilder.mode === 'core') {
+            document.getElementById('nav-core-report').classList.add('active');
+        } else {
+            document.getElementById('nav-template-report').classList.add('active');
+        }
+    } else {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${viewName}'`)) {
+                item.classList.add('active');
+            }
+        });
+        // collapse submenu if navigating away
+        const submenu = document.getElementById('nav-builder-submenu');
+        if (submenu) submenu.style.display = 'none';
+    }
 
     // Update Views
     document.querySelectorAll('.view-container').forEach(view => {
         view.classList.remove('active');
+        view.style.display = 'none'; // explicitly hide to override inline flex
     });
-    document.getElementById('view-' + viewName).classList.add('active');
+    const targetView = document.getElementById('view-' + viewName);
+    if(targetView) {
+        targetView.classList.add('active');
+        if (viewName === 'builder') {
+            targetView.style.display = 'flex';
+        } else {
+            targetView.style.display = 'block';
+        }
+    }
 
     // Update Page Title and Summary Panel visibility
     const titleElement = document.getElementById('page-title');
     const summaryPanel = document.getElementById('summary-panel');
     
     if (viewName === 'builder') {
-        titleElement.textContent = 'Create New Report';
+        const state = window.appState.get();
+        titleElement.textContent = state.currentBuilder.mode === 'core' ? 'Create New Core Report' : 'Create New Template Report';
         if (summaryPanel) summaryPanel.style.display = 'flex';
     } else if (viewName === 'catalogue') {
         titleElement.textContent = 'Report Catalogue';
@@ -30,7 +61,6 @@ function switchView(viewName) {
     }
 }
 
-// Pipeline Stage Accordion
 function toggleStage(stageNumber) {
     // For this prototype, we'll allow multiple open stages, or auto-close others
     // Let's implement one-expanded-at-a-time (Accordion)

@@ -83,8 +83,17 @@ class BuilderManager {
         }
     }
 
-    startNewReport(mode, baseReportName = null) {
+            startNewReport(mode, baseReportName = null) {
         window.appHistory.pushState();
+        
+        if (mode === 'template' && !baseReportName) {
+            // Clear available fields so we don't show core fields
+            this.availableFields = [];
+            this.renderFieldsList();
+        } else if (mode === 'core') {
+            // Re-populate original mock available fields just in case it was overwritten (if needed, but core mode uses CoreReportSelector)
+        }
+
         window.appState.update(s => ({
             ...s,
             currentBuilder: {
@@ -95,7 +104,8 @@ class BuilderManager {
                 conditions: [],
                 sorts: [],
                 groups: [],
-                mode: mode
+                mode: mode,
+                wizardStep: mode === 'core' ? 1 : 0
             }
         }));
         
@@ -103,28 +113,22 @@ class BuilderManager {
         if(nameInput) nameInput.value = '';
         
         if (typeof switchView === 'function') switchView('builder');
-        if (typeof toggleStage === 'function') toggleStage(1);
+        
+        if (mode === 'template' && baseReportName) {
+            this.setDataset(baseReportName);
+        }
     }
 
+
+    setWizardStep(mode, step) {
+        window.appState.update(state => ({
+            ...state,
+            currentBuilder: { ...state.currentBuilder, mode: mode, wizardStep: step }
+        }));
+    }
+
+
     bindEvents() {
-        // Dataset selection
-        document.querySelectorAll('.dataset-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                try {
-                    if (e.target.closest('[data-lucide="star"]')) return;
-                    const datasetName = card.querySelector('.dataset-title').textContent.trim();
-                    window.appHistory.pushState();
-                    window.appState.update(state => {
-                        const currentBuilder = { ...state.currentBuilder, dataset: datasetName };
-                        return { ...state, currentBuilder };
-                    });
-                    window.appToast.show(`Dataset changed to ${datasetName}`);
-                    if (typeof toggleStage === 'function') toggleStage(2); // Auto open Fields Stage
-                } catch(err) {
-                    alert('Error selecting dataset: ' + err.message + '\n' + err.stack);
-                }
-            });
-        });
 
         // Add all fields button
         const addAllBtn = document.getElementById('btn-add-all');
@@ -525,33 +529,369 @@ class BuilderManager {
         });
     }
 
+renderFieldsList() {
+        const container = document.getElementById('available-fields-container');
+        if (!container) return;
+        
+        const state = window.appState.get();
+        const fields = state.currentBuilder.fields || [];
+        const selectedIds = new Set(fields.map(f => f.id));
+        const pinnedIds = new Set(state.currentBuilder.pinnedFields || []);
+        
+        let filteredFields = this.availableFields;
+        
+        if (this.currentCategory === 'Pinned') {
+            filteredFields = filteredFields.filter(f => pinnedIds.has(f.id));
+        } else if (this.currentCategory !== 'All Fields' && this.currentCategory !== 'Recently Used') {
+            filteredFields = filteredFields.filter(f => f.category === this.currentCategory);
+        }
+        
+        if (this.searchQuery) {
+            filteredFields = filteredFields.filter(f => f.label.toLowerCase().includes(this.searchQuery) || f.id.toLowerCase().includes(this.searchQuery));
+        }
+        
+        if (filteredFields.length === 0) {
+            container.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.875rem;">No fields found matching criteria.</div>`;
+            return;
+        }
+
+        container.innerHTML = filteredFields.map(f => {
+            const isSelected = selectedIds.has(f.id);
+            const isPinned = pinnedIds.has(f.id);
+            return `
+                <div class="field-item" data-id="${f.id}" style="${isSelected ? 'opacity: 0.5; background: var(--bg-workspace);' : ''}">
+                    <div class="field-info">
+                        <i data-lucide="${f.type === 'number' ? 'hash' : f.type === 'date' ? 'calendar' : 'type'}" style="color: var(--text-muted); width: 16px;"></i>
+                        <span class="field-name">${f.label}</span>
+                        <div class="field-badges">
+                            ${f.key ? '<span class="badge badge-key">Key</span>' : ''}
+                            ${f.pii ? '<span class="badge badge-pii">PII</span>' : ''}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <i data-lucide="pin" class="pin-field-btn" style="width: 14px; cursor: pointer; color: ${isPinned ? 'var(--primary)' : 'var(--text-muted)'}; fill: ${isPinned ? 'currentColor' : 'none'}"></i>
+                        ${isSelected 
+                            ? '<i data-lucide="check-circle-2" style="color: var(--success); width: 16px;"></i>' 
+                            : '<i data-lucide="plus-circle" class="add-field-btn" style="color: var(--primary); cursor: pointer; width: 16px;"></i>'}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Re-init lucide
+        lucide.createIcons();
+    }
+
+    addField(field) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const fields = state.currentBuilder.fields || [];
+            if(fields.find(f => f.id === field.id)) return state; // Prevent duplicates
+            const currentBuilder = { ...state.currentBuilder, fields: [...fields, field] };
+            return { ...state, currentBuilder };
+        });
+    }
+
+    removeField(fieldId) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const fields = state.currentBuilder.fields || [];
+            const currentBuilder = { 
+                ...state.currentBuilder, 
+                fields: fields.filter(f => f.id !== fieldId) 
+            };
+            return { ...state, currentBuilder };
+        });
+    }
+
+    togglePin(fieldId) {
+        window.appState.update(state => {
+            let pinned = state.currentBuilder.pinnedFields || [];
+            if(pinned.includes(fieldId)) pinned = pinned.filter(id => id !== fieldId);
+            else pinned = [...pinned, fieldId];
+            return { ...state, currentBuilder: { ...state.currentBuilder, pinnedFields: pinned } };
+        });
+    }
+
+    addFilterValue(fieldId, value) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            if(!filters[fieldId]) filters[fieldId] = [];
+            if(!filters[fieldId].includes(value)) filters[fieldId].push(value);
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    removeFilterValue(fieldId, value) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            if(filters[fieldId]) {
+                filters[fieldId] = filters[fieldId].filter(v => v !== value);
+            }
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    clearFieldFilters(fieldId) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            delete filters[fieldId];
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    addCondition(groupId) {
+        window.appState.update(state => {
+            const conditions = [...(state.currentBuilder.conditions || [])];
+            conditions.push({
+                id: 'cond_' + Math.random().toString(36).substr(2, 9),
+                groupId: groupId || 'group_1',
+                logicalOp: conditions.length > 0 ? 'AND' : 'IF',
+                fieldId: state.currentBuilder.fields[0]?.id || '',
+                operator: 'Equals',
+                value: ''
+            });
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    updateCondition(condId, key, value) {
+        window.appState.update(state => {
+            const conditions = (state.currentBuilder.conditions || []).map(c => 
+                c.id === condId ? { ...c, [key]: value } : c
+            );
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    removeCondition(condId) {
+        window.appState.update(state => {
+            const conditions = (state.currentBuilder.conditions || []).filter(c => c.id !== condId);
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    updateSort(key, value) {
+        window.appState.update(state => {
+            let sorts = [...(state.currentBuilder.sorts || [])];
+            if (sorts.length === 0) sorts.push({ fieldId: state.currentBuilder.fields[0]?.id || '', direction: 'asc' });
+            sorts[0][key] = value;
+            return { ...state, currentBuilder: { ...state.currentBuilder, sorts } };
+        });
+    }
+
+    clearSort() {
+        window.appState.update(state => {
+            return { ...state, currentBuilder: { ...state.currentBuilder, sorts: [] } };
+        });
+    }
+
+renderFieldsList() {
+        const container = document.getElementById('available-fields-container');
+        if (!container) return;
+        
+        const state = window.appState.get();
+        const fields = state.currentBuilder.fields || [];
+        const selectedIds = new Set(fields.map(f => f.id));
+        const pinnedIds = new Set(state.currentBuilder.pinnedFields || []);
+        
+        let filteredFields = this.availableFields;
+        
+        if (this.currentCategory === 'Pinned') {
+            filteredFields = filteredFields.filter(f => pinnedIds.has(f.id));
+        } else if (this.currentCategory !== 'All Fields' && this.currentCategory !== 'Recently Used') {
+            filteredFields = filteredFields.filter(f => f.category === this.currentCategory);
+        }
+        
+        if (this.searchQuery) {
+            filteredFields = filteredFields.filter(f => f.label.toLowerCase().includes(this.searchQuery) || f.id.toLowerCase().includes(this.searchQuery));
+        }
+        
+        if (filteredFields.length === 0) {
+            container.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.875rem;">No fields found matching criteria.</div>`;
+            return;
+        }
+
+        container.innerHTML = filteredFields.map(f => {
+            const isSelected = selectedIds.has(f.id);
+            const isPinned = pinnedIds.has(f.id);
+            return `
+                <div class="field-item" data-id="${f.id}" style="${isSelected ? 'opacity: 0.5; background: var(--bg-workspace);' : ''}">
+                    <div class="field-info">
+                        <i data-lucide="${f.type === 'number' ? 'hash' : f.type === 'date' ? 'calendar' : 'type'}" style="color: var(--text-muted); width: 16px;"></i>
+                        <span class="field-name">${f.label}</span>
+                        <div class="field-badges">
+                            ${f.key ? '<span class="badge badge-key">Key</span>' : ''}
+                            ${f.pii ? '<span class="badge badge-pii">PII</span>' : ''}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <i data-lucide="pin" class="pin-field-btn" style="width: 14px; cursor: pointer; color: ${isPinned ? 'var(--primary)' : 'var(--text-muted)'}; fill: ${isPinned ? 'currentColor' : 'none'}"></i>
+                        ${isSelected 
+                            ? '<i data-lucide="check-circle-2" style="color: var(--success); width: 16px;"></i>' 
+                            : '<i data-lucide="plus-circle" class="add-field-btn" style="color: var(--primary); cursor: pointer; width: 16px;"></i>'}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Re-init lucide
+        lucide.createIcons();
+    }
+
+    addField(field) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const fields = state.currentBuilder.fields || [];
+            if(fields.find(f => f.id === field.id)) return state; // Prevent duplicates
+            const currentBuilder = { ...state.currentBuilder, fields: [...fields, field] };
+            return { ...state, currentBuilder };
+        });
+    }
+
+    removeField(fieldId) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const fields = state.currentBuilder.fields || [];
+            const currentBuilder = { 
+                ...state.currentBuilder, 
+                fields: fields.filter(f => f.id !== fieldId) 
+            };
+            return { ...state, currentBuilder };
+        });
+    }
+
+    togglePin(fieldId) {
+        window.appState.update(state => {
+            let pinned = state.currentBuilder.pinnedFields || [];
+            if(pinned.includes(fieldId)) pinned = pinned.filter(id => id !== fieldId);
+            else pinned = [...pinned, fieldId];
+            return { ...state, currentBuilder: { ...state.currentBuilder, pinnedFields: pinned } };
+        });
+    }
+
+    addFilterValue(fieldId, value) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            if(!filters[fieldId]) filters[fieldId] = [];
+            if(!filters[fieldId].includes(value)) filters[fieldId].push(value);
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    removeFilterValue(fieldId, value) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            if(filters[fieldId]) {
+                filters[fieldId] = filters[fieldId].filter(v => v !== value);
+            }
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    clearFieldFilters(fieldId) {
+        window.appHistory.pushState();
+        window.appState.update(state => {
+            const filters = { ...state.currentBuilder.filters };
+            delete filters[fieldId];
+            return { ...state, currentBuilder: { ...state.currentBuilder, filters } };
+        });
+    }
+
+    addCondition(groupId) {
+        window.appState.update(state => {
+            const conditions = [...(state.currentBuilder.conditions || [])];
+            conditions.push({
+                id: 'cond_' + Math.random().toString(36).substr(2, 9),
+                groupId: groupId || 'group_1',
+                logicalOp: conditions.length > 0 ? 'AND' : 'IF',
+                fieldId: state.currentBuilder.fields[0]?.id || '',
+                operator: 'Equals',
+                value: ''
+            });
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    updateCondition(condId, key, value) {
+        window.appState.update(state => {
+            const conditions = (state.currentBuilder.conditions || []).map(c => 
+                c.id === condId ? { ...c, [key]: value } : c
+            );
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    removeCondition(condId) {
+        window.appState.update(state => {
+            const conditions = (state.currentBuilder.conditions || []).filter(c => c.id !== condId);
+            return { ...state, currentBuilder: { ...state.currentBuilder, conditions } };
+        });
+    }
+
+    updateSort(key, value) {
+        window.appState.update(state => {
+            let sorts = [...(state.currentBuilder.sorts || [])];
+            if (sorts.length === 0) sorts.push({ fieldId: state.currentBuilder.fields[0]?.id || '', direction: 'asc' });
+            sorts[0][key] = value;
+            return { ...state, currentBuilder: { ...state.currentBuilder, sorts } };
+        });
+    }
+
+    clearSort() {
+        window.appState.update(state => {
+            return { ...state, currentBuilder: { ...state.currentBuilder, sorts: [] } };
+        });
+    }
+
     updateUI(state) {
         // Update Builder Header Mode
         const modeBadge = document.getElementById('builder-mode-badge');
-        const dsSection = document.getElementById('stage-1-datasets');
-        const tmplSection = document.getElementById('stage-1-templates');
-        
         if (state.currentBuilder.mode === 'core') {
             if (modeBadge) {
                 modeBadge.innerText = 'Core Report';
                 modeBadge.style.color = 'var(--primary)';
                 modeBadge.style.background = '#eff6ff';
-                modeBadge.style.padding = '2px 8px';
-                modeBadge.style.borderRadius = '12px';
             }
-            if (dsSection) dsSection.style.display = 'block';
-            if (tmplSection) tmplSection.style.display = 'none';
         } else {
             if (modeBadge) {
-                modeBadge.innerText = 'Template';
+                modeBadge.innerText = 'Template Report';
                 modeBadge.style.color = 'var(--warning)';
                 modeBadge.style.background = '#fef3c7';
-                modeBadge.style.padding = '2px 8px';
-                modeBadge.style.borderRadius = '12px';
             }
-            if (dsSection) dsSection.style.display = 'none';
-            if (tmplSection) tmplSection.style.display = 'block';
-            
+        }
+
+                // Toggle Sidebar Sections based on mode
+        const coreSection = document.getElementById('core-sidebar-section');
+        const templateSection = document.getElementById('template-sidebar-section');
+        if (state.currentBuilder.mode === 'core') {
+            if (coreSection) coreSection.style.display = 'block';
+            if (templateSection) templateSection.style.display = 'none';
+        } else {
+            if (coreSection) coreSection.style.display = 'none';
+            if (templateSection) templateSection.style.display = 'block';
+        }
+
+        // Sidebar Active States
+        document.querySelectorAll('.wizard-step').forEach(li => li.classList.remove('active'));
+        const activeNav = document.querySelector(`#${state.currentBuilder.mode}-wizard-nav .wizard-step[data-step="${state.currentBuilder.wizardStep}"]`);
+        if (activeNav) activeNav.classList.add('active');
+
+        // Hide all step contents
+        document.querySelectorAll('.wizard-step-content').forEach(el => el.style.display = 'none');
+        
+        // Show active step content
+        const stepContent = document.getElementById(`step-${state.currentBuilder.wizardStep}-content`);
+        if (stepContent) {
+            stepContent.style.display = (state.currentBuilder.wizardStep === 1) ? 'flex' : 'block';
+        }
+
+        if (state.currentBuilder.mode === 'template' && state.currentBuilder.wizardStep === 0) {
             // Populate Template Grid dynamically
             const grid = document.getElementById('core-reports-grid');
             if (grid) {
@@ -567,29 +907,28 @@ class BuilderManager {
                 if (coreReportsList.length === 0) {
                     grid.innerHTML = '<div style="color: var(--text-muted); font-size: 0.875rem;">No core reports available. Create one first.</div>';
                 }
-                lucide.createIcons();
             }
         }
 
-        // Render available fields to reflect pinning changes
-        this.renderFieldsList();
+        if (state.currentBuilder.mode === 'core' && state.currentBuilder.wizardStep === 1) {
+            if (window.appCoreReportSelector) {
+                if (window.appCoreReportSelector.activeDatabaseSections.length === 0) {
+                    window.appCoreReportSelector.addDatabase();
+                }
+                window.appCoreReportSelector.updateUI(state);
+            }
+        }
 
-        // Update Dataset Selection visually
-        const datasetCards = document.querySelectorAll('#stage-1-datasets .dataset-card');
-        if(datasetCards.length > 0 && state.currentBuilder.dataset && state.currentBuilder.mode === 'core') {
-            datasetCards.forEach(c => c.classList.remove('selected'));
-            const selectedCard = Array.from(datasetCards).find(c => {
-                const title = c.querySelector('.dataset-title');
-                return title && title.textContent.trim() === state.currentBuilder.dataset;
-            });
-            if(selectedCard) selectedCard.classList.add('selected');
+        // Render fields to reflect pinning changes
+        if (state.currentBuilder.wizardStep === 2) {
+            this.renderFieldsList();
         }
 
         const fields = state.currentBuilder.fields || [];
 
-        // Update Selected Fields UI
+        // Update Selected Fields UI in Template Mode (step 2)
         const selectedContainer = document.getElementById('selected-fields-list');
-        if (selectedContainer) {
+        if (selectedContainer && state.currentBuilder.mode === 'template') {
             selectedContainer.innerHTML = fields.map(f => `
                 <div class="selected-card draggable-item" data-id="${f.id}" draggable="true">
                     <i data-lucide="grip-vertical" class="drag-handle"></i>
@@ -600,102 +939,25 @@ class BuilderManager {
                     <i data-lucide="x" class="remove-field-btn" style="color: var(--text-muted); cursor: pointer; width: 16px;"></i>
                 </div>
             `).join('');
-
-            // Bind Removes
-            selectedContainer.querySelectorAll('.remove-field-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const fieldId = e.target.closest('.selected-card').dataset.id;
-                    this.removeField(fieldId);
-                });
-            });
-
-            // Update counts in UI
-            const countEl = document.getElementById('selected-fields-count');
-            if(countEl) countEl.innerText = fields.length;
-            
-            // Render Stage 3 Filters UI
-            this.renderFiltersUI(state);
-
-        
-        
-        const s1ds = document.getElementById('stage-1-datasets');
-        const core2Pane = document.getElementById('core-2pane-container');
-        const stage2 = document.getElementById('stage-2');
-        const coreOpsContainer = document.getElementById('core-operations-container');
-        
-        if(state.currentBuilder.mode === 'core') {
-            if(s1ds) s1ds.style.display = 'none';
-            if(core2Pane) core2Pane.style.display = 'flex';
-            if(stage2) stage2.style.display = 'none';
-            
-            // Move other stages into core operations container
-            if (coreOpsContainer) {
-                const s3 = document.getElementById('stage-3');
-                const s4 = document.getElementById('stage-4');
-                const s5 = document.getElementById('stage-5');
-                const s6 = document.getElementById('stage-6');
-                if (s3) coreOpsContainer.appendChild(s3);
-                if (s4) coreOpsContainer.appendChild(s4);
-                if (s5) coreOpsContainer.appendChild(s5);
-                if (s6) coreOpsContainer.appendChild(s6);
-            }
-            
-            // Delegate core rendering to the new CoreReportSelector
-            if (window.appCoreReportSelector) {
-                if (window.appCoreReportSelector.activeDatabaseSections.length === 0) {
-                    window.appCoreReportSelector.addDatabase(); // Auto add first DB
-                }
-                window.appCoreReportSelector.updateUI(state);
-            }
-            lucide.createIcons();
-        
-        } else {
-            if(s1ds) s1ds.style.display = 'block';
-            if(core2Pane) core2Pane.style.display = 'none';
-            if(stage2) stage2.style.display = 'block';
-            
-            // Move stages back to main content if needed
-            const mainContent = document.querySelector('#view-builder .main-content');
-            if (mainContent) {
-                const s3 = document.getElementById('stage-3');
-                const s4 = document.getElementById('stage-4');
-                const s5 = document.getElementById('stage-5');
-                const s6 = document.getElementById('stage-6');
-                // Insert them after stage-2
-                if (s3 && stage2 && stage2.nextSibling !== s3) stage2.parentNode.insertBefore(s3, stage2.nextSibling);
-                if (s4 && s3) s3.parentNode.insertBefore(s4, s3.nextSibling);
-                if (s5 && s4) s4.parentNode.insertBefore(s5, s4.nextSibling);
-                if (s6 && s5) s5.parentNode.insertBefore(s6, s5.nextSibling);
-            }
         }
-        lucide.createIcons();
 
-
-
-            
-            // Render Stage 4 Conditions UI
-            this.renderConditionsUI(state);
-
-            // Render Stage 5 Sorting UI
-            this.renderSortingUI(state);
-
-            // Update Summary Panel
-            const summaryFieldsCount = document.getElementById('summary-fields-count');
-            if(summaryFieldsCount) summaryFieldsCount.innerText = `${fields.length} Columns`;
-            
-            const summaryFiltersCount = document.getElementById('summary-filters-count');
-            const totalFilters = Object.values(state.currentBuilder.filters || {}).reduce((acc, arr) => acc + arr.length, 0);
-            if(summaryFiltersCount) summaryFiltersCount.innerText = `${totalFilters} Active`;
-            
-            const summaryConditionsCount = document.getElementById('summary-conditions-count');
-            if(summaryConditionsCount) summaryConditionsCount.innerText = `${(state.currentBuilder.conditions || []).length} Rules`;
-            
-            const summarySortsCount = document.getElementById('summary-sorts-count');
-            if(summarySortsCount) {
-                const activeSort = (state.currentBuilder.sorts || [])[0];
-                summarySortsCount.innerText = activeSort && activeSort.fieldId ? 'Active' : 'None';
-            }
+        if (state.currentBuilder.wizardStep === 3) this.renderFiltersUI(state);
+        if (state.currentBuilder.wizardStep === 4) this.renderConditionsUI(state);
+        if (state.currentBuilder.wizardStep === 5) this.renderSortingUI(state);
+        if (state.currentBuilder.wizardStep === 6) {
+            if (window.appPreviewEngine) window.appPreviewEngine.render('preview-container', fields, state.currentBuilder.filters, state.currentBuilder.conditions, state.currentBuilder.sorts);
         }
+
+        // Update Summary Panel
+        const summaryDataset = document.getElementById('summary-dataset');
+        if (summaryDataset) summaryDataset.innerText = state.currentBuilder.dataset || 'None';
+        
+        const summaryFieldsCount = document.getElementById('summary-fields-count-bottom');
+        if(summaryFieldsCount) summaryFieldsCount.innerText = `${fields.length} Columns`;
+        
+        const summaryFiltersCount = document.getElementById('summary-filters-count-bottom');
+        const totalFilters = Object.values(state.currentBuilder.filters || {}).reduce((acc, arr) => acc + arr.length, 0);
+        if(summaryFiltersCount) summaryFiltersCount.innerText = `${totalFilters} Active`;
         
         // Update Catalogue UI
         const catalogueGrid = document.getElementById('catalogue-reports-grid');
@@ -704,8 +966,8 @@ class BuilderManager {
             
             // Generate some defaults if empty
             if (catalogue.length === 0) {
-                catalogue.push({ id: 'DEF-1', name: 'Daily SWIFT Outbound', type: 'core', access: 'all', updatedAt: '2h ago', author: 'JS', desc: 'Comprehensive list of all successful MT103 and MT202 messages sent out today.' });
-                catalogue.push({ id: 'DEF-2', name: 'Repair Queue Aging', type: 'core', access: 'admin', updatedAt: '1d ago', author: 'SYS', desc: 'Aging analysis of transactions stuck in the repair queue.' });
+                catalogue.push({ id: 'DEF-1', name: 'Daily SWIFT Outbound', type: 'core', access: 'all', updatedAt: '2h ago', author: 'JS', desc: 'Comprehensive list of all successful MT103 and MT202 messages sent out today.', fields: [{id: 'trn', label: 'Transaction Reference', type: 'string'}, {id: 'uetr', label: 'UETR', type: 'string'}] });
+                catalogue.push({ id: 'DEF-2', name: 'Repair Queue Aging', type: 'core', access: 'admin', updatedAt: '1d ago', author: 'SYS', desc: 'Aging analysis of transactions stuck in the repair queue.', fields: [{id: 'repairQueue', label: 'Repair Queue', type: 'string'}] });
                 window.appState.update({ catalogue });
                 return; // Will re-trigger notify
             }
@@ -737,7 +999,6 @@ class BuilderManager {
         
         lucide.createIcons();
     }
-
     renderFiltersUI(state) {
         const container = document.getElementById('filters-container');
         if (!container) return;
@@ -769,7 +1030,7 @@ class BuilderManager {
                             if(parseFloat(this.value) > parseFloat(maxNum.value)) this.value = maxNum.value;
                             range.value = this.value;
                             const percent = ((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0;
-                            row.querySelector('#fill-${f.id}').style.left = percent + '%';
+                            row.querySelector('.range-slider-fill').style.left = percent + '%';
                         ">
                         <div class="range-slider-container" style="flex-grow: 1; max-width: 300px;">
                             <div class="range-slider-track"></div>
@@ -781,7 +1042,7 @@ class BuilderManager {
                                 if(parseFloat(this.value) > parseFloat(max.value)) this.value = max.value;
                                 numMin.value = this.value;
                                 const percent = ((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0;
-                                row.querySelector('#fill-${f.id}').style.left = percent + '%';
+                                row.querySelector('.range-slider-fill').style.left = percent + '%';
                             ">
                             <input type="range" class="range-slider-input filter-input-max" min="${minVal}" max="${maxVal}" value="${maxVal}" oninput="
                                 const row = this.closest('.filter-row');
@@ -790,7 +1051,7 @@ class BuilderManager {
                                 if(parseFloat(this.value) < parseFloat(min.value)) this.value = min.value;
                                 numMax.value = this.value;
                                 const percent = 100 - (((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0);
-                                row.querySelector('#fill-${f.id}').style.right = percent + '%';
+                                row.querySelector('.range-slider-fill').style.right = percent + '%';
                             ">
                         </div>
                         <input type="number" class="range-num-max" value="${maxVal}" min="${minVal}" max="${maxVal}" style="width: 80px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;" oninput="
@@ -800,7 +1061,7 @@ class BuilderManager {
                             if(parseFloat(this.value) < parseFloat(minNum.value)) this.value = minNum.value;
                             range.value = this.value;
                             const percent = 100 - (((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0);
-                            row.querySelector('#fill-${f.id}').style.right = percent + '%';
+                            row.querySelector('.range-slider-fill').style.right = percent + '%';
                         ">
                     </div>
                 `;
@@ -1001,6 +1262,12 @@ class ReportManager {
 
     openRunModal(reportName) {
         this.activeRunReport = reportName;
+        
+        // Infer type from catalogue
+        const state = window.appState.get();
+        const report = (state.catalogue || []).find(r => r.name === reportName);
+        this.activeRunReportType = report ? report.type : 'core';
+        
         const nameEl = document.getElementById('run-modal-report-name');
         if(nameEl) nameEl.innerText = reportName;
         
@@ -1020,7 +1287,7 @@ class ReportManager {
         const frequencySelect = document.getElementById('run-modal-frequency');
         const frequency = frequencySelect ? frequencySelect.value : 'ad-hoc';
         
-        this.queueReport(this.activeRunReport || 'Scheduled Report', 'core', format, frequency);
+        this.queueReport(this.activeRunReport || 'Scheduled Report', this.activeRunReportType || 'core', format, frequency);
         this.closeRunModal();
         if (typeof switchView === 'function') switchView('centre');
     }
@@ -1168,15 +1435,24 @@ BuilderManager.prototype.setDataset = function(datasetName) {
     const coreReport = (state.catalogue || []).find(r => r.name === datasetName && r.type === 'core');
     
     let loadedFields = [];
-    if (coreReport && coreReport.fields) {
-        // If the core report has fields saved in it, load them directly
+    if (coreReport && coreReport.fields && coreReport.fields.length > 0) {
         loadedFields = [...coreReport.fields];
-        // Populate available fields so filters can use them
         this.availableFields = [...coreReport.fields];
     } else {
-        // Fallback for mock datasets
-        loadedFields = [];
+        // Fallback for mock datasets - generate some mock fields to show
+        const mockFields = [
+            { id: 'mock1', label: 'Transaction Reference', type: 'string', category: 'Identifiers' },
+            { id: 'mock2', label: 'Amount', type: 'number', category: 'Amounts' },
+            { id: 'mock3', label: 'Currency', type: 'string', category: 'Amounts' },
+            { id: 'mock4', label: 'Value Date', type: 'date', category: 'Dates' },
+            { id: 'mock5', label: 'Status', type: 'string', category: 'Status' }
+        ];
+        loadedFields = []; // None selected by default
+        this.availableFields = mockFields;
     }
+
+    // Force re-render of fields list
+    this.renderFieldsList();
 
     window.appState.update(s => ({
         ...s,
@@ -1187,16 +1463,14 @@ BuilderManager.prototype.setDataset = function(datasetName) {
         }
     }));
     window.appToast.show(`Base report changed to ${datasetName}`);
-    if (typeof toggleStage === 'function') toggleStage(2);
+    this.setWizardStep('template', 2);
 };
 
 
-BuilderManager.prototype.setCoreWizardStep = function(step) {
-    window.appState.update(state => ({
-        ...state,
-        currentBuilder: { ...state.currentBuilder, coreWizardStep: step }
-    }));
-};
+
+
+
+
 
 window.appBuilderManager = new BuilderManager();
 window.appReportManager = new ReportManager();

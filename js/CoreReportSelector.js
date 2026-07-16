@@ -98,9 +98,7 @@ class CoreReportSelector {
         
         const instanceId = 'db_sect_' + Math.random().toString(36).substr(2, 9);
         // Default to the first DB
-        const defaultDb = availableDbNames[0];
-        
-        this.activeDatabaseSections.push({ dbName: defaultDb, instanceId });
+        this.activeDatabaseSections.push({ dbName: '', instanceId });
         this.renderDatabaseSections();
     }
 
@@ -126,58 +124,59 @@ class CoreReportSelector {
         const selectedFields = state.currentBuilder.fields || [];
 
         this.activeDatabaseSections.forEach((section) => {
-            const tables = this.databases[section.dbName] || [];
+            const tables = section.dbName ? (this.databases[section.dbName] || []) : [];
             
             // Generate DB Select options
-            const dbOptions = allDbNames.filter(name => {
-                return name === section.dbName || !this.activeDatabaseSections.some(s => s.instanceId !== section.instanceId && s.dbName === name);
-            }).map(name => {
-                return `<option value="${name}" ${name === section.dbName ? 'selected' : ''}>${name}</option>`;
-            }).join('');
+            const dbOptions = '<option value="" disabled ' + (!section.dbName ? 'selected' : '') + '>Select Database...</option>' + 
+                allDbNames.filter(name => {
+                    return name === section.dbName || !this.activeDatabaseSections.some(s => s.instanceId !== section.instanceId && s.dbName === name);
+                }).map(name => {
+                    return `<option value="${name}" ${name === section.dbName ? 'selected' : ''}>${name}</option>`;
+                }).join('');
 
             html += `
-                <div class="db-section-card" data-instance-id="${section.instanceId}" style="border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-panel); margin-bottom: 16px;">
+                <div class="db-section-card" data-instance-id="${section.instanceId}" style="border: 1px solid var(--border-color); border-radius: 8px; background: #fff; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: box-shadow 0.2s;">
                     <!-- Header with Dropdown -->
-                    <div style="padding: 12px 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-workspace); display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <i data-lucide="database" style="color: var(--primary);"></i>
-                            <select class="form-control" style="font-weight: 600; width: 250px; padding: 6px;" onchange="window.appCoreReportSelector.changeDatabaseSelection('${section.instanceId}', this.value)">
+                    <div style="padding: 12px 16px; border-bottom: ${tables.length > 0 ? '1px solid var(--border-color)' : 'none'}; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                            <div style="background: #e0e7ff; color: #4338ca; padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="database" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <select class="form-control" style="font-weight: 500; flex-grow: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; font-size: 0.9rem;" onchange="window.appCoreReportSelector.changeDatabaseSelection('${section.instanceId}', this.value)">
                                 ${dbOptions}
                             </select>
                         </div>
-                        <button class="icon-btn" onclick="window.appCoreReportSelector.removeDatabase('${section.instanceId}')"><i data-lucide="x"></i></button>
+                        <button class="icon-btn" style="margin-left: 12px; color: #ef4444; background: #fef2f2; border: 1px solid #fee2e2;" onclick="window.appCoreReportSelector.removeDatabase('${section.instanceId}')" title="Remove Database"><i data-lucide="trash-2" style="width: 16px; height: 16px;"></i></button>
                     </div>
 
                     <!-- Tables Accordion -->
-                    <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                    ${tables.length > 0 ? `
+                    <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
                         ${tables.map(table => {
-                            // Count selected fields from this table
                             let selectedCount = 0;
                             table.fields.forEach(f => {
                                 if (selectedFields.some(sf => sf.id === section.dbName + '.' + table.name + '.' + f)) {
                                     selectedCount++;
                                 }
                             });
-                            
-                            const isExpanded = false; // default state is collapsed
 
                             return `
-                                <div class="table-accordion-card" data-table="${table.name}" style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden;">
-                                    <div class="table-accordion-header" style="padding: 10px 16px; background: var(--bg-panel); display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;" onclick="window.appCoreReportSelector.toggleTable(this)">
-                                        <div style="display: flex; align-items: center; gap: 8px;">
-                                            <i data-lucide="chevron-right" class="chevron-icon" style="transition: transform 0.2s;"></i>
-                                            <i data-lucide="table" style="width: 16px; color: var(--text-muted);"></i>
-                                            <span style="font-weight: 500; font-size: 0.875rem;">${table.name}</span>
+                                <div class="table-accordion-card" data-table="${table.name}" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); transition: all 0.2s;">
+                                    <div class="table-accordion-header" style="padding: 12px 16px; background: #fcfcfd; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none;" onclick="window.appCoreReportSelector.toggleTable(this)">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <i data-lucide="chevron-right" class="chevron-icon" style="transition: transform 0.2s; color: #94a3b8; width: 16px; height: 16px;"></i>
+                                            <i data-lucide="table" style="width: 16px; color: #64748b;"></i>
+                                            <span style="font-weight: 600; font-size: 0.875rem; color: #334155;">${table.name}</span>
                                         </div>
-                                        ${selectedCount > 0 ? `<span class="badge" style="background: #eff6ff; color: #2563eb;">${selectedCount}</span>` : ''}
+                                        ${selectedCount > 0 ? `<span class="badge" style="background: #3b82f6; color: #ffffff; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem; font-weight: 600; flex-shrink: 0;">${selectedCount}</span>` : ''}
                                     </div>
-                                    <div class="table-accordion-content" style="display: none; padding: 8px 16px 16px 40px; border-top: 1px solid var(--border-color); background: var(--bg-workspace);">
-                                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div class="table-accordion-content" style="display: none; padding: 12px 16px 16px 42px; border-top: 1px solid #e2e8f0; background: #ffffff;">
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
                                             ${table.fields.map(field => {
                                                 const fieldId = section.dbName + '.' + table.name + '.' + field;
                                                 const isSelected = selectedFields.some(sf => sf.id === fieldId);
                                                 return `
-                                                    <div class="db-field-pill ${isSelected ? 'selected' : ''}" style="cursor: pointer; user-select: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ${isSelected ? 'background: #eff6ff; color: #2563eb; border-color: #bfdbfe;' : ''}" onclick="window.appCoreReportSelector.toggleField('${section.dbName}', '${table.name}', '${field}')" title="${field}">
+                                                    <div class="db-field-pill ${isSelected ? 'selected' : ''}" style="cursor: pointer; user-select: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 6px 10px; border-radius: 6px; border: 1px solid ${isSelected ? '#bfdbfe' : '#e2e8f0'}; background: ${isSelected ? '#eff6ff' : '#f8fafc'}; color: ${isSelected ? '#1d4ed8' : '#475569'}; font-size: 0.85rem; font-weight: 500; transition: all 0.15s;" onclick="window.appCoreReportSelector.toggleField('${section.dbName}', '${table.name}', '${field}')" title="${field}">
                                                         ${field}
                                                     </div>
                                                 `;
@@ -188,6 +187,7 @@ class CoreReportSelector {
                             `;
                         }).join('')}
                     </div>
+                    ` : ''}
                 </div>
             `;
         });
@@ -195,7 +195,6 @@ class CoreReportSelector {
         this.container.innerHTML = html;
         lucide.createIcons();
     }
-
     toggleTable(headerEl) {
         const content = headerEl.nextElementSibling;
         const icon = headerEl.querySelector('.chevron-icon');
@@ -236,7 +235,12 @@ class CoreReportSelector {
                 dbName: dbName,
                 category: tableName,
                 label: fieldName,
-                type: 'string', // mock default
+                type: (function() {
+                    const ln = fieldName.toLowerCase();
+                    if (ln.includes('date') || ln.includes('dob') || ln.includes('timestamp')) return 'date';
+                    if (ln.includes('amount') || ln.includes('tax') || ln.includes('fee') || ln.includes('bal') || ln.includes('score')) return 'number';
+                    return 'string';
+                })(),
                 format: 'Text'
             };
             newFields = [...fields, newField];
@@ -283,15 +287,15 @@ class CoreReportSelector {
                                 if(pill) {
                                     pill.classList.add('selected');
                                     pill.style.background = '#eff6ff';
-                                    pill.style.color = '#2563eb';
+                                    pill.style.color = '#1d4ed8';
                                     pill.style.borderColor = '#bfdbfe';
                                 }
                             } else {
                                 if(pill) {
                                     pill.classList.remove('selected');
-                                    pill.style.background = '';
-                                    pill.style.color = '';
-                                    pill.style.borderColor = '';
+                                    pill.style.background = '#f8fafc';
+                                    pill.style.color = '#475569';
+                                    pill.style.borderColor = '#e2e8f0';
                                 }
                             }
                         });
@@ -302,7 +306,7 @@ class CoreReportSelector {
                             if (!badge) {
                                 badge = document.createElement('span');
                                 badge.className = 'badge';
-                                badge.style.cssText = 'background: #eff6ff; color: #2563eb;';
+                                badge.style.cssText = 'background: #3b82f6; color: #ffffff; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem; font-weight: 600; flex-shrink: 0;';
                                 header.appendChild(badge);
                             }
                             badge.textContent = `${selectedCount}`;

@@ -64,8 +64,46 @@ class PreviewEngine {
     loadData() {
         if (!this.dataset) {
             // cache data generation
-            this.dataset = FakeDataGenerator.generate(2000);
+            this.dataset = FakeDataGenerator.generate(100);
         }
+
+        // Dynamically enrich dataset with current fields if they don't exist
+        // This ensures Core Report fields (like DB.TABLE.FIELD) have data for filters/preview
+        const state = window.appState ? window.appState.get() : null;
+        if (state && state.currentBuilder && state.currentBuilder.fields) {
+            const fields = state.currentBuilder.fields;
+            
+            this.dataset.forEach((row) => {
+                fields.forEach(f => {
+                    if (row[f.id] === undefined) {
+                        if (f.type === 'number') {
+                            // Generate random amounts/numbers between 0 and 100,000
+                            row[f.id] = (Math.random() * 100000).toFixed(2);
+                        } else if (f.type === 'date') {
+                            // Generate random recent dates
+                            const d = new Date(Date.now() - Math.floor(Math.random() * 10000000000));
+                            row[f.id] = d.toISOString().split('T')[0];
+                        } else {
+                            // Generate categorical or string data
+                            const ln = f.id.toLowerCase();
+                            if (ln.includes('status')) {
+                                const statuses = ['Completed', 'Pending', 'Failed', 'Repair', 'Rejected'];
+                                row[f.id] = statuses[Math.floor(Math.random() * statuses.length)];
+                            } else if (ln.includes('currency')) {
+                                const cur = ['USD', 'EUR', 'GBP', 'CAD', 'JPY'];
+                                row[f.id] = cur[Math.floor(Math.random() * cur.length)];
+                            } else if (ln.includes('id') || ln.includes('ref')) {
+                                row[f.id] = 'ID-' + Math.floor(Math.random() * 1000000);
+                            } else {
+                                const cats = ['Category A', 'Category B', 'Category C', 'Category D'];
+                                row[f.id] = cats[Math.floor(Math.random() * cats.length)];
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        
         return this.dataset;
     }
 

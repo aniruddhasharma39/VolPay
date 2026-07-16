@@ -45,84 +45,139 @@ body {
 
 /* Sidebar Navigation */
 .sidebar {
-    width: 260px;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
+    width: 280px;
+    background: #0f172a; /* Deep elegant navy */
+    color: #e2e8f0;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
+    border-right: 1px solid #1e293b;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    z-index: 100;
 }
 
 .brand {
-    padding: 24px;
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    padding: 32px 24px;
+    font-size: 1.5rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.brand-icon {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, var(--primary), #60a5fa);
-    border-radius: 8px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: #0b1120;
 }
 
 .nav-links {
+    flex-grow: 1;
     padding: 24px 12px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    flex-grow: 1;
+    gap: 6px;
+    overflow-y: auto;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
-    gap: 12px;
     padding: 12px 16px;
-    border-radius: var(--radius);
-    color: #cbd5e1;
     text-decoration: none;
+    color: #cbd5e1;
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
-    transition: var(--transition);
+    font-size: 0.95rem;
     cursor: pointer;
 }
 
 .nav-item:hover {
-    background-color: var(--bg-dark-hover);
-    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
 }
 
 .nav-item.active {
-    background-color: var(--primary);
-    color: white;
-    box-shadow: var(--shadow-md);
+    background: #3b82f6; /* Vibrant blue */
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.nav-item i {
+    width: 20px;
+    margin-right: 14px;
+    opacity: 0.8;
+}
+
+.nav-item.active i, .nav-item:hover i {
+    opacity: 1;
+}
+
+.nav-item-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu {
+    border-left: 2px solid #334155;
+    margin-left: 24px;
+    margin-top: 4px;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.sub-item {
+    padding: 10px 16px !important;
+    font-size: 0.875rem !important;
+    border-radius: 6px;
+    color: #94a3b8;
+}
+
+.sub-item:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sub-item.active {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    font-weight: 600;
+    box-shadow: none;
+}
+
+.sub-item i {
+    width: 16px;
+    margin-right: 12px;
 }
 
 .user-profile {
-    padding: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    background: #0b1120;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .avatar {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     border-radius: 50%;
-    background-color: var(--bg-dark-hover);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    border: 2px solid #0f172a;
 }
-
-/* Main Workspace */
 .workspace {
     flex-grow: 1;
     display: flex;
@@ -646,7 +701,12 @@ body {
 .view-container {
     display: none;
     height: 100%;
+    width: 100%;
     flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 .view-container.active {
     display: flex;
@@ -702,6 +762,7 @@ body {
 .search-box {
     position: relative;
     width: 300px;
+    flex-shrink: 0;
 }
 
 .search-box input {
@@ -1101,4 +1162,101 @@ body {
     color: var(--primary);
     border-left: 3px solid var(--primary);
     font-weight: 600;
+}
+
+/* Inner Wizard Sidebar Redesign */
+.sidebar-section > div[onclick] {
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar-section > div[onclick]:hover {
+    background: #f1f5f9 !important;
+}
+.wizard-step {
+    padding: 14px 20px !important;
+    font-size: 0.9rem !important;
+    color: #475569 !important;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    font-weight: 500;
+}
+.wizard-step:hover {
+    background: #f8fafc;
+    color: #0f172a !important;
+}
+.wizard-step.active {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-left-color: #3b82f6 !important;
+    font-weight: 600;
+}
+
+/* Arrange Items (Drag & Drop) */
+.arrange-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    transition: all 0.2s, transform 0.1s;
+    cursor: grab;
+}
+.arrange-item:active {
+    cursor: grabbing;
+    transform: scale(0.99);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #cbd5e1;
+}
+.arrange-handle {
+    color: #94a3b8;
+    cursor: grab;
+    width: 20px;
+}
+.arrange-item:hover .arrange-handle {
+    color: #475569;
+}
+.arrange-item:hover {
+    border-color: #cbd5e1;
+    background: #fcfcfd;
+}
+
+/* Pill / Table Item Improvements */
+.db-field-pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.db-field-pill::after {
+    content: '+';
+    font-weight: bold;
+    color: inherit;
+    opacity: 0.5;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+}
+.db-field-pill.selected::after {
+    content: '✓';
+    opacity: 1;
+}
+.db-field-pill:hover::after {
+    opacity: 1;
+}
+
+/* Scrollbar styling for modern look */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }

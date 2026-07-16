@@ -21,10 +21,22 @@
             <a href="#" class="nav-item" onclick="switchView('catalogue')">
                 <i data-lucide="layout-grid"></i> Report Catalogue
             </a>
-            <a href="#" class="nav-item active" id="nav-builder"
-                onclick="if(!this.classList.contains('disabled')) { window.appBuilderManager.startNewReport('template'); switchView('builder'); }">
-                <i data-lucide="blocks"></i> Report Builder
-            </a>
+            
+            <div class="nav-item-group" id="nav-builder-group">
+                <a href="#" class="nav-item active" id="nav-builder-main" onclick="const sm = this.nextElementSibling; sm.style.display = sm.style.display === 'none' ? 'block' : 'none';">
+                    <i data-lucide="blocks"></i> Report Builder
+                    <i data-lucide="chevron-down" style="margin-left: auto; width: 16px;"></i>
+                </a>
+                <div class="submenu" id="nav-builder-submenu" style="display: none;">
+                    <a href="#" class="nav-item sub-item" id="nav-core-report" onclick="window.appBuilderManager.startNewReport('core'); switchView('builder');">
+                        <i data-lucide="database" style="width: 14px;"></i> Core Report
+                    </a>
+                    <a href="#" class="nav-item sub-item" id="nav-template-report" onclick="window.appBuilderManager.startNewReport('template'); switchView('builder');">
+                        <i data-lucide="copy" style="width: 14px;"></i> Template Report
+                    </a>
+                </div>
+            </div>
+
             <a href="#" class="nav-item" onclick="switchView('centre')">
                 <i data-lucide="pie-chart"></i> Reports Centre
             </a>
@@ -48,7 +60,7 @@
             </div>
             <div class="header-actions">
                 <select id="user-role-selector"
-                    style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-workspace); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
+                    style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; font-size: 0.875rem; font-weight: 500; color: #334155;">
                     <option value="admin">Role: Admin</option>
                     <option value="builder">Role: Report Builder</option>
                     <option value="viewer">Role: Viewer</option>
@@ -62,16 +74,16 @@
         <div class="content-area">
 
             <!-- Builder View -->
-            <div id="view-builder" class="view-container active" style="flex-grow:1;">
-
-                <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 0 32px;"
+                        <!-- Builder View -->
+            <div id="view-builder" class="view-container" style="flex-grow:1; display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 16px 32px; border-bottom: 1px solid var(--border-color);"
                     id="header-report-inputs">
-                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);"
+                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--primary); background: #eff6ff; padding: 4px 10px; border-radius: 12px;"
                         id="builder-mode-badge">Core Report</span>
                     <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..."
-                        style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
+                        style="width: 300px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); font-size: 1rem; font-weight: 500; color: #1e293b;">
                     <select id="report-access-select"
-                        style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; background: var(--bg-workspace); color: var(--text-muted);">
+                        style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; font-size: 0.875rem; color: #475569; font-weight: 500;">
                         <option value="private">Private (Only Me)</option>
                         <option value="admin">Share with Admins</option>
                         <option value="builder">Share with Builders & Admins</option>
@@ -79,267 +91,177 @@
                     </select>
                 </div>
 
-                <div class="banner banner-warning" style="margin-top: 16px;">
-                    <i data-lucide="alert-triangle"></i>
-                    Query may touch archived records. Ensure Date Range filters are applied to optimize performance.
-                </div>
-
-                <div class="main-content" style="padding-top:0;">
-                    <!-- Stage 1: Choose Dataset -->
-                    <div class="pipeline-stage active" id="stage-1">
-                        <div class="stage-header" onclick="toggleStage(1)">
-                            <div class="stage-title">
-                                <span class="stage-number">1</span>
-                                Choose Dataset
+                <!-- Unified Wizard Container -->
+                <div style="flex-grow: 1; display: flex; overflow: hidden; background: var(--bg-workspace);">
+                    <!-- Unified Sidebar -->
+                    <div style="width: 250px; background: #fff; border-right: 1px solid var(--border-color); flex-shrink: 0; display: flex; flex-direction: column; overflow-y: auto;">
+                        
+                        <!-- Core Report Section -->
+                        <div class="sidebar-section" id="core-sidebar-section">
+                            <div style="padding: 16px 20px; font-weight: 600; background: #f8fafc; color: #1d4ed8; border-bottom: 1px solid #e2e8f0; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;" onclick="window.appBuilderManager.startNewReport('core')">
+                                Core Report Steps
                             </div>
-                            <i data-lucide="chevron-down" id="icon-stage-1"></i>
+                            <ul id="core-wizard-nav" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+                                <li class="wizard-step" data-mode="core" data-step="1" onclick="window.appBuilderManager.setWizardStep('core', 1)">Select Fields (DB)</li>
+                                <li class="wizard-step" data-mode="core" data-step="3" onclick="window.appBuilderManager.setWizardStep('core', 3)">Filters</li>
+                                <li class="wizard-step" data-mode="core" data-step="4" onclick="window.appBuilderManager.setWizardStep('core', 4)">Conditions</li>
+                                <li class="wizard-step" data-mode="core" data-step="5" onclick="window.appBuilderManager.setWizardStep('core', 5)">Grouping & Sorting</li>
+                                <li class="wizard-step" data-mode="core" data-step="6" onclick="window.appBuilderManager.setWizardStep('core', 6)">Preview</li>
+                            </ul>
                         </div>
-                        <div class="stage-content">
-                            
-<div id="core-wizard-container" style="display: none; height: calc(100vh - 160px); display: flex; margin-top: -16px;">
-    <!-- Wizard Sidebar -->
-    <div style="width: 240px; background: #fff; border-right: 1px solid var(--border-color); flex-shrink: 0; display: flex; flex-direction: column;">
-        <div style="padding: 24px; font-weight: 600; border-bottom: 1px solid var(--border-color); background: var(--bg-panel);">Core Report Steps</div>
-        <ul id="core-wizard-nav" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
-            <li class="wizard-step active" data-step="1" onclick="window.appBuilderManager.setCoreWizardStep(1)">Select Fields</li>
-            <li class="wizard-step" data-step="3" onclick="window.appBuilderManager.setCoreWizardStep(3)">Filters</li>
-            <li class="wizard-step" data-step="4" onclick="window.appBuilderManager.setCoreWizardStep(4)">Conditions</li>
-            <li class="wizard-step" data-step="5" onclick="window.appBuilderManager.setCoreWizardStep(5)">Grouping & Sorting</li>
-            <li class="wizard-step" data-step="6" onclick="window.appBuilderManager.setCoreWizardStep(6)">Preview</li>
-        </ul>
-    </div>
-    
-    <!-- Wizard Main Content Area -->
-    <div id="core-wizard-content" style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; background: var(--bg-workspace);">
-        <div id="core-step-1-content" style="display: flex; height: 100%; gap: 16px; padding: 24px; box-sizing: border-box;">
-            <!-- Left Pane: DBs -->
-            <div style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
-                <div style="padding: 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-panel);">
-                    <h3 style="margin: 0 0 4px 0; font-size: 1rem; font-weight: 600;">Data Sources</h3>
-                </div>
-                <div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column;">
-                    <div id="core-databases-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px;"></div>
-                    <button class="btn btn-secondary" id="btn-add-database" style="width: 100%; border-style: dashed; flex-shrink: 0;" onclick="window.appCoreReportSelector.addDatabase()">
-                        <i data-lucide="plus"></i> Add Database
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Right Pane: Selected Fields -->
-            <div style="flex-grow: 1; display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
-                <div style="padding: 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-panel); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
-                    <div style="font-weight: 600;">Selected Fields (<span id="core-db-selected-count">0</span>)</div>
-                    <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.75rem;" onclick="window.appCoreReportSelector.clearAllFields()">Clear All</button>
-                </div>
-                <div id="core-arrange-list" style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-                    <div style="color: var(--text-muted); font-size: 0.875rem; font-style: italic; width: 100%; text-align: center; margin-top: 16px;" id="core-db-empty-msg">No fields selected yet.</div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="core-step-dynamic-content" style="display: none; height: 100%; overflow-y: auto; padding: 24px;"></div>
-    </div>
-</div>
 
-                            <div id="stage-1-datasets" style="display: block;">
-                                <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select
-                                    a foundational dataset to build your core report upon.</div>
-                                <div class="dataset-grid">
-                                    <div class="dataset-card selected">
-                                        <div class="dataset-header">
-                                            <div class="dataset-icon" style="color: #2563eb; background: #eff6ff;"><i
-                                                    data-lucide="credit-card"></i></div>
-                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
-                                        </div>
-                                        <div class="dataset-title">Payment Transactions</div>
-                                        <div class="dataset-desc">Core transactional data including SWIFT, FED, CHIPS,
-                                            and SEPA flows.</div>
-                                        <div class="dataset-meta">
-                                            <span class="tag">142 Fields</span>
-                                            <span class="tag">Daily</span>
-                                            <span class="tag">Tier 1</span>
-                                        </div>
-                                    </div>
-                                    <div class="dataset-card">
-                                        <div class="dataset-header">
-                                            <div class="dataset-icon" style="color: #ea580c; background: #ffedd5;"><i
-                                                    data-lucide="alert-circle"></i></div>
-                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
-                                        </div>
-                                        <div class="dataset-title">Exceptions & Repair</div>
-                                        <div class="dataset-desc">Payments flagged for manual intervention, repair
-                                            queues, and routing failures.</div>
-                                        <div class="dataset-meta">
-                                            <span class="tag">85 Fields</span>
-                                            <span class="tag">Real-time</span>
-                                            <span class="tag">Tier 2</span>
-                                        </div>
-                                    </div>
-                                    <div class="dataset-card">
-                                        <div class="dataset-header">
-                                            <div class="dataset-icon" style="color: #16a34a; background: #dcfce7;"><i
-                                                    data-lucide="banknote"></i></div>
-                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
-                                        </div>
-                                        <div class="dataset-title">Settlement & Liquidity</div>
-                                        <div class="dataset-desc">Account balances, Nostro/Vostro projections, and
-                                            intraday liquidity data.</div>
-                                        <div class="dataset-meta">
-                                            <span class="tag">64 Fields</span>
-                                            <span class="tag">Hourly</span>
-                                            <span class="tag">Tier 1</span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Template Report Section -->
+                        <div class="sidebar-section" id="template-sidebar-section">
+                            <div style="padding: 16px 20px; font-weight: 600; background: #f8fafc; color: #d97706; border-bottom: 1px solid #e2e8f0; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;" onclick="window.appBuilderManager.startNewReport('template')">
+                                Template Report Steps
                             </div>
+                            <ul id="template-wizard-nav" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+                                <li class="wizard-step" data-mode="template" data-step="0" onclick="window.appBuilderManager.setWizardStep('template', 0)">Select Base Report</li>
+                                <li class="wizard-step" data-mode="template" data-step="2" onclick="window.appBuilderManager.setWizardStep('template', 2)">Select Fields</li>
+                                <li class="wizard-step" data-mode="template" data-step="3" onclick="window.appBuilderManager.setWizardStep('template', 3)">Filters</li>
+                                <li class="wizard-step" data-mode="template" data-step="4" onclick="window.appBuilderManager.setWizardStep('template', 4)">Conditions</li>
+                                <li class="wizard-step" data-mode="template" data-step="5" onclick="window.appBuilderManager.setWizardStep('template', 5)">Grouping & Sorting</li>
+                                <li class="wizard-step" data-mode="template" data-step="6" onclick="window.appBuilderManager.setWizardStep('template', 6)">Preview</li>
+                            </ul>
                         </div>
                     </div>
 
-                    <!-- Stage 2: Choose Fields -->
-                    <div class="pipeline-stage" id="stage-2">
-                        <div class="stage-header" onclick="toggleStage(2)">
-                            <div class="stage-title">
-                                <span class="stage-number">2</span>
-                                Select Fields
+                    <!-- Wizard Main Content Area -->
+                    <div id="wizard-main-content" style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; position: relative;">
+                        <!-- Step Content Containers -->
+                        
+                        <!-- Step 0: Choose Core Report (Template only) -->
+                        <div id="step-0-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h3 style="margin-top:0;">Select Base Core Report</h3>
+                            <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select a foundational core report to build your template upon.</div>
+                            <div class="dataset-grid" id="core-reports-grid">
+                                <!-- Populated by JS -->
                             </div>
-                            <i data-lucide="chevron-right" id="icon-stage-2"></i>
                         </div>
-                        <div class="stage-content">
-                            <div class="field-explorer">
+
+                        <!-- Step 1: Core DB Fields (Core only) -->
+                        <div id="step-1-content" class="wizard-step-content" style="display: none; height: 100%; gap: 16px; padding: 24px; box-sizing: border-box;">
+                            <!-- Left Pane: DBs -->
+                            <div style="width: 420px; flex-shrink: 0; display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
+                                <div style="padding: 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-panel);">
+                                    <h3 style="margin: 0 0 4px 0; font-size: 1rem; font-weight: 600;">Data Sources</h3>
+                                </div>
+                                <div style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column;">
+                                    <div id="core-databases-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px;"></div>
+                                    <button class="btn btn-secondary" id="btn-add-database" style="width: 100%; border-style: dashed; flex-shrink: 0;" onclick="window.appCoreReportSelector.addDatabase()">
+                                        <i data-lucide="plus"></i> Add Database
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Pane: Selected Fields -->
+                            <div style="flex-grow: 1; display: flex; flex-direction: column; background: #fff; border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden;">
+                                <div style="padding: 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-panel); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
+                                    <div style="font-weight: 600;">Selected Fields (<span id="core-db-selected-count">0</span>)</div>
+                                    <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.75rem;" onclick="window.appCoreReportSelector.clearAllFields()">Clear All</button>
+                                </div>
+                                <div id="core-arrange-list" style="flex-grow: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="color: var(--text-muted); font-size: 0.875rem; font-style: italic; width: 100%; text-align: center; margin-top: 16px;" id="core-db-empty-msg">No fields selected yet.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Template Fields Selection (Template only) -->
+                        <div id="step-2-content" class="wizard-step-content" style="display: none; height: 100%;">
+                            <div class="field-explorer" style="height: 100%; border: none;">
                                 <div class="field-sidebar">
                                     <div class="field-search">
                                         <input type="text" class="search-input" placeholder="Search fields...">
                                     </div>
                                     <div class="folder-list">
-                                        <div class="folder-item active"><i data-lucide="folder-open"></i> All Fields
-                                        </div>
+                                        <div class="folder-item active"><i data-lucide="folder-open"></i> All Fields</div>
                                         <div class="folder-item"><i data-lucide="pin"></i> Pinned</div>
                                         <div class="folder-item"><i data-lucide="clock"></i> Recently Used</div>
-                                        <div class="folder-item"
-                                            style="margin-top: 12px; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; padding-left: 16px;">
-                                            Categories</div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Identifiers</div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Amounts & Currency</div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Parties (Debtor/Creditor)
-                                        </div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Status & Routing</div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Dates & Timestamps</div>
                                     </div>
                                 </div>
                                 <div class="field-center">
                                     <div class="field-list-header">
                                         Available Fields
-                                        <span id="btn-add-all"
-                                            style="font-size: 0.875rem; color: var(--primary); cursor: pointer; font-weight: 500;">Add
-                                            All</span>
+                                        <span id="btn-add-all" style="font-size: 0.875rem; color: var(--primary); cursor: pointer; font-weight: 500;">Add All</span>
                                     </div>
-                                    <div class="field-items" id="available-fields-container">
-                                        <!-- Fields populated by BuilderManager -->
+                                    <div class="field-items" id="available-fields-container" style="overflow-y: auto; height: calc(100% - 48px);">
+                                        <!-- Populated by JS -->
                                     </div>
                                 </div>
                                 <div class="field-right">
                                     <div class="field-list-header" style="background: var(--bg-panel);">
                                         Selected (<span id="selected-fields-count">0</span>)
-                                        <span id="btn-clear-all"
-                                            style="font-size: 0.875rem; color: var(--danger); cursor: pointer; font-weight: 500;">Clear</span>
+                                        <span id="btn-clear-all" style="font-size: 0.875rem; color: var(--danger); cursor: pointer; font-weight: 500;">Clear</span>
                                     </div>
-                                    <div class="selected-fields-list" id="selected-fields-list">
-                                        <!-- Fields populated by BuilderManager -->
+                                    <div class="selected-fields-list" id="selected-fields-list" style="overflow-y: auto; height: calc(100% - 48px);">
+                                        <!-- Populated by JS -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Stage 3: Filters -->
-                    <div class="pipeline-stage" id="stage-3">
-                        <div class="stage-header" onclick="toggleStage(3)">
-                            <div class="stage-title">
-                                <span class="stage-number">3</span>
-                                Apply Filters
-                            </div>
-                            <i data-lucide="chevron-right" id="icon-stage-3"></i>
-                        </div>
-                        <div class="stage-content">
+                        <!-- Step 3: Filters (Shared) -->
+                        <div id="step-3-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h3 style="margin-top:0;">Apply Filters</h3>
                             <div id="filters-container" style="display: flex; flex-direction: column; gap: 16px;">
-                                <!-- Dynamically populated by JS based on selected fields -->
+                                <!-- Dynamically populated -->
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Stage 4: Conditions -->
-                    <div class="pipeline-stage" id="stage-4">
-                        <div class="stage-header" onclick="toggleStage(4)">
-                            <div class="stage-title">
-                                <span class="stage-number">4</span>
-                                Apply Conditions
-                            </div>
-                            <i data-lucide="chevron-right" id="icon-stage-4"></i>
-                        </div>
-                        <div class="stage-content">
+                        <!-- Step 4: Conditions (Shared) -->
+                        <div id="step-4-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h3 style="margin-top:0;">Apply Conditions</h3>
                             <div class="filter-builder" id="conditions-container">
-                                <!-- Dynamically populated by JS -->
+                                <!-- Dynamically populated -->
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Stage 5: Grouping & Sorting -->
-                    <div class="pipeline-stage" id="stage-5">
-                        <div class="stage-header" onclick="toggleStage(5)">
-                            <div class="stage-title"><span class="stage-number">5</span> Grouping & Sorting</div>
-                            <i data-lucide="chevron-right" id="icon-stage-5"></i>
+                        <!-- Step 5: Grouping & Sorting (Shared) -->
+                        <div id="step-5-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h3 style="margin-top:0;">Grouping & Sorting</h3>
+                            <div style="color: var(--text-muted); text-align: center; margin-top: 24px;">
+                                Grouping and Sorting options will appear here.
+                            </div>
                         </div>
-                        <div class="stage-content" style="padding: 24px; color: var(--text-muted); text-align: center;">
-                            Grouping and Sorting options will appear here.
-                        </div>
-                    </div>
 
-                    <!-- Stage 6: Preview & Generate -->
-                    <div class="pipeline-stage" id="stage-6">
-                        <div class="stage-header" onclick="toggleStage(6)">
-                            <div class="stage-title"><span class="stage-number">6</span> Preview & Generate</div>
-                            <i data-lucide="chevron-right" id="icon-stage-6"></i>
+                        <!-- Step 6: Preview (Shared) -->
+                        <div id="step-6-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h3 style="margin-top:0;">Preview</h3>
+                            <div id="preview-container">
+                                <!-- Populated by PreviewEngine -->
+                            </div>
                         </div>
-                        <div class="stage-content" id="preview-container">
-                            <!-- Preview populated by PreviewEngine -->
-                        </div>
-                    </div>
 
-                    <!-- Padding for action bar -->
-                    <div style="height: 100px;"></div>
+                    </div>
                 </div>
 
                 <!-- Unified Bottom Bar -->
-                <div class="action-bar" id="unified-bottom-bar" style="display: flex; justify-content: space-between; padding: 0 32px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-top: 1px solid var(--border-color);">
+                <div class="action-bar" id="unified-bottom-bar" style="display: flex; justify-content: space-between; padding: 12px 32px; background: rgba(255, 255, 255, 0.95); border-top: 1px solid var(--border-color); flex-shrink: 0;">
                     <div style="display: flex; gap: 24px; align-items: center;">
                         <div class="summary-stat" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                             <span class="stat-label" style="font-size: 0.7rem; text-transform: uppercase;">Dataset</span>
-                            <span class="stat-value" style="color: var(--primary); font-size: 0.875rem;">Payment Hub</span>
+                            <span class="stat-value" id="summary-dataset" style="color: var(--primary); font-size: 0.875rem;">None</span>
                         </div>
                         <div class="summary-stat" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                             <span class="stat-label" style="font-size: 0.7rem; text-transform: uppercase;">Fields</span>
-                            <span class="stat-value" id="summary-fields-count" style="font-size: 0.875rem;">0</span>
+                            <span class="stat-value" id="summary-fields-count-bottom" style="font-size: 0.875rem;">0</span>
                         </div>
                         <div class="summary-stat" style="margin: 0; display: flex; align-items: center; gap: 8px;">
                             <span class="stat-label" style="font-size: 0.7rem; text-transform: uppercase;">Filters</span>
-                            <span class="stat-value" id="summary-filters-count" style="font-size: 0.875rem;">0</span>
-                        </div>
-                        <div class="summary-stat" style="margin: 0; display: flex; align-items: center; gap: 8px;">
-                            <span class="stat-label" style="font-size: 0.7rem; text-transform: uppercase;">Est. Output</span>
-                            <span class="stat-value" style="font-size: 0.875rem;">~1.2M Rows</span>
+                            <span class="stat-value" id="summary-filters-count-bottom" style="font-size: 0.875rem;">0</span>
                         </div>
                     </div>
                     <div style="display: flex; gap: 12px; align-items: center;">
-                        <button class="btn btn-secondary">Reset</button>
+                        <button class="btn btn-secondary" onclick="window.appBuilderManager.startNewReport(window.appState.get().currentBuilder.mode)">Reset</button>
                         <button class="btn btn-secondary" id="btn-save-report">Save</button>
-                        <button class="btn btn-secondary" id="btn-preview-data"><i data-lucide="play"></i> Preview Data</button>
+                        <button class="btn btn-secondary" id="btn-preview-data" onclick="window.appBuilderManager.setWizardStep(window.appState.get().currentBuilder.mode, 6)"><i data-lucide="play"></i> Preview Data</button>
                         <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Other Views -->
-            <div id="view-catalogue" class="view-container">
+            <div id="view-catalogue" class="view-container active">
                 <div class="main-content">
                     <div class="view-header">
                         <div class="view-title-container">
@@ -598,7 +520,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Execution Frequency</label>
-                    <select class="form-control" id="run-modal-frequency">
+                    <select class="form-control" id="run-modal-frequency" style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">
                         <option value="ad-hoc">One-time (Ad Hoc)</option>
                         <option value="daily">Scheduled: Daily</option>
                         <option value="weekly">Scheduled: Weekly</option>
@@ -608,7 +530,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Reporting Period</label>
-                    <select class="form-control" id="run-modal-period">
+                    <select class="form-control" id="run-modal-period" style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">
                         <option value="today">Today (Live)</option>
                         <option value="yesterday">Yesterday (T-1)</option>
                         <option value="this-week">This Week</option>
@@ -619,7 +541,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Output Format</label>
-                    <select class="form-control" id="run-modal-format">
+                    <select class="form-control" id="run-modal-format" style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); cursor: pointer;">
                         <option value="csv">CSV Export</option>
                         <option value="excel">Excel (.xlsx)</option>
                         <option value="pdf">PDF Summary</option>
