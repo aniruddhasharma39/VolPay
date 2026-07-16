@@ -69,7 +69,7 @@ class BuilderManager {
         // Subscribe to state changes to update builder UI
         window.appState.subscribe(state => this.updateUI(state));
         this.bindEvents();
-        this.renderFieldsList();
+        this.renderFieldsList();\n        if (window.appCoreReportSelector) window.appCoreReportSelector.init();
         
         // Ensure builder mode state defaults
         if(!window.appState.get().currentBuilder.mode) {
@@ -612,59 +612,37 @@ class BuilderManager {
             // Render Stage 3 Filters UI
             this.renderFiltersUI(state);
 
+        
+        
         const s1ds = document.getElementById('stage-1-datasets');
         const s1cdb = document.getElementById('stage-1-core-db');
-        const s2fe = document.getElementById('stage-2-field-explorer');
-        const s2ca = document.getElementById('stage-2-core-arrange');
+        const stage2 = document.getElementById('stage-2'); // Hide the entire stage-2 pipeline stage
+        
         if(state.currentBuilder.mode === 'core') {
             if(s1ds) s1ds.style.display = 'none';
             if(s1cdb) s1cdb.style.display = 'block';
-            if(s2fe) s2fe.style.display = 'none';
-            if(s2ca) s2ca.style.display = 'block';
+            if(stage2) stage2.style.display = 'none';
+
+            if(s1ds) s1ds.style.display = 'none';
+            if(s1cdb) s1cdb.style.display = 'block';
             
-            // Render DB Trees
-            this.renderDBTree('core-banking', ENTERPRISE_DB.core_banking, state);
-            this.renderDBTree('payment-engine', ENTERPRISE_DB.payment_engine, state);
-            
-            // Render Selected Fields Tray
-            const tray = document.getElementById('core-db-selected-tray');
-            const count = document.getElementById('core-db-selected-count');
-            if(tray && count) {
-                count.innerText = state.currentBuilder.fields.length;
-                if(state.currentBuilder.fields.length === 0) {
-                    tray.innerHTML = '<div style="color: var(--text-muted); font-size: 0.875rem; font-style: italic; width: 100%; text-align: center; margin-top: 8px;">Select fields from the databases above...</div>';
-                } else {
-                    tray.innerHTML = state.currentBuilder.fields.map(f => `
-                        <div class="db-field-pill">
-                            <span>${f.name}</span>
-                            <i data-lucide="x" class="remove-pill" onclick="window.appBuilderManager.removeField('${f.id}')" style="width:14px;"></i>
-                        </div>
-                    `).join('');
+            // Delegate core rendering to the new CoreReportSelector
+            if (window.appCoreReportSelector) {
+                if (window.appCoreReportSelector.activeDatabaseSections.length === 0) {
+                    window.appCoreReportSelector.addDatabase(); // Auto add first DB
                 }
-            }
-            
-            // Render Arrange List
-            const arrangeList = document.getElementById('core-arrange-list');
-            if(arrangeList) {
-                if(state.currentBuilder.fields.length === 0) {
-                    arrangeList.innerHTML = '<div style="padding: 16px; color: var(--text-muted); text-align: center; font-size: 0.875rem;">No fields selected to arrange.</div>';
-                } else {
-                    arrangeList.innerHTML = state.currentBuilder.fields.map((f, idx) => `
-                        <div class="arrange-item" draggable="true" data-index="${idx}">
-                            <i data-lucide="grip-vertical" class="arrange-handle"></i>
-                            <span style="font-size: 0.875rem; font-weight: 500;">${f.name}</span>
-                            <span style="font-size: 0.75rem; color: var(--text-muted); margin-left: auto;">${f.category || 'Database Field'}</span>
-                        </div>
-                    `).join('');
-                }
+                window.appCoreReportSelector.updateUI(state);
             }
             lucide.createIcons();
+        
         } else {
             if(s1ds) s1ds.style.display = 'block';
             if(s1cdb) s1cdb.style.display = 'none';
-            if(s2fe) s2fe.style.display = 'block';
-            if(s2ca) s2ca.style.display = 'none';
+            if(stage2) stage2.style.display = 'block';
         }
+        lucide.createIcons();
+
+
 
             
             // Render Stage 4 Conditions UI
