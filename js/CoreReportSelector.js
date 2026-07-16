@@ -365,10 +365,6 @@ class CoreReportSelector {
             }
         });
     }
-                }
-            }
-        });
-    }
 }
 
 window.appCoreReportSelector = new CoreReportSelector();
