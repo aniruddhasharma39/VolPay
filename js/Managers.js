@@ -555,7 +555,7 @@ class BuilderManager {
             // Populate Template Grid dynamically
             const grid = document.getElementById('core-reports-grid');
             if (grid) {
-                const coreReportsList = ['Daily SWIFT Outbound', 'Repair Queue Aging', 'Nostro Balance Projections'];
+                const coreReportsList = (state.catalogue || []).filter(r => r.type === 'core').map(r => r.name);
                 grid.innerHTML = coreReportsList.map(name => `
                     <div class="dataset-card ${state.currentBuilder.dataset === name ? 'selected' : ''}" onclick="window.appBuilderManager.setDataset('${name}')">
                         <div class="dataset-header">
@@ -564,6 +564,9 @@ class BuilderManager {
                         <div class="dataset-title">${name}</div>
                     </div>
                 `).join('');
+                if (coreReportsList.length === 0) {
+                    grid.innerHTML = '<div style="color: var(--text-muted); font-size: 0.875rem;">No core reports available. Create one first.</div>';
+                }
                 lucide.createIcons();
             }
         }

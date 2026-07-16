@@ -129,9 +129,10 @@ class CoreReportSelector {
             const tables = this.databases[section.dbName] || [];
             
             // Generate DB Select options
-            const dbOptions = allDbNames.map(name => 
-                `<option value="${name}" ${name === section.dbName ? 'selected' : ''}>${name}</option>`
-            ).join('');
+            const dbOptions = allDbNames.map(name => {
+                const isSelectedElsewhere = this.activeDatabaseSections.some(s => s.instanceId !== section.instanceId && s.dbName === name);
+                return `<option value="${name}" ${name === section.dbName ? 'selected' : ''} ${isSelectedElsewhere ? 'disabled' : ''}>${name}</option>`;
+            }).join('');
 
             html += `
                 <div class="db-section-card" data-instance-id="${section.instanceId}" style="border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-panel); margin-bottom: 16px;">
@@ -335,7 +336,6 @@ class CoreReportSelector {
     }
 
     highlightTable(dbName, tableName) {
-        // Find matching table cards and add a highlight class
         this.activeDatabaseSections.forEach((section) => {
             if (section.dbName === dbName) {
                 const sectionCard = this.container.querySelector(`.db-section-card[data-instance-id="${section.instanceId}"]`);
@@ -343,7 +343,8 @@ class CoreReportSelector {
                     const tableCard = sectionCard.querySelector(`.table-accordion-card[data-table="${tableName}"]`);
                     if (tableCard) {
                         tableCard.style.boxShadow = '0 0 0 2px var(--primary)';
-                        tableCard.style.transition = 'box-shadow 0.2s';
+                        tableCard.style.backgroundColor = '#fef08a'; // light yellow highlight
+                        tableCard.style.transition = 'all 0.2s';
                     }
                 }
             }
@@ -358,7 +359,12 @@ class CoreReportSelector {
                     const tableCard = sectionCard.querySelector(`.table-accordion-card[data-table="${tableName}"]`);
                     if (tableCard) {
                         tableCard.style.boxShadow = 'none';
+                        tableCard.style.backgroundColor = '';
                     }
+                }
+            }
+        });
+    }
                 }
             }
         });

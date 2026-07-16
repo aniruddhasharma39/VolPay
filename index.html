@@ -22,7 +22,7 @@
                 <i data-lucide="layout-grid"></i> Report Catalogue
             </a>
             <a href="#" class="nav-item active" id="nav-builder"
-                onclick="if(!this.classList.contains('disabled')) switchView('builder')">
+                onclick="if(!this.classList.contains('disabled')) { window.appBuilderManager.startNewReport('core'); switchView('builder'); }">
                 <i data-lucide="blocks"></i> Report Builder
             </a>
             <a href="#" class="nav-item" onclick="switchView('centre')">
