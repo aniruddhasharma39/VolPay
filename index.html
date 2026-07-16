@@ -19,7 +19,7 @@
             <a href="#" class="nav-item" onclick="switchView('catalogue')">
                 <i data-lucide="layout-grid"></i> Report Catalogue
             </a>
-            <a href="#" class="nav-item active" onclick="switchView('builder')">
+            <a href="#" class="nav-item active" id="nav-builder" onclick="if(!this.classList.contains('disabled')) switchView('builder')">
                 <i data-lucide="blocks"></i> Report Builder
             </a>
             <a href="#" class="nav-item" onclick="switchView('centre')">
@@ -30,7 +30,7 @@
             <div class="avatar">JS</div>
             <div>
                 <div style="font-size: 0.875rem; font-weight: 600;">John Smith</div>
-                <div style="font-size: 0.75rem; color: #94a3b8;">Payment Ops</div>
+                <div style="font-size: 0.75rem; color: #94a3b8;" id="current-user-role-text">Payment Ops</div>
             </div>
         </div>
     </aside>
@@ -44,6 +44,11 @@
                 <div class="page-title" id="page-title">Create New Report</div>
             </div>
             <div class="header-actions">
+                <select id="user-role-selector" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-workspace); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
+                    <option value="admin">Role: Admin</option>
+                    <option value="builder">Role: Report Builder</option>
+                    <option value="viewer">Role: Viewer</option>
+                </select>
                 <button class="btn btn-secondary"><i data-lucide="download"></i> Import Definition</button>
                 <button class="btn btn-secondary"><i data-lucide="settings"></i> Properties</button>
             </div>
@@ -58,6 +63,12 @@
                 <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 0 32px;" id="header-report-inputs">
                     <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);" id="builder-mode-badge">Core Report</span>
                     <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..." style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
+                    <select id="report-access-select" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; background: var(--bg-workspace); color: var(--text-muted);">
+                        <option value="private">Private (Only Me)</option>
+                        <option value="admin">Share with Admins</option>
+                        <option value="builder">Share with Builders & Admins</option>
+                        <option value="all">Share with Everyone</option>
+                    </select>
                 </div>
 
                 <div class="banner banner-warning" style="margin-top: 16px;">
@@ -263,7 +274,7 @@
                         <button class="btn btn-secondary"><i data-lucide="filter"></i> Filters</button>
                     </div>
 
-                    <div class="report-grid">
+                    <div class="report-grid" id="catalogue-reports-grid">
                         <!-- Card 1 -->
                         <div class="report-card">
                             <div class="report-card-header">
@@ -537,7 +548,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Output Format</label>
-                    <select class="form-control">
+                    <select class="form-control" id="run-modal-format">
                         <option value="csv">CSV Export</option>
                         <option value="excel">Excel (.xlsx)</option>
                         <option value="pdf">PDF Summary</option>

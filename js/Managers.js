@@ -254,10 +254,24 @@ class BuilderManager {
                 }
                 const reportNameInput = document.getElementById('report-name-input');
                 const repName = reportNameInput && reportNameInput.value.trim() !== '' ? reportNameInput.value.trim() : 'Saved Report';
+                const accessSelect = document.getElementById('report-access-select');
+                const access = accessSelect ? accessSelect.value : 'private';
                 const type = state.currentBuilder.mode === 'core' ? 'core' : 'template';
                 
-                window.appReportManager.queueReport(repName, type);
-                window.appToast.show('Report Saved successfully', 'success');
+                const newReport = {
+                    id: 'CAT-' + Math.floor(Math.random() * 10000),
+                    name: repName,
+                    type: type,
+                    access: access,
+                    updatedAt: 'Just now',
+                    author: 'JS'
+                };
+                
+                window.appState.update(s => ({
+                    catalogue: [newReport, ...(s.catalogue || [])]
+                }));
+                
+                window.appToast.show('Report Saved successfully to Catalogue', 'success');
             });
         }
         
@@ -604,6 +618,44 @@ class BuilderManager {
             }
         }
         
+        // Update Catalogue UI
+        const catalogueGrid = document.getElementById('catalogue-reports-grid');
+        if (catalogueGrid) {
+            const catalogue = state.catalogue || [];
+            
+            // Generate some defaults if empty
+            if (catalogue.length === 0) {
+                catalogue.push({ id: 'DEF-1', name: 'Daily SWIFT Outbound', type: 'core', access: 'all', updatedAt: '2h ago', author: 'JS', desc: 'Comprehensive list of all successful MT103 and MT202 messages sent out today.' });
+                catalogue.push({ id: 'DEF-2', name: 'Repair Queue Aging', type: 'core', access: 'admin', updatedAt: '1d ago', author: 'SYS', desc: 'Aging analysis of transactions stuck in the repair queue.' });
+                window.appState.update({ catalogue });
+                return; // Will re-trigger notify
+            }
+            
+            catalogueGrid.innerHTML = catalogue.map(r => `
+                <div class="report-card">
+                    <div class="report-card-header">
+                        <div class="report-title">${r.name}</div>
+                        <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                    </div>
+                    <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
+                    <div style="margin-bottom: 16px;">
+                        <span class="tag">${r.type === 'core' ? 'Core' : 'Template'}</span>
+                        <span class="tag" style="background: #e2e8f0; color: #475569;"><i data-lucide="users" style="width: 10px; margin-right: 4px;"></i> ${r.access}</span>
+                    </div>
+                    <div class="report-footer">
+                        <div class="report-author">
+                            <div class="avatar-sm">${r.author}</div>
+                            Updated ${r.updatedAt}
+                        </div>
+                        <div class="report-actions">
+                            <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Customize as Template"><i data-lucide="copy"></i></button>
+                            <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run Report"><i data-lucide="play"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
         lucide.createIcons();
     }
 
@@ -884,18 +936,25 @@ class ReportManager {
     }
 
     confirmRunModal() {
-        this.queueReport(this.activeRunReport || 'Scheduled Report', 'core');
+        const formatSelect = document.getElementById('run-modal-format');
+        const format = formatSelect ? formatSelect.value : 'csv';
+        const frequencySelect = document.getElementById('run-modal-frequency');
+        const frequency = frequencySelect ? frequencySelect.value : 'ad-hoc';
+        
+        this.queueReport(this.activeRunReport || 'Scheduled Report', 'core', format, frequency);
         this.closeRunModal();
         if (typeof switchView === 'function') switchView('centre');
     }
 
-    queueReport(name = 'Ad-hoc Payment Report', type = 'core') {
+    queueReport(name = 'Ad-hoc Payment Report', type = 'core', format = 'csv', frequency = 'ad-hoc') {
         const report = {
             id: '#RP-' + Math.floor(Math.random() * 100000),
             name: name,
             type: type,
-            status: 'queued',
-            progress: 0,
+            format: format,
+            frequency: frequency,
+            status: frequency === 'ad-hoc' ? 'running' : 'queued',
+            progress: frequency === 'ad-hoc' ? 10 : 0,
             startTime: new Date().toLocaleTimeString(),
             duration: '--'
         };
@@ -904,36 +963,50 @@ class ReportManager {
             generatedReports: [report, ...state.generatedReports]
         }));
         
-        window.appToast.show('Report queued for execution', 'info');
-        window.appNotification.add('Report Queued', `Job ${report.id} has been added to the queue.`);
-        
-        // Simulate execution
-        setTimeout(() => this.startExecution(report.id), 2000);
+        if (frequency === 'ad-hoc') {
+            window.appToast.show('Report execution started', 'info');
+            window.appNotification.add('Report Running', `Job ${report.id} has started execution.`);
+            this.startExecution(report.id);
+        } else {
+            window.appToast.show('Report queued for schedule', 'info');
+            window.appNotification.add('Report Queued', `Job ${report.id} has been added to the queue.`);
+        }
     }
     
     startExecution(id) {
-        window.appState.update(state => {
-            const reports = state.generatedReports.map(r => 
-                r.id === id ? { ...r, status: 'running', progress: 10 } : r
-            );
-            return { ...state, generatedReports: reports };
-        });
-        
         let progress = 10;
+        const willFail = Math.random() < 0.2; // 20% chance of failure
+        
         const interval = setInterval(() => {
             progress += Math.floor(Math.random() * 20) + 10;
             if(progress >= 100) {
                 progress = 100;
                 clearInterval(interval);
-                this.completeExecution(id);
+                if (willFail) {
+                    this.failExecution(id);
+                } else {
+                    this.completeExecution(id);
+                }
+            } else {
+                window.appState.update(state => {
+                    const reports = state.generatedReports.map(r => 
+                        r.id === id ? { ...r, progress } : r
+                    );
+                    return { ...state, generatedReports: reports };
+                });
             }
-            window.appState.update(state => {
-                const reports = state.generatedReports.map(r => 
-                    r.id === id ? { ...r, progress } : r
-                );
-                return { ...state, generatedReports: reports };
-            });
         }, 1000);
+    }
+    
+    failExecution(id) {
+        window.appState.update(state => {
+            const reports = state.generatedReports.map(r => 
+                r.id === id ? { ...r, status: 'failed', duration: '--', progress: 100 } : r
+            );
+            return { ...state, generatedReports: reports };
+        });
+        window.appToast.show(`Report ${id} execution failed`, 'error');
+        window.appNotification.add('Report Failed', `Job ${id} failed to complete.`, 'error');
     }
     
     completeExecution(id) {
@@ -977,7 +1050,7 @@ class ReportManager {
                         <td>${r.duration}</td>
                         <td>
                             <div style="display: flex; gap: 8px;">
-                                ${r.status === 'success' ? `<button class="icon-btn" onclick="window.appToast.show('Downloading...', 'info')"><i data-lucide="download"></i></button>` : ''}
+                                ${r.status === 'success' ? `<button class="icon-btn" onclick="window.appToast.show('Downloading ${(r.format || 'csv').toUpperCase()}...', 'info')" title="Download ${(r.format || 'csv').toUpperCase()}"><i data-lucide="download"></i></button>` : ''}
                                 <button class="icon-btn"><i data-lucide="file-text"></i></button>
                             </div>
                         </td>
