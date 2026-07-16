@@ -20,13 +20,13 @@ function switchView(viewName) {
     
     if (viewName === 'builder') {
         titleElement.textContent = 'Create New Report';
-        summaryPanel.style.display = 'flex';
+        if (summaryPanel) summaryPanel.style.display = 'flex';
     } else if (viewName === 'catalogue') {
         titleElement.textContent = 'Report Catalogue';
-        summaryPanel.style.display = 'none';
+        if (summaryPanel) summaryPanel.style.display = 'none';
     } else if (viewName === 'centre') {
         titleElement.textContent = 'Reports Centre';
-        summaryPanel.style.display = 'none';
+        if (summaryPanel) summaryPanel.style.display = 'none';
     }
 }
 
