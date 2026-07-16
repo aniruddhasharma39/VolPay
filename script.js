@@ -3,10 +3,10 @@ function switchView(viewName) {
     // Update Navigation Active State
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
+        if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${viewName}'`)) {
+            item.classList.add('active');
+        }
     });
-    if (typeof event !== 'undefined' && event && event.currentTarget && event.currentTarget.classList) {
-        event.currentTarget.classList.add('active');
-    }
 
     // Update Views
     document.querySelectorAll('.view-container').forEach(view => {

@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
-            const view = item.getAttribute('onclick').match(/'([^']+)'/)[1];
-            switchView(view);
             e.preventDefault();
         });
     });
