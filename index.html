@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VolPay Edge - Report Builder</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="brand">
-            <img src="logo.png" alt="VolPay Edge" style="max-height: 32px; max-width: 100%; object-fit: contain;">
+            <img src="logo.png" alt="VolPay Edge" style="max-height: 120px; max-width: 100%; object-fit: contain;">
         </div>
         <nav class="nav-links">
             <a href="#" class="nav-item" onclick="switchView('catalogue')">
                 <i data-lucide="layout-grid"></i> Report Catalogue
             </a>
-            <a href="#" class="nav-item active" id="nav-builder" onclick="if(!this.classList.contains('disabled')) switchView('builder')">
+            <a href="#" class="nav-item active" id="nav-builder"
+                onclick="if(!this.classList.contains('disabled')) switchView('builder')">
                 <i data-lucide="blocks"></i> Report Builder
             </a>
             <a href="#" class="nav-item" onclick="switchView('centre')">
@@ -37,14 +40,15 @@
 
     <!-- Workspace -->
     <main class="workspace">
-        
+
         <!-- Header -->
         <header class="header">
             <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div class="page-title" id="page-title">Create New Report</div>
             </div>
             <div class="header-actions">
-                <select id="user-role-selector" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-workspace); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
+                <select id="user-role-selector"
+                    style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-workspace); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
                     <option value="admin">Role: Admin</option>
                     <option value="builder">Role: Report Builder</option>
                     <option value="viewer">Role: Viewer</option>
@@ -56,14 +60,18 @@
 
         <!-- Main Content Area with Split -->
         <div class="content-area">
-            
+
             <!-- Builder View -->
             <div id="view-builder" class="view-container active" style="flex-grow:1;">
-                
-                <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 0 32px;" id="header-report-inputs">
-                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);" id="builder-mode-badge">Core Report</span>
-                    <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..." style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
-                    <select id="report-access-select" style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; background: var(--bg-workspace); color: var(--text-muted);">
+
+                <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 0 32px;"
+                    id="header-report-inputs">
+                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);"
+                        id="builder-mode-badge">Core Report</span>
+                    <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..."
+                        style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
+                    <select id="report-access-select"
+                        style="padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem; background: var(--bg-workspace); color: var(--text-muted);">
                         <option value="private">Private (Only Me)</option>
                         <option value="admin">Share with Admins</option>
                         <option value="builder">Share with Builders & Admins</option>
@@ -88,50 +96,57 @@
                         </div>
                         <div class="stage-content">
                             <div id="stage-1-datasets" style="display: block;">
-                                <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select a foundational dataset to build your core report upon.</div>
+                                <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select
+                                    a foundational dataset to build your core report upon.</div>
                                 <div class="dataset-grid">
-                                <div class="dataset-card selected">
-                                    <div class="dataset-header">
-                                        <div class="dataset-icon" style="color: #2563eb; background: #eff6ff;"><i data-lucide="credit-card"></i></div>
-                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                    <div class="dataset-card selected">
+                                        <div class="dataset-header">
+                                            <div class="dataset-icon" style="color: #2563eb; background: #eff6ff;"><i
+                                                    data-lucide="credit-card"></i></div>
+                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                        </div>
+                                        <div class="dataset-title">Payment Transactions</div>
+                                        <div class="dataset-desc">Core transactional data including SWIFT, FED, CHIPS,
+                                            and SEPA flows.</div>
+                                        <div class="dataset-meta">
+                                            <span class="tag">142 Fields</span>
+                                            <span class="tag">Daily</span>
+                                            <span class="tag">Tier 1</span>
+                                        </div>
                                     </div>
-                                    <div class="dataset-title">Payment Transactions</div>
-                                    <div class="dataset-desc">Core transactional data including SWIFT, FED, CHIPS, and SEPA flows.</div>
-                                    <div class="dataset-meta">
-                                        <span class="tag">142 Fields</span>
-                                        <span class="tag">Daily</span>
-                                        <span class="tag">Tier 1</span>
+                                    <div class="dataset-card">
+                                        <div class="dataset-header">
+                                            <div class="dataset-icon" style="color: #ea580c; background: #ffedd5;"><i
+                                                    data-lucide="alert-circle"></i></div>
+                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                        </div>
+                                        <div class="dataset-title">Exceptions & Repair</div>
+                                        <div class="dataset-desc">Payments flagged for manual intervention, repair
+                                            queues, and routing failures.</div>
+                                        <div class="dataset-meta">
+                                            <span class="tag">85 Fields</span>
+                                            <span class="tag">Real-time</span>
+                                            <span class="tag">Tier 2</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="dataset-card">
-                                    <div class="dataset-header">
-                                        <div class="dataset-icon" style="color: #ea580c; background: #ffedd5;"><i data-lucide="alert-circle"></i></div>
-                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
-                                    </div>
-                                    <div class="dataset-title">Exceptions & Repair</div>
-                                    <div class="dataset-desc">Payments flagged for manual intervention, repair queues, and routing failures.</div>
-                                    <div class="dataset-meta">
-                                        <span class="tag">85 Fields</span>
-                                        <span class="tag">Real-time</span>
-                                        <span class="tag">Tier 2</span>
-                                    </div>
-                                </div>
-                                <div class="dataset-card">
-                                    <div class="dataset-header">
-                                        <div class="dataset-icon" style="color: #16a34a; background: #dcfce7;"><i data-lucide="banknote"></i></div>
-                                        <i data-lucide="star" style="color: #cbd5e1;"></i>
-                                    </div>
-                                    <div class="dataset-title">Settlement & Liquidity</div>
-                                    <div class="dataset-desc">Account balances, Nostro/Vostro projections, and intraday liquidity data.</div>
-                                    <div class="dataset-meta">
-                                        <span class="tag">64 Fields</span>
-                                        <span class="tag">Hourly</span>
-                                        <span class="tag">Tier 1</span>
+                                    <div class="dataset-card">
+                                        <div class="dataset-header">
+                                            <div class="dataset-icon" style="color: #16a34a; background: #dcfce7;"><i
+                                                    data-lucide="banknote"></i></div>
+                                            <i data-lucide="star" style="color: #cbd5e1;"></i>
+                                        </div>
+                                        <div class="dataset-title">Settlement & Liquidity</div>
+                                        <div class="dataset-desc">Account balances, Nostro/Vostro projections, and
+                                            intraday liquidity data.</div>
+                                        <div class="dataset-meta">
+                                            <span class="tag">64 Fields</span>
+                                            <span class="tag">Hourly</span>
+                                            <span class="tag">Tier 1</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
 
                     <!-- Stage 2: Choose Fields -->
@@ -150,13 +165,17 @@
                                         <input type="text" class="search-input" placeholder="Search fields...">
                                     </div>
                                     <div class="folder-list">
-                                        <div class="folder-item active"><i data-lucide="folder-open"></i> All Fields</div>
+                                        <div class="folder-item active"><i data-lucide="folder-open"></i> All Fields
+                                        </div>
                                         <div class="folder-item"><i data-lucide="pin"></i> Pinned</div>
                                         <div class="folder-item"><i data-lucide="clock"></i> Recently Used</div>
-                                        <div class="folder-item" style="margin-top: 12px; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; padding-left: 16px;">Categories</div>
+                                        <div class="folder-item"
+                                            style="margin-top: 12px; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; padding-left: 16px;">
+                                            Categories</div>
                                         <div class="folder-item"><i data-lucide="folder"></i> Identifiers</div>
                                         <div class="folder-item"><i data-lucide="folder"></i> Amounts & Currency</div>
-                                        <div class="folder-item"><i data-lucide="folder"></i> Parties (Debtor/Creditor)</div>
+                                        <div class="folder-item"><i data-lucide="folder"></i> Parties (Debtor/Creditor)
+                                        </div>
                                         <div class="folder-item"><i data-lucide="folder"></i> Status & Routing</div>
                                         <div class="folder-item"><i data-lucide="folder"></i> Dates & Timestamps</div>
                                     </div>
@@ -164,7 +183,9 @@
                                 <div class="field-center">
                                     <div class="field-list-header">
                                         Available Fields
-                                        <span id="btn-add-all" style="font-size: 0.875rem; color: var(--primary); cursor: pointer; font-weight: 500;">Add All</span>
+                                        <span id="btn-add-all"
+                                            style="font-size: 0.875rem; color: var(--primary); cursor: pointer; font-weight: 500;">Add
+                                            All</span>
                                     </div>
                                     <div class="field-items" id="available-fields-container">
                                         <!-- Fields populated by BuilderManager -->
@@ -173,7 +194,8 @@
                                 <div class="field-right">
                                     <div class="field-list-header" style="background: var(--bg-panel);">
                                         Selected (<span id="selected-fields-count">0</span>)
-                                        <span id="btn-clear-all" style="font-size: 0.875rem; color: var(--danger); cursor: pointer; font-weight: 500;">Clear</span>
+                                        <span id="btn-clear-all"
+                                            style="font-size: 0.875rem; color: var(--danger); cursor: pointer; font-weight: 500;">Clear</span>
                                     </div>
                                     <div class="selected-fields-list" id="selected-fields-list">
                                         <!-- Fields populated by BuilderManager -->
@@ -198,7 +220,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Stage 4: Conditions -->
                     <div class="pipeline-stage" id="stage-4">
                         <div class="stage-header" onclick="toggleStage(4)">
@@ -236,7 +258,7 @@
                             <!-- Preview populated by PreviewEngine -->
                         </div>
                     </div>
-                    
+
                     <!-- Padding for action bar -->
                     <div style="height: 100px;"></div>
                 </div>
@@ -245,8 +267,10 @@
                 <div class="action-bar">
                     <button class="btn btn-secondary">Reset</button>
                     <button class="btn btn-secondary" id="btn-save-report">Save</button>
-                    <button class="btn btn-secondary" id="btn-preview-data"><i data-lucide="play"></i> Preview Data</button>
-                    <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
+                    <button class="btn btn-secondary" id="btn-preview-data"><i data-lucide="play"></i> Preview
+                        Data</button>
+                    <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate
+                        Report</button>
                 </div>
             </div>
 
@@ -258,7 +282,8 @@
                             <h2>Report Catalogue</h2>
                             <p>Browse, execute, and manage the organization's standard Core Reports.</p>
                         </div>
-                        <button class="btn btn-primary" onclick="window.appBuilderManager.startNewReport('core')"><i data-lucide="plus"></i> New Core Report</button>
+                        <button class="btn btn-primary" onclick="window.appBuilderManager.startNewReport('core')"><i
+                                data-lucide="plus"></i> New Core Report</button>
                     </div>
 
                     <div class="filters-bar">
@@ -267,7 +292,8 @@
                             <input type="text" placeholder="Search reports...">
                         </div>
                         <div class="filter-chip active">All Reports</div>
-                        <div class="filter-chip">Favorites <i data-lucide="star" style="width:14px; margin-left:4px;"></i></div>
+                        <div class="filter-chip">Favorites <i data-lucide="star"
+                                style="width:14px; margin-left:4px;"></i></div>
                         <div class="filter-chip">Recently Used</div>
                         <div class="filter-chip">My Reports</div>
                         <div style="flex-grow: 1;"></div>
@@ -281,7 +307,8 @@
                                 <div class="report-title">Daily SWIFT Outbound</div>
                                 <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
                             </div>
-                            <div class="report-desc">Comprehensive list of all successful MT103 and MT202 messages sent out today.</div>
+                            <div class="report-desc">Comprehensive list of all successful MT103 and MT202 messages sent
+                                out today.</div>
                             <div style="margin-bottom: 16px;">
                                 <span class="tag">Payments</span>
                                 <span class="tag">Daily</span>
@@ -292,8 +319,12 @@
                                     Updated 2h ago
                                 </div>
                                 <div class="report-actions">
-                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Daily SWIFT Outbound')" title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Daily SWIFT Outbound')" title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn"
+                                        onclick="window.appBuilderManager.startNewReport('template', 'Daily SWIFT Outbound')"
+                                        title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary"
+                                        onclick="window.appReportManager.openRunModal('Daily SWIFT Outbound')"
+                                        title="Run Report"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +335,8 @@
                                 <div class="report-title">Repair Queue Aging</div>
                                 <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
                             </div>
-                            <div class="report-desc">Analysis of transactions stuck in repair queue broken down by SLA thresholds.</div>
+                            <div class="report-desc">Analysis of transactions stuck in repair queue broken down by SLA
+                                thresholds.</div>
                             <div style="margin-bottom: 16px;">
                                 <span class="tag">Exceptions</span>
                                 <span class="tag">Compliance</span>
@@ -315,8 +347,12 @@
                                     Updated 1d ago
                                 </div>
                                 <div class="report-actions">
-                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Repair Queue Aging')" title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Repair Queue Aging')" title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn"
+                                        onclick="window.appBuilderManager.startNewReport('template', 'Repair Queue Aging')"
+                                        title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary"
+                                        onclick="window.appReportManager.openRunModal('Repair Queue Aging')"
+                                        title="Run Report"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -327,7 +363,8 @@
                                 <div class="report-title">Nostro Balance Projections</div>
                                 <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
                             </div>
-                            <div class="report-desc">Intraday liquidity projections based on settled and queued payments.</div>
+                            <div class="report-desc">Intraday liquidity projections based on settled and queued
+                                payments.</div>
                             <div style="margin-bottom: 16px;">
                                 <span class="tag">Liquidity</span>
                                 <span class="tag">Hourly</span>
@@ -338,15 +375,19 @@
                                     Updated 5h ago
                                 </div>
                                 <div class="report-actions">
-                                    <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', 'Nostro Balance Projections')" title="Customize as Template"><i data-lucide="copy"></i></button>
-                                    <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('Nostro Balance Projections')" title="Run Report"><i data-lucide="play"></i></button>
+                                    <button class="icon-btn"
+                                        onclick="window.appBuilderManager.startNewReport('template', 'Nostro Balance Projections')"
+                                        title="Customize as Template"><i data-lucide="copy"></i></button>
+                                    <button class="icon-btn icon-btn-primary"
+                                        onclick="window.appReportManager.openRunModal('Nostro Balance Projections')"
+                                        title="Run Report"><i data-lucide="play"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div id="view-centre" class="view-container">
                 <div class="main-content">
                     <div class="view-header">
@@ -399,7 +440,8 @@
                     </div>
 
                     <div class="table-container">
-                        <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                        <div
+                            style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                             <h3 style="font-size: 1rem; font-weight: 600;">Recent Executions</h3>
                             <div class="search-box" style="width: 250px;">
                                 <i data-lucide="search"></i>
@@ -407,8 +449,11 @@
                             </div>
                         </div>
                         <div class="collapsible-section" style="margin-bottom: 16px;">
-                            <div class="collapsible-header" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
-                                <div><i data-lucide="folder" style="color: var(--primary); margin-right: 8px; width: 18px; vertical-align: middle;"></i> Core Reports Executions</div>
+                            <div class="collapsible-header"
+                                onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
+                                <div><i data-lucide="folder"
+                                        style="color: var(--primary); margin-right: 8px; width: 18px; vertical-align: middle;"></i>
+                                    Core Reports Executions</div>
                                 <i data-lucide="chevron-right" class="collapsible-icon open"></i>
                             </div>
                             <div class="collapsible-content active">
@@ -432,8 +477,11 @@
                         </div>
 
                         <div class="collapsible-section">
-                            <div class="collapsible-header" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
-                                <div><i data-lucide="file-text" style="color: var(--warning); margin-right: 8px; width: 18px; vertical-align: middle;"></i> Templates Executions</div>
+                            <div class="collapsible-header"
+                                onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
+                                <div><i data-lucide="file-text"
+                                        style="color: var(--warning); margin-right: 8px; width: 18px; vertical-align: middle;"></i>
+                                    Templates Executions</div>
                                 <i data-lucide="chevron-right" class="collapsible-icon open"></i>
                             </div>
                             <div class="collapsible-content active">
@@ -485,9 +533,9 @@
                         <span class="stat-label">Sorting</span>
                         <span class="stat-value" style="color: var(--text-muted);">None applied</span>
                     </div>
-                    
+
                     <hr style="border: none; border-top: 1px solid var(--border-color); margin: 24px 0;">
-                    
+
                     <div style="font-weight: 600; margin-bottom: 16px; font-size: 0.875rem;">Estimations</div>
                     <div class="summary-stat">
                         <span class="stat-label">Estimated Output</span>
@@ -497,11 +545,13 @@
                         <span class="stat-label">Estimated File Size</span>
                         <span class="stat-value">~145 MB (CSV)</span>
                     </div>
-                    
+
                     <div class="score-card">
-                        <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Performance Score</div>
+                        <div style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Performance Score
+                        </div>
                         <div class="score-value">85/100</div>
-                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 4px;">Good query optimization</div>
+                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 4px;">Good query optimization
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -514,11 +564,14 @@
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-title">Run Report Execution</div>
-                <i data-lucide="x" style="cursor: pointer; color: var(--text-muted);" onclick="window.appReportManager.closeRunModal()"></i>
+                <i data-lucide="x" style="cursor: pointer; color: var(--text-muted);"
+                    onclick="window.appReportManager.closeRunModal()"></i>
             </div>
             <div class="modal-body">
-                <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-workspace); border-radius: 8px; border: 1px solid var(--border-color);">
-                    <div style="background: #eff6ff; color: #2563eb; padding: 8px; border-radius: 6px;"><i data-lucide="file-bar-chart-2"></i></div>
+                <div
+                    style="margin-bottom: 24px; display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-workspace); border-radius: 8px; border: 1px solid var(--border-color);">
+                    <div style="background: #eff6ff; color: #2563eb; padding: 8px; border-radius: 6px;"><i
+                            data-lucide="file-bar-chart-2"></i></div>
                     <div>
                         <div style="font-weight: 600; font-size: 0.875rem;" id="run-modal-report-name">Report Name</div>
                         <div style="font-size: 0.75rem; color: var(--text-muted);">Standard Core Report</div>
@@ -534,7 +587,7 @@
                         <option value="monthly">Scheduled: Monthly</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="form-label">Reporting Period</label>
                     <select class="form-control" id="run-modal-period">
@@ -557,7 +610,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="window.appReportManager.closeRunModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="window.appReportManager.confirmRunModal()"><i data-lucide="play"></i> Execute Now</button>
+                <button class="btn btn-primary" onclick="window.appReportManager.confirmRunModal()"><i
+                        data-lucide="play"></i> Execute Now</button>
             </div>
         </div>
     </div>
@@ -572,4 +626,5 @@
         lucide.createIcons();
     </script>
 </body>
+
 </html>
