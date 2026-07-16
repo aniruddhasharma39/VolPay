@@ -1081,3 +1081,24 @@ body {
 .table-accordion-header:hover { background: #f8fafc !important; }
 .db-field-pill { padding: 4px 10px; border: 1px solid var(--border-color); border-radius: 16px; font-size: 0.75rem; font-weight: 500; background: var(--bg-workspace); transition: all 0.2s; }
 .db-field-pill:hover:not(.selected) { background: #f1f5f9; border-color: #cbd5e1; }
+
+
+/* Core Report Wizard Styles */
+.wizard-step {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+.wizard-step:hover {
+    background: #f8fafc;
+}
+.wizard-step.active {
+    background: #eff6ff;
+    color: var(--primary);
+    border-left: 3px solid var(--primary);
+    font-weight: 600;
+}

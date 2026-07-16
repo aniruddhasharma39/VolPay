@@ -129,9 +129,10 @@ class CoreReportSelector {
             const tables = this.databases[section.dbName] || [];
             
             // Generate DB Select options
-            const dbOptions = allDbNames.map(name => {
-                const isSelectedElsewhere = this.activeDatabaseSections.some(s => s.instanceId !== section.instanceId && s.dbName === name);
-                return `<option value="${name}" ${name === section.dbName ? 'selected' : ''} ${isSelectedElsewhere ? 'disabled' : ''}>${name}</option>`;
+            const dbOptions = allDbNames.filter(name => {
+                return name === section.dbName || !this.activeDatabaseSections.some(s => s.instanceId !== section.instanceId && s.dbName === name);
+            }).map(name => {
+                return `<option value="${name}" ${name === section.dbName ? 'selected' : ''}>${name}</option>`;
             }).join('');
 
             html += `
@@ -168,15 +169,15 @@ class CoreReportSelector {
                                             <i data-lucide="table" style="width: 16px; color: var(--text-muted);"></i>
                                             <span style="font-weight: 500; font-size: 0.875rem;">${table.name}</span>
                                         </div>
-                                        ${selectedCount > 0 ? `<span class="badge" style="background: #eff6ff; color: #2563eb;">${selectedCount} selected</span>` : ''}
+                                        ${selectedCount > 0 ? `<span class="badge" style="background: #eff6ff; color: #2563eb;">${selectedCount}</span>` : ''}
                                     </div>
                                     <div class="table-accordion-content" style="display: none; padding: 8px 16px 16px 40px; border-top: 1px solid var(--border-color); background: var(--bg-workspace);">
-                                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                        <div style="display: flex; flex-direction: column; gap: 4px;">
                                             ${table.fields.map(field => {
                                                 const fieldId = section.dbName + '.' + table.name + '.' + field;
                                                 const isSelected = selectedFields.some(sf => sf.id === fieldId);
                                                 return `
-                                                    <div class="db-field-pill ${isSelected ? 'selected' : ''}" style="cursor: pointer; user-select: none; ${isSelected ? 'background: #eff6ff; color: #2563eb; border-color: #bfdbfe;' : ''}" onclick="window.appCoreReportSelector.toggleField('${section.dbName}', '${table.name}', '${field}')">
+                                                    <div class="db-field-pill ${isSelected ? 'selected' : ''}" style="cursor: pointer; user-select: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; ${isSelected ? 'background: #eff6ff; color: #2563eb; border-color: #bfdbfe;' : ''}" onclick="window.appCoreReportSelector.toggleField('${section.dbName}', '${table.name}', '${field}')" title="${field}">
                                                         ${field}
                                                     </div>
                                                 `;
@@ -304,7 +305,7 @@ class CoreReportSelector {
                                 badge.style.cssText = 'background: #eff6ff; color: #2563eb;';
                                 header.appendChild(badge);
                             }
-                            badge.textContent = `${selectedCount} selected`;
+                            badge.textContent = `${selectedCount}`;
                         } else if (badge) {
                             badge.remove();
                         }

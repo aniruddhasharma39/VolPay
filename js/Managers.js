@@ -619,16 +619,26 @@ class BuilderManager {
         
         
         const s1ds = document.getElementById('stage-1-datasets');
-        const s1cdb = document.getElementById('stage-1-core-db');
-        const stage2 = document.getElementById('stage-2'); // Hide the entire stage-2 pipeline stage
+        const core2Pane = document.getElementById('core-2pane-container');
+        const stage2 = document.getElementById('stage-2');
+        const coreOpsContainer = document.getElementById('core-operations-container');
         
         if(state.currentBuilder.mode === 'core') {
             if(s1ds) s1ds.style.display = 'none';
-            if(s1cdb) s1cdb.style.display = 'block';
+            if(core2Pane) core2Pane.style.display = 'flex';
             if(stage2) stage2.style.display = 'none';
-
-            if(s1ds) s1ds.style.display = 'none';
-            if(s1cdb) s1cdb.style.display = 'block';
+            
+            // Move other stages into core operations container
+            if (coreOpsContainer) {
+                const s3 = document.getElementById('stage-3');
+                const s4 = document.getElementById('stage-4');
+                const s5 = document.getElementById('stage-5');
+                const s6 = document.getElementById('stage-6');
+                if (s3) coreOpsContainer.appendChild(s3);
+                if (s4) coreOpsContainer.appendChild(s4);
+                if (s5) coreOpsContainer.appendChild(s5);
+                if (s6) coreOpsContainer.appendChild(s6);
+            }
             
             // Delegate core rendering to the new CoreReportSelector
             if (window.appCoreReportSelector) {
@@ -641,8 +651,22 @@ class BuilderManager {
         
         } else {
             if(s1ds) s1ds.style.display = 'block';
-            if(s1cdb) s1cdb.style.display = 'none';
+            if(core2Pane) core2Pane.style.display = 'none';
             if(stage2) stage2.style.display = 'block';
+            
+            // Move stages back to main content if needed
+            const mainContent = document.querySelector('#view-builder .main-content');
+            if (mainContent) {
+                const s3 = document.getElementById('stage-3');
+                const s4 = document.getElementById('stage-4');
+                const s5 = document.getElementById('stage-5');
+                const s6 = document.getElementById('stage-6');
+                // Insert them after stage-2
+                if (s3 && stage2 && stage2.nextSibling !== s3) stage2.parentNode.insertBefore(s3, stage2.nextSibling);
+                if (s4 && s3) s3.parentNode.insertBefore(s4, s3.nextSibling);
+                if (s5 && s4) s4.parentNode.insertBefore(s5, s4.nextSibling);
+                if (s6 && s5) s5.parentNode.insertBefore(s6, s5.nextSibling);
+            }
         }
         lucide.createIcons();
 
@@ -1138,12 +1162,40 @@ class ReportManager {
 // Add this helper method to BuilderManager outside the replace chunks since it needs to be an instance method
 BuilderManager.prototype.setDataset = function(datasetName) {
     window.appHistory.pushState();
-    window.appState.update(state => ({
-        ...state,
-        currentBuilder: { ...state.currentBuilder, dataset: datasetName }
+    
+    // Find the core report
+    const state = window.appState.get();
+    const coreReport = (state.catalogue || []).find(r => r.name === datasetName && r.type === 'core');
+    
+    let loadedFields = [];
+    if (coreReport && coreReport.fields) {
+        // If the core report has fields saved in it, load them directly
+        loadedFields = [...coreReport.fields];
+        // Populate available fields so filters can use them
+        this.availableFields = [...coreReport.fields];
+    } else {
+        // Fallback for mock datasets
+        loadedFields = [];
+    }
+
+    window.appState.update(s => ({
+        ...s,
+        currentBuilder: { 
+            ...s.currentBuilder, 
+            dataset: datasetName,
+            fields: loadedFields
+        }
     }));
     window.appToast.show(`Base report changed to ${datasetName}`);
     if (typeof toggleStage === 'function') toggleStage(2);
+};
+
+
+BuilderManager.prototype.setCoreWizardStep = function(step) {
+    window.appState.update(state => ({
+        ...state,
+        currentBuilder: { ...state.currentBuilder, coreWizardStep: step }
+    }));
 };
 
 window.appBuilderManager = new BuilderManager();
