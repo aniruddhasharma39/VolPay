@@ -95,6 +95,30 @@
                             <i data-lucide="chevron-down" id="icon-stage-1"></i>
                         </div>
                         <div class="stage-content">
+                            <div id="stage-1-core-db" style="display: none;">
+                                <div style="margin-bottom: 24px;">
+                                    <h3 style="margin: 0 0 8px 0; font-size: 1.125rem; font-weight: 600;">Data Sources</h3>
+                                    <p style="margin: 0; color: var(--text-muted); font-size: 0.875rem;">Select databases and tables from the Payment Hub to add fields to your report.</p>
+                                </div>
+                                
+                                <div id="core-databases-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+                                    <!-- Dynamic DB Sections will be injected here -->
+                                </div>
+                                
+                                <button class="btn btn-secondary" id="btn-add-database" style="margin-bottom: 32px; width: 100%; border-style: dashed;" onclick="window.appCoreReportSelector.addDatabase()">
+                                    <i data-lucide="plus"></i> Add Database
+                                </button>
+                                
+                                <div style="border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-panel);">
+                                    <div style="padding: 12px 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-workspace); display: flex; justify-content: space-between; align-items: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                                        <div style="font-weight: 600;">Selected Fields (<span id="core-db-selected-count">0</span>)</div>
+                                        <button class="btn btn-secondary" style="padding: 4px 12px; font-size: 0.75rem;" onclick="window.appCoreReportSelector.clearAllFields()">Clear All</button>
+                                    </div>
+                                    <div id="core-arrange-list" style="padding: 16px; display: flex; flex-direction: column; gap: 8px; min-height: 100px;">
+                                        <div style="color: var(--text-muted); font-size: 0.875rem; font-style: italic; width: 100%; text-align: center; margin-top: 16px;" id="core-db-empty-msg">No fields selected yet.</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="stage-1-datasets" style="display: block;">
                                 <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select
                                     a foundational dataset to build your core report upon.</div>
