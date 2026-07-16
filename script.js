@@ -4,7 +4,9 @@ function switchView(viewName) {
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
     });
-    event.currentTarget.classList.add('active');
+    if (typeof event !== 'undefined' && event && event.currentTarget && event.currentTarget.classList) {
+        event.currentTarget.classList.add('active');
+    }
 
     // Update Views
     document.querySelectorAll('.view-container').forEach(view => {

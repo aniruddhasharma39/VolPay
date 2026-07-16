@@ -240,10 +240,26 @@ class BuilderManager {
                     window.appState.update(s => ({ ...s, currentBuilder: { dataset: null, fields: [], pinnedFields: s.currentBuilder.pinnedFields, filters: {}, conditions: [], sorts: [], groups: [] } }));
                     window.appToast.show('Builder Reset', 'info');
                 });
-            } else if (btn.innerText.includes('Save Draft')) {
-                btn.addEventListener('click', () => window.appToast.show('Draft Saved successfully', 'success'));
             }
         });
+
+        // Save Report Button Explicit Binding
+        const saveBtn = document.getElementById('btn-save-report');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                const state = window.appState.get();
+                if(state.currentBuilder.fields.length === 0) {
+                    window.appToast.show('Select fields before saving', 'error');
+                    return;
+                }
+                const reportNameInput = document.getElementById('report-name-input');
+                const repName = reportNameInput && reportNameInput.value.trim() !== '' ? reportNameInput.value.trim() : 'Saved Report';
+                const type = state.currentBuilder.mode === 'core' ? 'core' : 'template';
+                
+                window.appReportManager.queueReport(repName, type);
+                window.appToast.show('Report Saved successfully', 'success');
+            });
+        }
         
         // Generate Report Button
         const generateBtn = document.getElementById('btn-generate-report');
@@ -612,41 +628,69 @@ class BuilderManager {
             // Auto detect input type
             if (f.type === 'number') {
                 const maxVal = dummyData.length ? Math.ceil(Math.max(...dummyData.map(d => parseFloat(d[f.id]) || 0))) : 100000;
+                const minVal = dummyData.length ? Math.floor(Math.min(...dummyData.map(d => parseFloat(d[f.id]) || 0))) : 0;
                 inputHtml = `
-                    <div style="display:flex; align-items:center; gap: 8px;">
-                        <input type="number" class="range-num-min" value="0" style="width: 70px; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" oninput="
-                            const range = this.parentNode.querySelector('.filter-input-min');
+                    <div style="display:flex; align-items:center; gap: 8px; width: 100%;">
+                        <input type="number" class="range-num-min" value="${minVal}" min="${minVal}" max="${maxVal}" style="width: 80px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;" oninput="
+                            const row = this.closest('.filter-row');
+                            const range = row.querySelector('.filter-input-min');
+                            const maxNum = row.querySelector('.range-num-max');
+                            if(parseFloat(this.value) > parseFloat(maxNum.value)) this.value = maxNum.value;
                             range.value = this.value;
-                            this.parentNode.querySelector('#fill-${f.id}').style.left = (this.value / range.max * 100) + '%';
+                            const percent = ((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0;
+                            row.querySelector('#fill-${f.id}').style.left = percent + '%';
                         ">
-                        <div class="range-slider-container">
+                        <div class="range-slider-container" style="flex-grow: 1; max-width: 300px;">
                             <div class="range-slider-track"></div>
                             <div class="range-slider-fill" id="fill-${f.id}"></div>
-                            <input type="range" class="range-slider-input filter-input-min" min="0" max="${maxVal}" value="0" oninput="
-                                const max = this.parentNode.querySelector('.filter-input-max');
-                                const numMin = this.parentNode.querySelector('.range-num-min');
+                            <input type="range" class="range-slider-input filter-input-min" min="${minVal}" max="${maxVal}" value="${minVal}" oninput="
+                                const row = this.closest('.filter-row');
+                                const max = row.querySelector('.filter-input-max');
+                                const numMin = row.querySelector('.range-num-min');
                                 if(parseFloat(this.value) > parseFloat(max.value)) this.value = max.value;
                                 numMin.value = this.value;
-                                this.parentNode.querySelector('#fill-${f.id}').style.left = (this.value / this.max * 100) + '%';
+                                const percent = ((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0;
+                                row.querySelector('#fill-${f.id}').style.left = percent + '%';
                             ">
-                            <input type="range" class="range-slider-input filter-input-max" min="0" max="${maxVal}" value="${maxVal}" oninput="
-                                const min = this.parentNode.querySelector('.filter-input-min');
-                                const numMax = this.parentNode.querySelector('.range-num-max');
+                            <input type="range" class="range-slider-input filter-input-max" min="${minVal}" max="${maxVal}" value="${maxVal}" oninput="
+                                const row = this.closest('.filter-row');
+                                const min = row.querySelector('.filter-input-min');
+                                const numMax = row.querySelector('.range-num-max');
                                 if(parseFloat(this.value) < parseFloat(min.value)) this.value = min.value;
                                 numMax.value = this.value;
-                                this.parentNode.querySelector('#fill-${f.id}').style.right = (100 - (this.value / this.max * 100)) + '%';
+                                const percent = 100 - (((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0);
+                                row.querySelector('#fill-${f.id}').style.right = percent + '%';
                             ">
-                            <input type="hidden" class="filter-input">
                         </div>
-                        <input type="number" class="range-num-max" value="${maxVal}" style="width: 70px; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;" oninput="
-                            const range = this.parentNode.querySelector('.filter-input-max');
+                        <input type="number" class="range-num-max" value="${maxVal}" min="${minVal}" max="${maxVal}" style="width: 80px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;" oninput="
+                            const row = this.closest('.filter-row');
+                            const range = row.querySelector('.filter-input-max');
+                            const minNum = row.querySelector('.range-num-min');
+                            if(parseFloat(this.value) < parseFloat(minNum.value)) this.value = minNum.value;
                             range.value = this.value;
-                            this.parentNode.querySelector('#fill-${f.id}').style.right = (100 - (this.value / range.max * 100)) + '%';
+                            const percent = 100 - (((this.value - ${minVal}) / (${maxVal} - ${minVal})) * 100 || 0);
+                            row.querySelector('#fill-${f.id}').style.right = percent + '%';
                         ">
                     </div>
                 `;
             } else if (f.type === 'date') {
-                inputHtml = `<input type="date" class="filter-input" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">`;
+                let minDate = '', maxDate = '';
+                if(dummyData.length) {
+                    const dates = dummyData.map(d => new Date(d[f.id])).filter(d => !isNaN(d.getTime()));
+                    if(dates.length) {
+                        minDate = new Date(Math.min(...dates)).toISOString().split('T')[0];
+                        maxDate = new Date(Math.max(...dates)).toISOString().split('T')[0];
+                    }
+                }
+                if(!minDate) { minDate = '2020-01-01'; maxDate = new Date().toISOString().split('T')[0]; }
+                
+                inputHtml = `
+                    <div style="display:flex; align-items:center; gap: 8px;">
+                        <input type="date" class="filter-date-min" min="${minDate}" max="${maxDate}" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">to</span>
+                        <input type="date" class="filter-date-max" min="${minDate}" max="${maxDate}" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                `;
             } else {
                 const uniqueValues = window.appFakeData.getUniqueValues(dummyData, f.id);
                 if (uniqueValues.length > 0 && uniqueValues.length <= 15) {
@@ -684,24 +728,30 @@ class BuilderManager {
                         </div>
                         <button class="btn btn-secondary remove-all-filters-btn" style="font-size: 0.75rem; padding: 4px 8px;">Clear</button>
                     </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--bg-workspace); padding: 12px; border-radius: 8px; min-height: 50px;">
-                        ${pillsHtml}
-                        <div style="display: flex; gap: 8px; margin-left: 8px; align-items: center;">
+                    <div style="background: var(--bg-workspace); padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; min-height: 50px;">
+                        ${activeValues.length > 0 ? `<div style="display: flex; flex-wrap: wrap; gap: 8px;">${pillsHtml}</div>` : ''}
+                        <div style="display: flex; gap: 8px; align-items: center;">
                             ${inputHtml}
-                            <button class="btn btn-primary add-filter-val-btn" style="padding: 6px 12px;" onclick="
+                            <button class="btn btn-primary add-filter-val-btn" style="padding: 6px 12px; height: 34px;" onclick="
                                 const row = this.closest('.filter-row');
                                 const minInp = row.querySelector('.range-num-min');
                                 const maxInp = row.querySelector('.range-num-max');
-                                const inp = row.querySelector('.filter-input');
+                                const minDate = row.querySelector('.filter-date-min');
+                                const maxDate = row.querySelector('.filter-date-max');
+                                const inp = row.querySelector('.filter-input, .datalist-input');
                                 let val = '';
                                 if(minInp && maxInp) {
                                     val = minInp.value + ' - ' + maxInp.value;
+                                } else if(minDate && maxDate) {
+                                    if(minDate.value && maxDate.value) val = minDate.value + ' to ' + maxDate.value;
                                 } else if (inp) {
                                     val = inp.value;
                                 }
                                 if(val) {
                                     window.appBuilderManager.addFilterValue('${f.id}', val);
                                     if(inp) inp.value = '';
+                                    if(minDate) minDate.value = '';
+                                    if(maxDate) maxDate.value = '';
                                 }
                             ">Add</button>
                         </div>
@@ -942,6 +992,16 @@ class ReportManager {
         coreTbody.innerHTML = generateRows(coreReports);
         templateTbody.innerHTML = generateRows(templateReports);
         
+        // Update Stats
+        const statRunning = document.getElementById('stat-running');
+        if(statRunning) statRunning.innerText = state.generatedReports.filter(r => r.status === 'running').length;
+        const statQueued = document.getElementById('stat-queued');
+        if(statQueued) statQueued.innerText = state.generatedReports.filter(r => r.status === 'queued').length;
+        const statCompleted = document.getElementById('stat-completed');
+        if(statCompleted) statCompleted.innerText = state.generatedReports.filter(r => r.status === 'success').length;
+        const statFailed = document.getElementById('stat-failed');
+        if(statFailed) statFailed.innerText = state.generatedReports.filter(r => r.status === 'failed').length;
+
         lucide.createIcons();
     }
 }

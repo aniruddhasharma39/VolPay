@@ -42,10 +42,6 @@
         <header class="header">
             <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div class="page-title" id="page-title">Create New Report</div>
-                <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
-                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);" id="builder-mode-badge">Core Report</span>
-                    <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..." style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
-                </div>
             </div>
             <div class="header-actions">
                 <button class="btn btn-secondary"><i data-lucide="download"></i> Import Definition</button>
@@ -59,7 +55,12 @@
             <!-- Builder View -->
             <div id="view-builder" class="view-container active" style="flex-grow:1;">
                 
-                <div class="banner banner-warning" style="margin-top: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 0 32px;" id="header-report-inputs">
+                    <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-muted);" id="builder-mode-badge">Core Report</span>
+                    <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..." style="width: 300px; padding: 6px 12px; font-size: 1rem; font-weight: 500;">
+                </div>
+
+                <div class="banner banner-warning" style="margin-top: 16px;">
                     <i data-lucide="alert-triangle"></i>
                     Query may touch archived records. Ensure Date Range filters are applied to optimize performance.
                 </div>
@@ -119,6 +120,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <!-- Stage 2: Choose Fields -->
@@ -231,7 +233,7 @@
                 <!-- Action Bar -->
                 <div class="action-bar">
                     <button class="btn btn-secondary">Reset</button>
-                    <button class="btn btn-secondary">Save Draft</button>
+                    <button class="btn btn-secondary" id="btn-save-report">Save</button>
                     <button class="btn btn-secondary" id="btn-preview-data"><i data-lucide="play"></i> Preview Data</button>
                     <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
                 </div>
@@ -352,7 +354,7 @@
                                 <i data-lucide="loader"></i>
                             </div>
                             <div class="stat-info">
-                                <h3>3</h3>
+                                <h3 id="stat-running">0</h3>
                                 <p>Running Now</p>
                             </div>
                         </div>
@@ -361,7 +363,7 @@
                                 <i data-lucide="clock"></i>
                             </div>
                             <div class="stat-info">
-                                <h3>12</h3>
+                                <h3 id="stat-queued">0</h3>
                                 <p>Queued</p>
                             </div>
                         </div>
@@ -370,7 +372,7 @@
                                 <i data-lucide="check-circle-2"></i>
                             </div>
                             <div class="stat-info">
-                                <h3>145</h3>
+                                <h3 id="stat-completed">0</h3>
                                 <p>Completed Today</p>
                             </div>
                         </div>
@@ -379,7 +381,7 @@
                                 <i data-lucide="x-circle"></i>
                             </div>
                             <div class="stat-info">
-                                <h3>2</h3>
+                                <h3 id="stat-failed">0</h3>
                                 <p>Failed Jobs</p>
                             </div>
                         </div>
