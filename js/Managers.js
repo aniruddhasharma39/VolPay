@@ -959,22 +959,27 @@ renderFieldsList() {
         const totalFilters = Object.values(state.currentBuilder.filters || {}).reduce((acc, arr) => acc + arr.length, 0);
         if(summaryFiltersCount) summaryFiltersCount.innerText = `${totalFilters} Active`;
         
-        // Update Catalogue UI
+        // Update Catalogue UI - TEMPLATE section (dynamically saved template reports)
         const templateGrid = document.getElementById('catalogue-reports-grid');
         if (templateGrid) {
             const catalogue = state.catalogue || [];
-            
-            // Only render template-type reports in the template section
             const templateReports = catalogue.filter(r => r.type === 'template');
             
             if (templateReports.length === 0) {
                 templateGrid.innerHTML = '<div style="color:#94a3b8; padding:20px 0; font-size:0.875rem;">No template reports yet. Save a Core Report as a template to see it here.</div>';
             } else {
                 templateGrid.innerHTML = templateReports.map(r => `
-                    <div class="report-card" id="catalogue-card-${r.id}">
+                    <div class="report-card" id="catalogue-card-${r.id}" style="position:relative;">
                         <div class="report-card-header">
                             <div class="report-title">${r.name}</div>
-                            <button class="icon-btn" onclick="if(confirm('Delete this report?')) { document.getElementById('catalogue-card-${r.id}').remove(); }" title="Delete" style="color:#ef4444;"><i data-lucide="trash-2"></i></button>
+                            <div style="position:relative;">
+                                <button class="icon-btn" onclick="const m=this.nextElementSibling; m.style.display=m.style.display==='block'?'none':'block'; document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;">
+                                    <i data-lucide="more-vertical"></i>
+                                </button>
+                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:130px; overflow:hidden;">
+                                    <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
                         <div style="margin-bottom: 16px;">
@@ -989,6 +994,47 @@ renderFieldsList() {
                             <div class="report-actions">
                                 <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Customize as Template"><i data-lucide="copy"></i></button>
                                 <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run Report"><i data-lucide="play"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Update Catalogue UI - CORE section (dynamically saved core reports)
+        const coreGrid = document.getElementById('catalogue-core-dynamic');
+        if (coreGrid) {
+            const catalogue = state.catalogue || [];
+            const coreReports = catalogue.filter(r => r.type === 'core');
+            if (coreReports.length === 0) {
+                coreGrid.innerHTML = '';
+            } else {
+                coreGrid.innerHTML = coreReports.map(r => `
+                    <div class="report-card" id="catalogue-core-card-${r.id}" style="position:relative;">
+                        <div class="report-card-header">
+                            <div class="report-title">${r.name}</div>
+                            <div style="position:relative;">
+                                <button class="icon-btn" onclick="const m=this.nextElementSibling; m.style.display=m.style.display==='block'?'none':'block'; document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;">
+                                    <i data-lucide="more-vertical"></i>
+                                </button>
+                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:130px; overflow:hidden;">
+                                    <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-core-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
+                        <div style="margin-bottom: 16px;">
+                            <span class="tag" style="background:#dbeafe; color:#2563eb; border:1px solid #bfdbfe;">Core</span>
+                            <span class="tag" style="background:#e2e8f0; color:#475569;"><i data-lucide="users" style="width:10px; margin-right:4px;"></i>${r.access || 'private'}</span>
+                        </div>
+                        <div class="report-footer">
+                            <div class="report-author">
+                                <div class="avatar-sm">${r.author || 'JS'}</div>
+                                Updated ${r.updatedAt || 'Just now'}
+                            </div>
+                            <div class="report-actions">
+                                <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Use as Template"><i data-lucide="copy"></i></button>
+                                <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run"><i data-lucide="play"></i></button>
                             </div>
                         </div>
                     </div>
@@ -1110,18 +1156,14 @@ renderFieldsList() {
             ).join('');
 
             return `
-                <div class="filter-row" data-id="${f.id}" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i data-lucide="${f.type === 'number' ? 'hash' : f.type === 'date' ? 'calendar' : 'type'}" style="color: var(--text-muted); width: 16px;"></i>
-                            <span style="font-weight: 600;">${f.label}</span>
-                            <span class="badge badge-type">${f.type}</span>
+                <div class="filter-row" data-id="${f.id}" style="background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm);">
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: nowrap;">
+                        <div style="display: flex; align-items: center; gap: 6px; flex-shrink:0; min-width:160px;">
+                            <i data-lucide="${f.type === 'number' ? 'hash' : f.type === 'date' ? 'calendar' : 'type'}" style="color: var(--text-muted); width: 14px;"></i>
+                            <span style="font-weight: 600; font-size:0.875rem;">${f.label}</span>
+                            <span class="badge badge-type" style="font-size:0.7rem;">${f.type}</span>
                         </div>
-                        <button class="btn btn-secondary remove-all-filters-btn" style="font-size: 0.75rem; padding: 4px 8px;">Clear</button>
-                    </div>
-                    <div style="background: var(--bg-workspace); padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; min-height: 50px;">
-                        ${activeValues.length > 0 ? `<div style="display: flex; flex-wrap: wrap; gap: 8px;">${pillsHtml}</div>` : ''}
-                        <div style="display: flex; gap: 8px; align-items: center;">
+                        <div style="display: flex; gap: 8px; align-items: center; flex-grow:1;">
                             ${inputHtml}
                             <button class="btn btn-primary add-filter-val-btn" style="padding: 6px 12px; height: 34px;" onclick="
                                 const row = this.closest('.filter-row');

@@ -237,8 +237,11 @@ class CoreReportSelector {
                 label: fieldName,
                 type: (function() {
                     const ln = fieldName.toLowerCase();
-                    if (ln.includes('date') || ln.includes('dob') || ln.includes('timestamp')) return 'date';
-                    if (ln.includes('amount') || ln.includes('tax') || ln.includes('fee') || ln.includes('bal') || ln.includes('score')) return 'number';
+                    // Date fields
+                    if (/date|dob|timestamp|open_date|onboarding|value_date|business_date|as_of_date|cutoff_time/.test(ln)) return 'date';
+                    // Number fields
+                    if (/amount|amt|balance|bal|fee|tax|charge|rate|score|risk|priority|age|settlement_amt|ledger_bal|avail_bal|match_score/.test(ln)) return 'number';
+                    // String/categorical (everything else)
                     return 'string';
                 })(),
                 format: 'Text'
