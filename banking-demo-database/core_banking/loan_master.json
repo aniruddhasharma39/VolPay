@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "table": "loan_master",
+    "customer_id": "CUST1000",
+    "account_id": "ACC2000",
+    "branch_code": "BR003",
+    "created_at": "2026-07-01T10:00:00Z",
+    "status": "INACTIVE",
+    "reference": "304e067e-c48f-4df5-9dcf-703cc308ca70"
+  },
+  {
+    "id": 2,
+    "table": "loan_master",
+    "customer_id": "CUST1001",
+    "account_id": "ACC2001",
+    "branch_code": "BR016",
+    "created_at": "2026-07-02T10:01:00Z",
+    "status": "ACTIVE",
+    "reference": "e04835bc-bf48-4ae0-8aed-0ab574180d29"
+  },
+  {
+    "id": 3,
+    "table": "loan_master",
+    "customer_id": "CUST1002",
+    "account_id": "ACC2002",
+    "branch_code": "BR007",
+    "created_at": "2026-07-03T10:02:00Z",
+    "status": "INACTIVE",
+    "reference": "76b5b58b-7ed5-41fb-9312-99842eefbbd3"
+  },
+  {
+    "id": 4,
+    "table": "loan_master",
+    "customer_id": "CUST1003",
+    "account_id": "ACC2003",
+    "branch_code": "BR014",
+    "created_at": "2026-07-04T10:03:00Z",
+    "status": "PENDING",
+    "reference": "1fe94737-370b-4d25-9a97-f6012e8a62c4"
+  },
+  {
+    "id": 5,
+    "table": "loan_master",
+    "customer_id": "CUST1004",
+    "account_id": "ACC2004",
+    "branch_code": "BR001",
+    "created_at": "2026-07-05T10:04:00Z",
+    "status": "PENDING",
+    "reference": "daa7fc81-5013-490c-b6fc-036148c5089a"
+  },
+  {
+    "id": 6,
+    "table": "loan_master",
+    "customer_id": "CUST1005",
+    "account_id": "ACC2005",
+    "branch_code": "BR011",
+    "created_at": "2026-07-06T10:05:00Z",
+    "status": "INACTIVE",
+    "reference": "afa5f40f-d3fd-4cd2-bd15-9f6f19ead7b3"
+  },
+  {
+    "id": 7,
+    "table": "loan_master",
+    "customer_id": "CUST1006",
+    "account_id": "ACC2006",
+    "branch_code": "BR013",
+    "created_at": "2026-07-07T10:06:00Z",
+    "status": "INACTIVE",
+    "reference": "5082bb49-3801-4d94-b1c9-b7b7d6239672"
+  },
+  {
+    "id": 8,
+    "table": "loan_master",
+    "customer_id": "CUST1007",
+    "account_id": "ACC2007",
+    "branch_code": "BR008",
+    "created_at": "2026-07-08T10:07:00Z",
+    "status": "INACTIVE",
+    "reference": "48c03e24-d357-4580-8d33-42b03c3492fb"
+  },
+  {
+    "id": 9,
+    "table": "loan_master",
+    "customer_id": "CUST1008",
+    "account_id": "ACC2008",
+    "branch_code": "BR008",
+    "created_at": "2026-07-09T10:08:00Z",
+    "status": "PENDING",
+    "reference": "cfab669f-bfdd-4f7b-b0a8-352c3028d5de"
+  },
+  {
+    "id": 10,
+    "table": "loan_master",
+    "customer_id": "CUST1009",
+    "account_id": "ACC2009",
+    "branch_code": "BR015",
+    "created_at": "2026-07-10T10:09:00Z",
+    "status": "ACTIVE",
+    "reference": "a27558eb-7606-4c04-90d0-46b0ebb3d04c"
+  },
+  {
+    "id": 11,
+    "table": "loan_master",
+    "customer_id": "CUST1010",
+    "account_id": "ACC2010",
+    "branch_code": "BR005",
+    "created_at": "2026-07-11T10:10:00Z",
+    "status": "PENDING",
+    "reference": "a1201257-49e3-4fca-91d0-c51933e2e651"
+  },
+  {
+    "id": 12,
+    "table": "loan_master",
+    "customer_id": "CUST1011",
+    "account_id": "ACC2011",
+    "branch_code": "BR005",
+    "created_at": "2026-07-12T10:11:00Z",
+    "status": "ACTIVE",
+    "reference": "a35632b9-8483-41a6-96d7-6668ccd39eff"
+  },
+  {
+    "id": 13,
+    "table": "loan_master",
+    "customer_id": "CUST1012",
+    "account_id": "ACC2012",
+    "branch_code": "BR014",
+    "created_at": "2026-07-13T10:12:00Z",
+    "status": "PENDING",
+    "reference": "0d0a08ee-1aa2-4cb7-ae50-68e74f4065cc"
+  },
+  {
+    "id": 14,
+    "table": "loan_master",
+    "customer_id": "CUST1013",
+    "account_id": "ACC2013",
+    "branch_code": "BR009",
+    "created_at": "2026-07-14T10:13:00Z",
+    "status": "ACTIVE",
+    "reference": "ff497f72-b470-4fdc-bdf3-fa85f7d6e833"
+  },
+  {
+    "id": 15,
+    "table": "loan_master",
+    "customer_id": "CUST1014",
+    "account_id": "ACC2014",
+    "branch_code": "BR003",
+    "created_at": "2026-07-15T10:14:00Z",
+    "status": "ACTIVE",
+    "reference": "8c893aac-3e92-4b5d-9588-cbd4efb3870d"
+  },
+  {
+    "id": 16,
+    "table": "loan_master",
+    "customer_id": "CUST1015",
+    "account_id": "ACC2015",
+    "branch_code": "BR010",
+    "created_at": "2026-07-16T10:15:00Z",
+    "status": "PENDING",
+    "reference": "7fbd3979-0dab-40f1-9051-eaf450ecba4e"
+  },
+  {
+    "id": 17,
+    "table": "loan_master",
+    "customer_id": "CUST1016",
+    "account_id": "ACC2016",
+    "branch_code": "BR013",
+    "created_at": "2026-07-17T10:16:00Z",
+    "status": "PENDING",
+    "reference": "11b1064c-3521-4637-a612-49c20ff41667"
+  },
+  {
+    "id": 18,
+    "table": "loan_master",
+    "customer_id": "CUST1017",
+    "account_id": "ACC2017",
+    "branch_code": "BR009",
+    "created_at": "2026-07-18T10:17:00Z",
+    "status": "INACTIVE",
+    "reference": "fe5ad1e4-079b-4852-b478-db073576299b"
+  },
+  {
+    "id": 19,
+    "table": "loan_master",
+    "customer_id": "CUST1018",
+    "account_id": "ACC2018",
+    "branch_code": "BR012",
+    "created_at": "2026-07-19T10:18:00Z",
+    "status": "INACTIVE",
+    "reference": "96907d8f-5cf8-437b-9d5a-fc2d490f3e0a"
+  },
+  {
+    "id": 20,
+    "table": "loan_master",
+    "customer_id": "CUST1019",
+    "account_id": "ACC2019",
+    "branch_code": "BR005",
+    "created_at": "2026-07-20T10:19:00Z",
+    "status": "INACTIVE",
+    "reference": "06b663be-5865-4b8f-afa4-95c50080d2fd"
+  },
+  {
+    "id": 21,
+    "table": "loan_master",
+    "customer_id": "CUST1020",
+    "account_id": "ACC2020",
+    "branch_code": "BR006",
+    "created_at": "2026-07-21T10:20:00Z",
+    "status": "INACTIVE",
+    "reference": "b426f122-c41c-464f-af81-281696a82e1f"
+  },
+  {
+    "id": 22,
+    "table": "loan_master",
+    "customer_id": "CUST1021",
+    "account_id": "ACC2021",
+    "branch_code": "BR002",
+    "created_at": "2026-07-22T10:21:00Z",
+    "status": "ACTIVE",
+    "reference": "d80b7fbf-36c8-4c2f-8821-def68b2fa2ac"
+  },
+  {
+    "id": 23,
+    "table": "loan_master",
+    "customer_id": "CUST1022",
+    "account_id": "ACC2022",
+    "branch_code": "BR007",
+    "created_at": "2026-07-23T10:22:00Z",
+    "status": "INACTIVE",
+    "reference": "cb6383b1-3b51-433f-9eac-e2b3910bd18b"
+  },
+  {
+    "id": 24,
+    "table": "loan_master",
+    "customer_id": "CUST1023",
+    "account_id": "ACC2023",
+    "branch_code": "BR007",
+    "created_at": "2026-07-24T10:23:00Z",
+    "status": "INACTIVE",
+    "reference": "648a4ccd-4c93-477f-8fb5-16059f139354"
+  },
+  {
+    "id": 25,
+    "table": "loan_master",
+    "customer_id": "CUST1024",
+    "account_id": "ACC2024",
+    "branch_code": "BR002",
+    "created_at": "2026-07-25T10:24:00Z",
+    "status": "ACTIVE",
+    "reference": "f12b8211-ad23-4880-a19f-03c1eb737da4"
+  },
+  {
+    "id": 26,
+    "table": "loan_master",
+    "customer_id": "CUST1025",
+    "account_id": "ACC2025",
+    "branch_code": "BR006",
+    "created_at": "2026-07-26T10:25:00Z",
+    "status": "INACTIVE",
+    "reference": "919668e5-5259-4f55-bc3e-142a39a3fde4"
+  },
+  {
+    "id": 27,
+    "table": "loan_master",
+    "customer_id": "CUST1026",
+    "account_id": "ACC2026",
+    "branch_code": "BR007",
+    "created_at": "2026-07-27T10:26:00Z",
+    "status": "PENDING",
+    "reference": "8dc4398c-52f7-4094-bfac-33856e47827a"
+  },
+  {
+    "id": 28,
+    "table": "loan_master",
+    "customer_id": "CUST1027",
+    "account_id": "ACC2027",
+    "branch_code": "BR012",
+    "created_at": "2026-07-28T10:27:00Z",
+    "status": "PENDING",
+    "reference": "8693e0d2-2cf8-42b4-9a44-d696f1f535f2"
+  },
+  {
+    "id": 29,
+    "table": "loan_master",
+    "customer_id": "CUST1028",
+    "account_id": "ACC2028",
+    "branch_code": "BR013",
+    "created_at": "2026-07-01T10:28:00Z",
+    "status": "PENDING",
+    "reference": "b0812fd9-cafb-43d6-8762-d8e69c41563d"
+  },
+  {
+    "id": 30,
+    "table": "loan_master",
+    "customer_id": "CUST1029",
+    "account_id": "ACC2029",
+    "branch_code": "BR019",
+    "created_at": "2026-07-02T10:29:00Z",
+    "status": "INACTIVE",
+    "reference": "32116a89-ea78-4bb5-9e97-5c543222287d"
+  },
+  {
+    "id": 31,
+    "table": "loan_master",
+    "customer_id": "CUST1030",
+    "account_id": "ACC2030",
+    "branch_code": "BR016",
+    "created_at": "2026-07-03T10:30:00Z",
+    "status": "PENDING",
+    "reference": "b59781bb-ed86-4224-bb74-d888196e3e57"
+  },
+  {
+    "id": 32,
+    "table": "loan_master",
+    "customer_id": "CUST1031",
+    "account_id": "ACC2031",
+    "branch_code": "BR008",
+    "created_at": "2026-07-04T10:31:00Z",
+    "status": "PENDING",
+    "reference": "dd55e084-ab24-49eb-818c-3e63d9e10ccf"
+  },
+  {
+    "id": 33,
+    "table": "loan_master",
+    "customer_id": "CUST1032",
+    "account_id": "ACC2032",
+    "branch_code": "BR019",
+    "created_at": "2026-07-05T10:32:00Z",
+    "status": "ACTIVE",
+    "reference": "acbebf8e-5533-46fe-9633-1d74aec9b6f8"
+  },
+  {
+    "id": 34,
+    "table": "loan_master",
+    "customer_id": "CUST1033",
+    "account_id": "ACC2033",
+    "branch_code": "BR013",
+    "created_at": "2026-07-06T10:33:00Z",
+    "status": "ACTIVE",
+    "reference": "81f03c2b-8710-4fbf-b6bc-6623fedc2721"
+  },
+  {
+    "id": 35,
+    "table": "loan_master",
+    "customer_id": "CUST1034",
+    "account_id": "ACC2034",
+    "branch_code": "BR011",
+    "created_at": "2026-07-07T10:34:00Z",
+    "status": "ACTIVE",
+    "reference": "609da5a1-380e-41e9-9e4f-7039d3dfb046"
+  },
+  {
+    "id": 36,
+    "table": "loan_master",
+    "customer_id": "CUST1035",
+    "account_id": "ACC2035",
+    "branch_code": "BR006",
+    "created_at": "2026-07-08T10:35:00Z",
+    "status": "INACTIVE",
+    "reference": "e7ef5e72-8dcb-4ea2-85e3-431213d02661"
+  },
+  {
+    "id": 37,
+    "table": "loan_master",
+    "customer_id": "CUST1036",
+    "account_id": "ACC2036",
+    "branch_code": "BR001",
+    "created_at": "2026-07-09T10:36:00Z",
+    "status": "PENDING",
+    "reference": "6ce96a75-2f6a-4dd0-9f16-d09834630384"
+  },
+  {
+    "id": 38,
+    "table": "loan_master",
+    "customer_id": "CUST1037",
+    "account_id": "ACC2037",
+    "branch_code": "BR006",
+    "created_at": "2026-07-10T10:37:00Z",
+    "status": "INACTIVE",
+    "reference": "b469c9a2-50a3-429e-9c27-60599ea4e858"
+  },
+  {
+    "id": 39,
+    "table": "loan_master",
+    "customer_id": "CUST1038",
+    "account_id": "ACC2038",
+    "branch_code": "BR018",
+    "created_at": "2026-07-11T10:38:00Z",
+    "status": "INACTIVE",
+    "reference": "764f7ad0-a0d8-4a76-a646-a07df08d5a9b"
+  },
+  {
+    "id": 40,
+    "table": "loan_master",
+    "customer_id": "CUST1039",
+    "account_id": "ACC2039",
+    "branch_code": "BR009",
+    "created_at": "2026-07-12T10:39:00Z",
+    "status": "INACTIVE",
+    "reference": "5d9f1b06-9f70-4003-a8e3-e6d17abc17bc"
+  },
+  {
+    "id": 41,
+    "table": "loan_master",
+    "customer_id": "CUST1040",
+    "account_id": "ACC2040",
+    "branch_code": "BR007",
+    "created_at": "2026-07-13T10:40:00Z",
+    "status": "PENDING",
+    "reference": "e3283792-3a78-4d3d-ba8d-f50924aca2f1"
+  },
+  {
+    "id": 42,
+    "table": "loan_master",
+    "customer_id": "CUST1041",
+    "account_id": "ACC2041",
+    "branch_code": "BR002",
+    "created_at": "2026-07-14T10:41:00Z",
+    "status": "INACTIVE",
+    "reference": "56850bd3-95a3-4b94-89e0-a6a329679094"
+  },
+  {
+    "id": 43,
+    "table": "loan_master",
+    "customer_id": "CUST1042",
+    "account_id": "ACC2042",
+    "branch_code": "BR001",
+    "created_at": "2026-07-15T10:42:00Z",
+    "status": "PENDING",
+    "reference": "b865a679-7c0f-4831-b7de-b1e530be5b8a"
+  },
+  {
+    "id": 44,
+    "table": "loan_master",
+    "customer_id": "CUST1043",
+    "account_id": "ACC2043",
+    "branch_code": "BR009",
+    "created_at": "2026-07-16T10:43:00Z",
+    "status": "PENDING",
+    "reference": "57d8b705-82b3-4ad7-8613-04ecf20b5c36"
+  },
+  {
+    "id": 45,
+    "table": "loan_master",
+    "customer_id": "CUST1044",
+    "account_id": "ACC2044",
+    "branch_code": "BR012",
+    "created_at": "2026-07-17T10:44:00Z",
+    "status": "PENDING",
+    "reference": "aa11fea0-3571-46a3-8503-6b9e09aaaa3e"
+  },
+  {
+    "id": 46,
+    "table": "loan_master",
+    "customer_id": "CUST1045",
+    "account_id": "ACC2045",
+    "branch_code": "BR004",
+    "created_at": "2026-07-18T10:45:00Z",
+    "status": "ACTIVE",
+    "reference": "390b41f7-41f3-4a21-b1db-50d5ba0178f3"
+  },
+  {
+    "id": 47,
+    "table": "loan_master",
+    "customer_id": "CUST1046",
+    "account_id": "ACC2046",
+    "branch_code": "BR011",
+    "created_at": "2026-07-19T10:46:00Z",
+    "status": "INACTIVE",
+    "reference": "d8233590-c295-4e52-89f0-0822a1619c43"
+  },
+  {
+    "id": 48,
+    "table": "loan_master",
+    "customer_id": "CUST1047",
+    "account_id": "ACC2047",
+    "branch_code": "BR017",
+    "created_at": "2026-07-20T10:47:00Z",
+    "status": "INACTIVE",
+    "reference": "c1742d08-4c9c-44d4-b1e5-67bad8a2f64e"
+  },
+  {
+    "id": 49,
+    "table": "loan_master",
+    "customer_id": "CUST1048",
+    "account_id": "ACC2048",
+    "branch_code": "BR014",
+    "created_at": "2026-07-21T10:48:00Z",
+    "status": "PENDING",
+    "reference": "fa7a1b0d-54ff-4aa9-b286-d8a02ebfd18f"
+  },
+  {
+    "id": 50,
+    "table": "loan_master",
+    "customer_id": "CUST1049",
+    "account_id": "ACC2049",
+    "branch_code": "BR002",
+    "created_at": "2026-07-22T10:49:00Z",
+    "status": "INACTIVE",
+    "reference": "33e3d7b8-dea7-451e-a088-9a252c915ebc"
+  },
+  {
+    "id": 51,
+    "table": "loan_master",
+    "customer_id": "CUST1050",
+    "account_id": "ACC2050",
+    "branch_code": "BR010",
+    "created_at": "2026-07-23T10:50:00Z",
+    "status": "INACTIVE",
+    "reference": "e198494c-e5ea-4b0f-b2ea-48afcaa70304"
+  },
+  {
+    "id": 52,
+    "table": "loan_master",
+    "customer_id": "CUST1051",
+    "account_id": "ACC2051",
+    "branch_code": "BR016",
+    "created_at": "2026-07-24T10:51:00Z",
+    "status": "PENDING",
+    "reference": "01630a70-9f83-43df-916f-aceeef37ac04"
+  },
+  {
+    "id": 53,
+    "table": "loan_master",
+    "customer_id": "CUST1052",
+    "account_id": "ACC2052",
+    "branch_code": "BR018",
+    "created_at": "2026-07-25T10:52:00Z",
+    "status": "PENDING",
+    "reference": "cf41448d-6854-440b-bc29-38f54e611b44"
+  },
+  {
+    "id": 54,
+    "table": "loan_master",
+    "customer_id": "CUST1053",
+    "account_id": "ACC2053",
+    "branch_code": "BR009",
+    "created_at": "2026-07-26T10:53:00Z",
+    "status": "PENDING",
+    "reference": "93be06be-c8e1-42ee-898e-f34a655321f5"
+  },
+  {
+    "id": 55,
+    "table": "loan_master",
+    "customer_id": "CUST1054",
+    "account_id": "ACC2054",
+    "branch_code": "BR004",
+    "created_at": "2026-07-27T10:54:00Z",
+    "status": "PENDING",
+    "reference": "f36c54af-9e4d-40cb-a588-2618ade41fae"
+  },
+  {
+    "id": 56,
+    "table": "loan_master",
+    "customer_id": "CUST1055",
+    "account_id": "ACC2055",
+    "branch_code": "BR014",
+    "created_at": "2026-07-28T10:55:00Z",
+    "status": "PENDING",
+    "reference": "255f81c9-3019-4871-b744-5edee45b27a8"
+  },
+  {
+    "id": 57,
+    "table": "loan_master",
+    "customer_id": "CUST1056",
+    "account_id": "ACC2056",
+    "branch_code": "BR015",
+    "created_at": "2026-07-01T10:56:00Z",
+    "status": "ACTIVE",
+    "reference": "e68cc956-2ea3-4b68-89db-c4e72419a483"
+  },
+  {
+    "id": 58,
+    "table": "loan_master",
+    "customer_id": "CUST1057",
+    "account_id": "ACC2057",
+    "branch_code": "BR015",
+    "created_at": "2026-07-02T10:57:00Z",
+    "status": "PENDING",
+    "reference": "7b2f2390-3aef-46ce-b5e3-af7679399cbe"
+  },
+  {
+    "id": 59,
+    "table": "loan_master",
+    "customer_id": "CUST1058",
+    "account_id": "ACC2058",
+    "branch_code": "BR017",
+    "created_at": "2026-07-03T10:58:00Z",
+    "status": "INACTIVE",
+    "reference": "019af857-d1b1-47e6-9ab7-e6947f0e64b9"
+  },
+  {
+    "id": 60,
+    "table": "loan_master",
+    "customer_id": "CUST1059",
+    "account_id": "ACC2059",
+    "branch_code": "BR012",
+    "created_at": "2026-07-04T10:59:00Z",
+    "status": "INACTIVE",
+    "reference": "e9bf70df-d898-4619-88f4-cc866bdb736d"
+  },
+  {
+    "id": 61,
+    "table": "loan_master",
+    "customer_id": "CUST1060",
+    "account_id": "ACC2060",
+    "branch_code": "BR008",
+    "created_at": "2026-07-05T10:00:00Z",
+    "status": "PENDING",
+    "reference": "e1de97ae-2411-4fbd-a870-9cd2fc7aaab8"
+  },
+  {
+    "id": 62,
+    "table": "loan_master",
+    "customer_id": "CUST1061",
+    "account_id": "ACC2061",
+    "branch_code": "BR009",
+    "created_at": "2026-07-06T10:01:00Z",
+    "status": "ACTIVE",
+    "reference": "183a3aed-a329-4e40-9cc3-b16c016a1b13"
+  },
+  {
+    "id": 63,
+    "table": "loan_master",
+    "customer_id": "CUST1062",
+    "account_id": "ACC2062",
+    "branch_code": "BR014",
+    "created_at": "2026-07-07T10:02:00Z",
+    "status": "PENDING",
+    "reference": "4079686a-b1d5-4023-a494-714aeeec8096"
+  },
+  {
+    "id": 64,
+    "table": "loan_master",
+    "customer_id": "CUST1063",
+    "account_id": "ACC2063",
+    "branch_code": "BR004",
+    "created_at": "2026-07-08T10:03:00Z",
+    "status": "ACTIVE",
+    "reference": "e117c123-45e3-4c9f-8be2-f0d5b0c1546e"
+  },
+  {
+    "id": 65,
+    "table": "loan_master",
+    "customer_id": "CUST1064",
+    "account_id": "ACC2064",
+    "branch_code": "BR012",
+    "created_at": "2026-07-09T10:04:00Z",
+    "status": "ACTIVE",
+    "reference": "bb66cbd5-91fa-4f8f-b3f5-5922cfe31470"
+  },
+  {
+    "id": 66,
+    "table": "loan_master",
+    "customer_id": "CUST1065",
+    "account_id": "ACC2065",
+    "branch_code": "BR006",
+    "created_at": "2026-07-10T10:05:00Z",
+    "status": "ACTIVE",
+    "reference": "92b40c60-4e47-4b74-a557-164f60f4110a"
+  },
+  {
+    "id": 67,
+    "table": "loan_master",
+    "customer_id": "CUST1066",
+    "account_id": "ACC2066",
+    "branch_code": "BR019",
+    "created_at": "2026-07-11T10:06:00Z",
+    "status": "ACTIVE",
+    "reference": "94dc210a-b022-48eb-845a-69edd308d923"
+  },
+  {
+    "id": 68,
+    "table": "loan_master",
+    "customer_id": "CUST1067",
+    "account_id": "ACC2067",
+    "branch_code": "BR011",
+    "created_at": "2026-07-12T10:07:00Z",
+    "status": "ACTIVE",
+    "reference": "57270b62-fa55-401f-b337-86ebef5e1c16"
+  },
+  {
+    "id": 69,
+    "table": "loan_master",
+    "customer_id": "CUST1068",
+    "account_id": "ACC2068",
+    "branch_code": "BR013",
+    "created_at": "2026-07-13T10:08:00Z",
+    "status": "ACTIVE",
+    "reference": "7c16ceb9-8204-452e-b26e-37b81abfff52"
+  },
+  {
+    "id": 70,
+    "table": "loan_master",
+    "customer_id": "CUST1069",
+    "account_id": "ACC2069",
+    "branch_code": "BR006",
+    "created_at": "2026-07-14T10:09:00Z",
+    "status": "PENDING",
+    "reference": "73d27c8a-1164-47be-b1d4-03265cc6eb1b"
+  },
+  {
+    "id": 71,
+    "table": "loan_master",
+    "customer_id": "CUST1070",
+    "account_id": "ACC2070",
+    "branch_code": "BR008",
+    "created_at": "2026-07-15T10:10:00Z",
+    "status": "ACTIVE",
+    "reference": "823d2d30-e880-411b-805e-d8f3a193739d"
+  },
+  {
+    "id": 72,
+    "table": "loan_master",
+    "customer_id": "CUST1071",
+    "account_id": "ACC2071",
+    "branch_code": "BR020",
+    "created_at": "2026-07-16T10:11:00Z",
+    "status": "ACTIVE",
+    "reference": "6332e403-ddd4-437c-96e5-c793f4636901"
+  },
+  {
+    "id": 73,
+    "table": "loan_master",
+    "customer_id": "CUST1072",
+    "account_id": "ACC2072",
+    "branch_code": "BR013",
+    "created_at": "2026-07-17T10:12:00Z",
+    "status": "PENDING",
+    "reference": "196f42ea-8754-48bb-9f34-029ae9b9beb8"
+  },
+  {
+    "id": 74,
+    "table": "loan_master",
+    "customer_id": "CUST1073",
+    "account_id": "ACC2073",
+    "branch_code": "BR009",
+    "created_at": "2026-07-18T10:13:00Z",
+    "status": "INACTIVE",
+    "reference": "1f07c674-8926-49dc-995c-0bbc8b0969e7"
+  },
+  {
+    "id": 75,
+    "table": "loan_master",
+    "customer_id": "CUST1074",
+    "account_id": "ACC2074",
+    "branch_code": "BR006",
+    "created_at": "2026-07-19T10:14:00Z",
+    "status": "INACTIVE",
+    "reference": "ee88b982-f193-4864-b302-b1d241ef96d4"
+  },
+  {
+    "id": 76,
+    "table": "loan_master",
+    "customer_id": "CUST1075",
+    "account_id": "ACC2075",
+    "branch_code": "BR015",
+    "created_at": "2026-07-20T10:15:00Z",
+    "status": "PENDING",
+    "reference": "1beca795-1418-4867-b289-8be84350500b"
+  },
+  {
+    "id": 77,
+    "table": "loan_master",
+    "customer_id": "CUST1076",
+    "account_id": "ACC2076",
+    "branch_code": "BR018",
+    "created_at": "2026-07-21T10:16:00Z",
+    "status": "ACTIVE",
+    "reference": "237e6a16-7df7-497e-acba-6975c1d8b322"
+  },
+  {
+    "id": 78,
+    "table": "loan_master",
+    "customer_id": "CUST1077",
+    "account_id": "ACC2077",
+    "branch_code": "BR020",
+    "created_at": "2026-07-22T10:17:00Z",
+    "status": "ACTIVE",
+    "reference": "c407e377-eca1-463e-9fb4-ccfb8e047115"
+  },
+  {
+    "id": 79,
+    "table": "loan_master",
+    "customer_id": "CUST1078",
+    "account_id": "ACC2078",
+    "branch_code": "BR011",
+    "created_at": "2026-07-23T10:18:00Z",
+    "status": "INACTIVE",
+    "reference": "7fbee844-5ec7-4d61-99ae-0b09eb959303"
+  },
+  {
+    "id": 80,
+    "table": "loan_master",
+    "customer_id": "CUST1079",
+    "account_id": "ACC2079",
+    "branch_code": "BR011",
+    "created_at": "2026-07-24T10:19:00Z",
+    "status": "ACTIVE",
+    "reference": "b8b3a92a-352c-46d6-a5b6-0de2c6228e4f"
+  },
+  {
+    "id": 81,
+    "table": "loan_master",
+    "customer_id": "CUST1080",
+    "account_id": "ACC2080",
+    "branch_code": "BR014",
+    "created_at": "2026-07-25T10:20:00Z",
+    "status": "INACTIVE",
+    "reference": "dc8864d2-ce4a-44f9-b8f6-e1b8b79078e8"
+  },
+  {
+    "id": 82,
+    "table": "loan_master",
+    "customer_id": "CUST1081",
+    "account_id": "ACC2081",
+    "branch_code": "BR001",
+    "created_at": "2026-07-26T10:21:00Z",
+    "status": "ACTIVE",
+    "reference": "726b31a8-2932-42c7-b00a-e814c4360bca"
+  },
+  {
+    "id": 83,
+    "table": "loan_master",
+    "customer_id": "CUST1082",
+    "account_id": "ACC2082",
+    "branch_code": "BR019",
+    "created_at": "2026-07-27T10:22:00Z",
+    "status": "INACTIVE",
+    "reference": "e35ac153-b1f8-4f71-bf16-8d36ed4cf7fe"
+  },
+  {
+    "id": 84,
+    "table": "loan_master",
+    "customer_id": "CUST1083",
+    "account_id": "ACC2083",
+    "branch_code": "BR014",
+    "created_at": "2026-07-28T10:23:00Z",
+    "status": "PENDING",
+    "reference": "03dd17ed-58fa-46a8-8d7f-6ae548b0cd75"
+  },
+  {
+    "id": 85,
+    "table": "loan_master",
+    "customer_id": "CUST1084",
+    "account_id": "ACC2084",
+    "branch_code": "BR006",
+    "created_at": "2026-07-01T10:24:00Z",
+    "status": "INACTIVE",
+    "reference": "176567d8-d76b-4975-9e9f-d890e2de45c7"
+  },
+  {
+    "id": 86,
+    "table": "loan_master",
+    "customer_id": "CUST1085",
+    "account_id": "ACC2085",
+    "branch_code": "BR009",
+    "created_at": "2026-07-02T10:25:00Z",
+    "status": "PENDING",
+    "reference": "dac3f6ae-63b6-476e-8c96-ffde23749c92"
+  },
+  {
+    "id": 87,
+    "table": "loan_master",
+    "customer_id": "CUST1086",
+    "account_id": "ACC2086",
+    "branch_code": "BR020",
+    "created_at": "2026-07-03T10:26:00Z",
+    "status": "PENDING",
+    "reference": "9b322228-738c-4269-974a-96934e2f6a6e"
+  },
+  {
+    "id": 88,
+    "table": "loan_master",
+    "customer_id": "CUST1087",
+    "account_id": "ACC2087",
+    "branch_code": "BR019",
+    "created_at": "2026-07-04T10:27:00Z",
+    "status": "INACTIVE",
+    "reference": "52e85725-760c-4149-ada4-e1957863dbbf"
+  },
+  {
+    "id": 89,
+    "table": "loan_master",
+    "customer_id": "CUST1088",
+    "account_id": "ACC2088",
+    "branch_code": "BR006",
+    "created_at": "2026-07-05T10:28:00Z",
+    "status": "INACTIVE",
+    "reference": "14b39ef8-14be-4b12-baa6-8fd70fc3b251"
+  },
+  {
+    "id": 90,
+    "table": "loan_master",
+    "customer_id": "CUST1089",
+    "account_id": "ACC2089",
+    "branch_code": "BR006",
+    "created_at": "2026-07-06T10:29:00Z",
+    "status": "ACTIVE",
+    "reference": "2dc20987-4c2e-4307-b570-baaf526cdc93"
+  },
+  {
+    "id": 91,
+    "table": "loan_master",
+    "customer_id": "CUST1090",
+    "account_id": "ACC2090",
+    "branch_code": "BR001",
+    "created_at": "2026-07-07T10:30:00Z",
+    "status": "INACTIVE",
+    "reference": "31326163-5f3a-4495-a15e-c619a40d95b8"
+  },
+  {
+    "id": 92,
+    "table": "loan_master",
+    "customer_id": "CUST1091",
+    "account_id": "ACC2091",
+    "branch_code": "BR018",
+    "created_at": "2026-07-08T10:31:00Z",
+    "status": "INACTIVE",
+    "reference": "6544fd74-6f98-4f52-91f1-153967a6ae10"
+  },
+  {
+    "id": 93,
+    "table": "loan_master",
+    "customer_id": "CUST1092",
+    "account_id": "ACC2092",
+    "branch_code": "BR006",
+    "created_at": "2026-07-09T10:32:00Z",
+    "status": "ACTIVE",
+    "reference": "f4fa17a5-6b26-446e-986d-a3de2df69fdb"
+  },
+  {
+    "id": 94,
+    "table": "loan_master",
+    "customer_id": "CUST1093",
+    "account_id": "ACC2093",
+    "branch_code": "BR018",
+    "created_at": "2026-07-10T10:33:00Z",
+    "status": "INACTIVE",
+    "reference": "130ed9db-c11e-47d7-9cc2-014493a38027"
+  },
+  {
+    "id": 95,
+    "table": "loan_master",
+    "customer_id": "CUST1094",
+    "account_id": "ACC2094",
+    "branch_code": "BR018",
+    "created_at": "2026-07-11T10:34:00Z",
+    "status": "ACTIVE",
+    "reference": "f1620670-3003-454e-81f7-5fd8bf3a4cd9"
+  },
+  {
+    "id": 96,
+    "table": "loan_master",
+    "customer_id": "CUST1095",
+    "account_id": "ACC2095",
+    "branch_code": "BR009",
+    "created_at": "2026-07-12T10:35:00Z",
+    "status": "ACTIVE",
+    "reference": "70c9534b-52fc-44b2-b8e3-ddbd2cd7b09c"
+  },
+  {
+    "id": 97,
+    "table": "loan_master",
+    "customer_id": "CUST1096",
+    "account_id": "ACC2096",
+    "branch_code": "BR006",
+    "created_at": "2026-07-13T10:36:00Z",
+    "status": "PENDING",
+    "reference": "3a63c1e3-a82d-4bc1-8de5-5c33595d6002"
+  },
+  {
+    "id": 98,
+    "table": "loan_master",
+    "customer_id": "CUST1097",
+    "account_id": "ACC2097",
+    "branch_code": "BR016",
+    "created_at": "2026-07-14T10:37:00Z",
+    "status": "ACTIVE",
+    "reference": "e15320c2-c597-41bd-b90b-16288bd7a378"
+  },
+  {
+    "id": 99,
+    "table": "loan_master",
+    "customer_id": "CUST1098",
+    "account_id": "ACC2098",
+    "branch_code": "BR020",
+    "created_at": "2026-07-15T10:38:00Z",
+    "status": "ACTIVE",
+    "reference": "942928ef-f493-4915-8da7-db4626ed1644"
+  },
+  {
+    "id": 100,
+    "table": "loan_master",
+    "customer_id": "CUST1099",
+    "account_id": "ACC2099",
+    "branch_code": "BR018",
+    "created_at": "2026-07-16T10:39:00Z",
+    "status": "ACTIVE",
+    "reference": "e6a3b6bc-62d3-423d-8ac8-b760b457e005"
+  }
+]

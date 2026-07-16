@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "table": "customer_kyc",
+    "customer_id": "CUST1000",
+    "account_id": "ACC2000",
+    "branch_code": "BR003",
+    "created_at": "2026-07-01T10:00:00Z",
+    "status": "ACTIVE",
+    "reference": "8676428c-e8bb-41ad-bdb4-08c88fab06a0"
+  },
+  {
+    "id": 2,
+    "table": "customer_kyc",
+    "customer_id": "CUST1001",
+    "account_id": "ACC2001",
+    "branch_code": "BR002",
+    "created_at": "2026-07-02T10:01:00Z",
+    "status": "PENDING",
+    "reference": "e61f1d81-9315-49a4-8e84-811dde741950"
+  },
+  {
+    "id": 3,
+    "table": "customer_kyc",
+    "customer_id": "CUST1002",
+    "account_id": "ACC2002",
+    "branch_code": "BR013",
+    "created_at": "2026-07-03T10:02:00Z",
+    "status": "ACTIVE",
+    "reference": "aff56c6e-bbb3-414b-8026-12ba86ab61ea"
+  },
+  {
+    "id": 4,
+    "table": "customer_kyc",
+    "customer_id": "CUST1003",
+    "account_id": "ACC2003",
+    "branch_code": "BR016",
+    "created_at": "2026-07-04T10:03:00Z",
+    "status": "ACTIVE",
+    "reference": "97391cad-96be-48d6-8f9e-d92120dade1b"
+  },
+  {
+    "id": 5,
+    "table": "customer_kyc",
+    "customer_id": "CUST1004",
+    "account_id": "ACC2004",
+    "branch_code": "BR011",
+    "created_at": "2026-07-05T10:04:00Z",
+    "status": "ACTIVE",
+    "reference": "f4e47d88-19be-4467-b4ea-7d8c0de433fd"
+  },
+  {
+    "id": 6,
+    "table": "customer_kyc",
+    "customer_id": "CUST1005",
+    "account_id": "ACC2005",
+    "branch_code": "BR010",
+    "created_at": "2026-07-06T10:05:00Z",
+    "status": "ACTIVE",
+    "reference": "c26127cc-1be6-4e43-840e-d74239203e72"
+  },
+  {
+    "id": 7,
+    "table": "customer_kyc",
+    "customer_id": "CUST1006",
+    "account_id": "ACC2006",
+    "branch_code": "BR019",
+    "created_at": "2026-07-07T10:06:00Z",
+    "status": "ACTIVE",
+    "reference": "5b0543a8-2667-47a3-afeb-62b3d7f6feff"
+  },
+  {
+    "id": 8,
+    "table": "customer_kyc",
+    "customer_id": "CUST1007",
+    "account_id": "ACC2007",
+    "branch_code": "BR012",
+    "created_at": "2026-07-08T10:07:00Z",
+    "status": "ACTIVE",
+    "reference": "878c72ae-706f-428f-a5d0-9d479e7c9192"
+  },
+  {
+    "id": 9,
+    "table": "customer_kyc",
+    "customer_id": "CUST1008",
+    "account_id": "ACC2008",
+    "branch_code": "BR003",
+    "created_at": "2026-07-09T10:08:00Z",
+    "status": "INACTIVE",
+    "reference": "2766d008-a334-4ff9-a51b-7f3f6ecb3277"
+  },
+  {
+    "id": 10,
+    "table": "customer_kyc",
+    "customer_id": "CUST1009",
+    "account_id": "ACC2009",
+    "branch_code": "BR018",
+    "created_at": "2026-07-10T10:09:00Z",
+    "status": "PENDING",
+    "reference": "dc9d795a-6931-4ccc-b411-63fb2b609527"
+  },
+  {
+    "id": 11,
+    "table": "customer_kyc",
+    "customer_id": "CUST1010",
+    "account_id": "ACC2010",
+    "branch_code": "BR020",
+    "created_at": "2026-07-11T10:10:00Z",
+    "status": "ACTIVE",
+    "reference": "3e05a7ad-b53b-4ed1-aee8-a4c28802fcc9"
+  },
+  {
+    "id": 12,
+    "table": "customer_kyc",
+    "customer_id": "CUST1011",
+    "account_id": "ACC2011",
+    "branch_code": "BR008",
+    "created_at": "2026-07-12T10:11:00Z",
+    "status": "INACTIVE",
+    "reference": "1dde9fc8-b15e-4c3d-ab19-d7679e22a6b7"
+  },
+  {
+    "id": 13,
+    "table": "customer_kyc",
+    "customer_id": "CUST1012",
+    "account_id": "ACC2012",
+    "branch_code": "BR002",
+    "created_at": "2026-07-13T10:12:00Z",
+    "status": "ACTIVE",
+    "reference": "c659ff94-8461-4922-b0e6-9f61d9183834"
+  },
+  {
+    "id": 14,
+    "table": "customer_kyc",
+    "customer_id": "CUST1013",
+    "account_id": "ACC2013",
+    "branch_code": "BR014",
+    "created_at": "2026-07-14T10:13:00Z",
+    "status": "PENDING",
+    "reference": "12c8a0c4-1066-4e12-9973-93a5eacf0d47"
+  },
+  {
+    "id": 15,
+    "table": "customer_kyc",
+    "customer_id": "CUST1014",
+    "account_id": "ACC2014",
+    "branch_code": "BR008",
+    "created_at": "2026-07-15T10:14:00Z",
+    "status": "PENDING",
+    "reference": "03a05f90-1f27-4f80-bc68-b6a02ac79be2"
+  },
+  {
+    "id": 16,
+    "table": "customer_kyc",
+    "customer_id": "CUST1015",
+    "account_id": "ACC2015",
+    "branch_code": "BR002",
+    "created_at": "2026-07-16T10:15:00Z",
+    "status": "INACTIVE",
+    "reference": "4690e92c-0f3b-46fb-b011-0683b74a685f"
+  },
+  {
+    "id": 17,
+    "table": "customer_kyc",
+    "customer_id": "CUST1016",
+    "account_id": "ACC2016",
+    "branch_code": "BR002",
+    "created_at": "2026-07-17T10:16:00Z",
+    "status": "INACTIVE",
+    "reference": "b602369e-4e9f-49b1-ad09-c880468731c7"
+  },
+  {
+    "id": 18,
+    "table": "customer_kyc",
+    "customer_id": "CUST1017",
+    "account_id": "ACC2017",
+    "branch_code": "BR015",
+    "created_at": "2026-07-18T10:17:00Z",
+    "status": "INACTIVE",
+    "reference": "18111b47-3e89-422e-a18a-846e648d8218"
+  },
+  {
+    "id": 19,
+    "table": "customer_kyc",
+    "customer_id": "CUST1018",
+    "account_id": "ACC2018",
+    "branch_code": "BR018",
+    "created_at": "2026-07-19T10:18:00Z",
+    "status": "INACTIVE",
+    "reference": "2e90cddc-6154-488b-9a1d-07e406ac76d3"
+  },
+  {
+    "id": 20,
+    "table": "customer_kyc",
+    "customer_id": "CUST1019",
+    "account_id": "ACC2019",
+    "branch_code": "BR003",
+    "created_at": "2026-07-20T10:19:00Z",
+    "status": "PENDING",
+    "reference": "073cecb3-11b0-452c-8933-011c22eca334"
+  },
+  {
+    "id": 21,
+    "table": "customer_kyc",
+    "customer_id": "CUST1020",
+    "account_id": "ACC2020",
+    "branch_code": "BR018",
+    "created_at": "2026-07-21T10:20:00Z",
+    "status": "PENDING",
+    "reference": "04a4c84e-0a4e-4945-92b2-206c5101e962"
+  },
+  {
+    "id": 22,
+    "table": "customer_kyc",
+    "customer_id": "CUST1021",
+    "account_id": "ACC2021",
+    "branch_code": "BR011",
+    "created_at": "2026-07-22T10:21:00Z",
+    "status": "ACTIVE",
+    "reference": "170b8d5f-daf2-4082-9bce-63c80564c7c7"
+  },
+  {
+    "id": 23,
+    "table": "customer_kyc",
+    "customer_id": "CUST1022",
+    "account_id": "ACC2022",
+    "branch_code": "BR018",
+    "created_at": "2026-07-23T10:22:00Z",
+    "status": "INACTIVE",
+    "reference": "60a18378-ca10-465d-bc49-d079f347f701"
+  },
+  {
+    "id": 24,
+    "table": "customer_kyc",
+    "customer_id": "CUST1023",
+    "account_id": "ACC2023",
+    "branch_code": "BR018",
+    "created_at": "2026-07-24T10:23:00Z",
+    "status": "INACTIVE",
+    "reference": "09913c2d-3432-4ba7-a8c2-2d4aa45ebc73"
+  },
+  {
+    "id": 25,
+    "table": "customer_kyc",
+    "customer_id": "CUST1024",
+    "account_id": "ACC2024",
+    "branch_code": "BR009",
+    "created_at": "2026-07-25T10:24:00Z",
+    "status": "INACTIVE",
+    "reference": "579a1f50-1c45-4123-8bb1-a92d79e060be"
+  },
+  {
+    "id": 26,
+    "table": "customer_kyc",
+    "customer_id": "CUST1025",
+    "account_id": "ACC2025",
+    "branch_code": "BR006",
+    "created_at": "2026-07-26T10:25:00Z",
+    "status": "PENDING",
+    "reference": "c2587929-bc3d-4de6-816f-ffac7b51c145"
+  },
+  {
+    "id": 27,
+    "table": "customer_kyc",
+    "customer_id": "CUST1026",
+    "account_id": "ACC2026",
+    "branch_code": "BR008",
+    "created_at": "2026-07-27T10:26:00Z",
+    "status": "INACTIVE",
+    "reference": "4bce470f-f511-42ea-a38e-be207599df97"
+  },
+  {
+    "id": 28,
+    "table": "customer_kyc",
+    "customer_id": "CUST1027",
+    "account_id": "ACC2027",
+    "branch_code": "BR020",
+    "created_at": "2026-07-28T10:27:00Z",
+    "status": "INACTIVE",
+    "reference": "8f8bf76d-dc20-45e9-b665-f84bcc7aeb85"
+  },
+  {
+    "id": 29,
+    "table": "customer_kyc",
+    "customer_id": "CUST1028",
+    "account_id": "ACC2028",
+    "branch_code": "BR011",
+    "created_at": "2026-07-01T10:28:00Z",
+    "status": "INACTIVE",
+    "reference": "62ea8613-19f5-4d30-b815-b1ee544b135a"
+  },
+  {
+    "id": 30,
+    "table": "customer_kyc",
+    "customer_id": "CUST1029",
+    "account_id": "ACC2029",
+    "branch_code": "BR010",
+    "created_at": "2026-07-02T10:29:00Z",
+    "status": "PENDING",
+    "reference": "783da80d-d84b-46cb-9b19-1cf16abba9ef"
+  },
+  {
+    "id": 31,
+    "table": "customer_kyc",
+    "customer_id": "CUST1030",
+    "account_id": "ACC2030",
+    "branch_code": "BR009",
+    "created_at": "2026-07-03T10:30:00Z",
+    "status": "PENDING",
+    "reference": "2eedb3ad-c496-4d02-84c6-52c06e62f1d0"
+  },
+  {
+    "id": 32,
+    "table": "customer_kyc",
+    "customer_id": "CUST1031",
+    "account_id": "ACC2031",
+    "branch_code": "BR012",
+    "created_at": "2026-07-04T10:31:00Z",
+    "status": "INACTIVE",
+    "reference": "51cda53e-9653-4549-bb01-916e735b264b"
+  },
+  {
+    "id": 33,
+    "table": "customer_kyc",
+    "customer_id": "CUST1032",
+    "account_id": "ACC2032",
+    "branch_code": "BR016",
+    "created_at": "2026-07-05T10:32:00Z",
+    "status": "ACTIVE",
+    "reference": "6c5ac694-0353-4f3a-8678-4ab6568f60bb"
+  },
+  {
+    "id": 34,
+    "table": "customer_kyc",
+    "customer_id": "CUST1033",
+    "account_id": "ACC2033",
+    "branch_code": "BR003",
+    "created_at": "2026-07-06T10:33:00Z",
+    "status": "PENDING",
+    "reference": "524d5e57-fe9c-4a18-a223-5ab32ce00714"
+  },
+  {
+    "id": 35,
+    "table": "customer_kyc",
+    "customer_id": "CUST1034",
+    "account_id": "ACC2034",
+    "branch_code": "BR003",
+    "created_at": "2026-07-07T10:34:00Z",
+    "status": "INACTIVE",
+    "reference": "d0601afe-f648-4873-b62e-18be1dddf753"
+  },
+  {
+    "id": 36,
+    "table": "customer_kyc",
+    "customer_id": "CUST1035",
+    "account_id": "ACC2035",
+    "branch_code": "BR002",
+    "created_at": "2026-07-08T10:35:00Z",
+    "status": "ACTIVE",
+    "reference": "9ac34270-be64-45b0-a030-ef155074e23f"
+  },
+  {
+    "id": 37,
+    "table": "customer_kyc",
+    "customer_id": "CUST1036",
+    "account_id": "ACC2036",
+    "branch_code": "BR005",
+    "created_at": "2026-07-09T10:36:00Z",
+    "status": "ACTIVE",
+    "reference": "1c772df9-47b4-48e7-aa24-25af954b8ad4"
+  },
+  {
+    "id": 38,
+    "table": "customer_kyc",
+    "customer_id": "CUST1037",
+    "account_id": "ACC2037",
+    "branch_code": "BR005",
+    "created_at": "2026-07-10T10:37:00Z",
+    "status": "ACTIVE",
+    "reference": "4a9fefb9-260b-4d4a-b2e3-c4f6e185890f"
+  },
+  {
+    "id": 39,
+    "table": "customer_kyc",
+    "customer_id": "CUST1038",
+    "account_id": "ACC2038",
+    "branch_code": "BR010",
+    "created_at": "2026-07-11T10:38:00Z",
+    "status": "PENDING",
+    "reference": "56d2ce0c-b7ad-4559-bd16-626136ccdb41"
+  },
+  {
+    "id": 40,
+    "table": "customer_kyc",
+    "customer_id": "CUST1039",
+    "account_id": "ACC2039",
+    "branch_code": "BR019",
+    "created_at": "2026-07-12T10:39:00Z",
+    "status": "INACTIVE",
+    "reference": "2a68f531-2964-4f6e-8038-2be417189095"
+  },
+  {
+    "id": 41,
+    "table": "customer_kyc",
+    "customer_id": "CUST1040",
+    "account_id": "ACC2040",
+    "branch_code": "BR010",
+    "created_at": "2026-07-13T10:40:00Z",
+    "status": "INACTIVE",
+    "reference": "361f9148-63ca-46c4-b700-06e01a9a9b41"
+  },
+  {
+    "id": 42,
+    "table": "customer_kyc",
+    "customer_id": "CUST1041",
+    "account_id": "ACC2041",
+    "branch_code": "BR017",
+    "created_at": "2026-07-14T10:41:00Z",
+    "status": "INACTIVE",
+    "reference": "a1e1cefa-c328-4389-90fb-a307873d5d85"
+  },
+  {
+    "id": 43,
+    "table": "customer_kyc",
+    "customer_id": "CUST1042",
+    "account_id": "ACC2042",
+    "branch_code": "BR013",
+    "created_at": "2026-07-15T10:42:00Z",
+    "status": "PENDING",
+    "reference": "a0649063-a500-4b57-83e4-3e7b496d56d0"
+  },
+  {
+    "id": 44,
+    "table": "customer_kyc",
+    "customer_id": "CUST1043",
+    "account_id": "ACC2043",
+    "branch_code": "BR016",
+    "created_at": "2026-07-16T10:43:00Z",
+    "status": "INACTIVE",
+    "reference": "2697f898-62a3-4ec5-8fb9-bfc2c93147f8"
+  },
+  {
+    "id": 45,
+    "table": "customer_kyc",
+    "customer_id": "CUST1044",
+    "account_id": "ACC2044",
+    "branch_code": "BR009",
+    "created_at": "2026-07-17T10:44:00Z",
+    "status": "ACTIVE",
+    "reference": "b4d89027-03ff-480a-8c15-00efabc205eb"
+  },
+  {
+    "id": 46,
+    "table": "customer_kyc",
+    "customer_id": "CUST1045",
+    "account_id": "ACC2045",
+    "branch_code": "BR009",
+    "created_at": "2026-07-18T10:45:00Z",
+    "status": "PENDING",
+    "reference": "c721acb8-8bb0-4c8e-8663-86db0e0a815a"
+  },
+  {
+    "id": 47,
+    "table": "customer_kyc",
+    "customer_id": "CUST1046",
+    "account_id": "ACC2046",
+    "branch_code": "BR018",
+    "created_at": "2026-07-19T10:46:00Z",
+    "status": "INACTIVE",
+    "reference": "38f8dc30-c2f6-4c93-a992-79bb4e53379c"
+  },
+  {
+    "id": 48,
+    "table": "customer_kyc",
+    "customer_id": "CUST1047",
+    "account_id": "ACC2047",
+    "branch_code": "BR003",
+    "created_at": "2026-07-20T10:47:00Z",
+    "status": "ACTIVE",
+    "reference": "e21756d2-ef03-432e-b713-7f667a46bd75"
+  },
+  {
+    "id": 49,
+    "table": "customer_kyc",
+    "customer_id": "CUST1048",
+    "account_id": "ACC2048",
+    "branch_code": "BR001",
+    "created_at": "2026-07-21T10:48:00Z",
+    "status": "PENDING",
+    "reference": "a61ddb30-765c-426c-b34c-7f1eaccd3e51"
+  },
+  {
+    "id": 50,
+    "table": "customer_kyc",
+    "customer_id": "CUST1049",
+    "account_id": "ACC2049",
+    "branch_code": "BR004",
+    "created_at": "2026-07-22T10:49:00Z",
+    "status": "ACTIVE",
+    "reference": "44e108b2-1923-49d8-bd14-3f4df614b3c5"
+  },
+  {
+    "id": 51,
+    "table": "customer_kyc",
+    "customer_id": "CUST1050",
+    "account_id": "ACC2050",
+    "branch_code": "BR006",
+    "created_at": "2026-07-23T10:50:00Z",
+    "status": "INACTIVE",
+    "reference": "6fec1134-b464-4516-ac33-b6632fda9eb3"
+  },
+  {
+    "id": 52,
+    "table": "customer_kyc",
+    "customer_id": "CUST1051",
+    "account_id": "ACC2051",
+    "branch_code": "BR014",
+    "created_at": "2026-07-24T10:51:00Z",
+    "status": "ACTIVE",
+    "reference": "77e401d8-7f44-41ab-82b1-ba76ae4ffcda"
+  },
+  {
+    "id": 53,
+    "table": "customer_kyc",
+    "customer_id": "CUST1052",
+    "account_id": "ACC2052",
+    "branch_code": "BR012",
+    "created_at": "2026-07-25T10:52:00Z",
+    "status": "INACTIVE",
+    "reference": "46bc7e9d-2889-4449-b961-78bcc65e2884"
+  },
+  {
+    "id": 54,
+    "table": "customer_kyc",
+    "customer_id": "CUST1053",
+    "account_id": "ACC2053",
+    "branch_code": "BR019",
+    "created_at": "2026-07-26T10:53:00Z",
+    "status": "ACTIVE",
+    "reference": "7c905f0b-b78c-4978-b762-61033c18adbf"
+  },
+  {
+    "id": 55,
+    "table": "customer_kyc",
+    "customer_id": "CUST1054",
+    "account_id": "ACC2054",
+    "branch_code": "BR006",
+    "created_at": "2026-07-27T10:54:00Z",
+    "status": "PENDING",
+    "reference": "b6e5bc25-0095-4b4b-b2c1-9c46d758f8ef"
+  },
+  {
+    "id": 56,
+    "table": "customer_kyc",
+    "customer_id": "CUST1055",
+    "account_id": "ACC2055",
+    "branch_code": "BR002",
+    "created_at": "2026-07-28T10:55:00Z",
+    "status": "INACTIVE",
+    "reference": "542f2d79-62fd-4834-b118-110ddcaa8031"
+  },
+  {
+    "id": 57,
+    "table": "customer_kyc",
+    "customer_id": "CUST1056",
+    "account_id": "ACC2056",
+    "branch_code": "BR008",
+    "created_at": "2026-07-01T10:56:00Z",
+    "status": "PENDING",
+    "reference": "99e07996-16c2-4039-9e1a-f756be7acb91"
+  },
+  {
+    "id": 58,
+    "table": "customer_kyc",
+    "customer_id": "CUST1057",
+    "account_id": "ACC2057",
+    "branch_code": "BR017",
+    "created_at": "2026-07-02T10:57:00Z",
+    "status": "ACTIVE",
+    "reference": "8ee09b66-fd73-406f-ab4a-dc98063d94be"
+  },
+  {
+    "id": 59,
+    "table": "customer_kyc",
+    "customer_id": "CUST1058",
+    "account_id": "ACC2058",
+    "branch_code": "BR003",
+    "created_at": "2026-07-03T10:58:00Z",
+    "status": "ACTIVE",
+    "reference": "ad92a345-f886-4da3-b8ca-c878f382fb89"
+  },
+  {
+    "id": 60,
+    "table": "customer_kyc",
+    "customer_id": "CUST1059",
+    "account_id": "ACC2059",
+    "branch_code": "BR002",
+    "created_at": "2026-07-04T10:59:00Z",
+    "status": "ACTIVE",
+    "reference": "bd47fe17-9e3b-4610-8bfc-ab32592908c7"
+  },
+  {
+    "id": 61,
+    "table": "customer_kyc",
+    "customer_id": "CUST1060",
+    "account_id": "ACC2060",
+    "branch_code": "BR013",
+    "created_at": "2026-07-05T10:00:00Z",
+    "status": "INACTIVE",
+    "reference": "4662c42c-aacf-4dce-9eac-38ff3e72e2f0"
+  },
+  {
+    "id": 62,
+    "table": "customer_kyc",
+    "customer_id": "CUST1061",
+    "account_id": "ACC2061",
+    "branch_code": "BR009",
+    "created_at": "2026-07-06T10:01:00Z",
+    "status": "INACTIVE",
+    "reference": "e1f87a73-3f1c-47ee-986b-e060412ee940"
+  },
+  {
+    "id": 63,
+    "table": "customer_kyc",
+    "customer_id": "CUST1062",
+    "account_id": "ACC2062",
+    "branch_code": "BR011",
+    "created_at": "2026-07-07T10:02:00Z",
+    "status": "PENDING",
+    "reference": "da7d9b44-8cbb-4465-ab93-41927bd80f65"
+  },
+  {
+    "id": 64,
+    "table": "customer_kyc",
+    "customer_id": "CUST1063",
+    "account_id": "ACC2063",
+    "branch_code": "BR008",
+    "created_at": "2026-07-08T10:03:00Z",
+    "status": "INACTIVE",
+    "reference": "7e141404-549a-4364-ab04-5e343c0914ad"
+  },
+  {
+    "id": 65,
+    "table": "customer_kyc",
+    "customer_id": "CUST1064",
+    "account_id": "ACC2064",
+    "branch_code": "BR005",
+    "created_at": "2026-07-09T10:04:00Z",
+    "status": "INACTIVE",
+    "reference": "688516d0-7a11-4115-a42e-41d84e585c66"
+  },
+  {
+    "id": 66,
+    "table": "customer_kyc",
+    "customer_id": "CUST1065",
+    "account_id": "ACC2065",
+    "branch_code": "BR018",
+    "created_at": "2026-07-10T10:05:00Z",
+    "status": "INACTIVE",
+    "reference": "0e6b55c2-21aa-4be6-8c07-7d935e08d583"
+  },
+  {
+    "id": 67,
+    "table": "customer_kyc",
+    "customer_id": "CUST1066",
+    "account_id": "ACC2066",
+    "branch_code": "BR012",
+    "created_at": "2026-07-11T10:06:00Z",
+    "status": "ACTIVE",
+    "reference": "3428e599-7600-4dc1-a541-8cbdba803c47"
+  },
+  {
+    "id": 68,
+    "table": "customer_kyc",
+    "customer_id": "CUST1067",
+    "account_id": "ACC2067",
+    "branch_code": "BR012",
+    "created_at": "2026-07-12T10:07:00Z",
+    "status": "PENDING",
+    "reference": "decc7051-05f4-406c-98a5-bce1a4da47c4"
+  },
+  {
+    "id": 69,
+    "table": "customer_kyc",
+    "customer_id": "CUST1068",
+    "account_id": "ACC2068",
+    "branch_code": "BR012",
+    "created_at": "2026-07-13T10:08:00Z",
+    "status": "PENDING",
+    "reference": "8ff1bbad-ff30-4b0d-ab59-26a4e5853274"
+  },
+  {
+    "id": 70,
+    "table": "customer_kyc",
+    "customer_id": "CUST1069",
+    "account_id": "ACC2069",
+    "branch_code": "BR004",
+    "created_at": "2026-07-14T10:09:00Z",
+    "status": "ACTIVE",
+    "reference": "22689677-a321-435b-813f-049c2eeb148e"
+  },
+  {
+    "id": 71,
+    "table": "customer_kyc",
+    "customer_id": "CUST1070",
+    "account_id": "ACC2070",
+    "branch_code": "BR010",
+    "created_at": "2026-07-15T10:10:00Z",
+    "status": "ACTIVE",
+    "reference": "051590cb-7fa5-4f8a-97a4-87f36c9edc8f"
+  },
+  {
+    "id": 72,
+    "table": "customer_kyc",
+    "customer_id": "CUST1071",
+    "account_id": "ACC2071",
+    "branch_code": "BR014",
+    "created_at": "2026-07-16T10:11:00Z",
+    "status": "PENDING",
+    "reference": "db5c7c61-fbae-41bd-83c0-033eb87507d6"
+  },
+  {
+    "id": 73,
+    "table": "customer_kyc",
+    "customer_id": "CUST1072",
+    "account_id": "ACC2072",
+    "branch_code": "BR009",
+    "created_at": "2026-07-17T10:12:00Z",
+    "status": "ACTIVE",
+    "reference": "05d1d2c6-2c9e-414e-ab34-947497148558"
+  },
+  {
+    "id": 74,
+    "table": "customer_kyc",
+    "customer_id": "CUST1073",
+    "account_id": "ACC2073",
+    "branch_code": "BR010",
+    "created_at": "2026-07-18T10:13:00Z",
+    "status": "INACTIVE",
+    "reference": "6da936e7-a8a2-44f0-bebb-28b0f26438ad"
+  },
+  {
+    "id": 75,
+    "table": "customer_kyc",
+    "customer_id": "CUST1074",
+    "account_id": "ACC2074",
+    "branch_code": "BR020",
+    "created_at": "2026-07-19T10:14:00Z",
+    "status": "ACTIVE",
+    "reference": "c9968052-f4b7-43f3-ba7a-7ba973c96fd2"
+  },
+  {
+    "id": 76,
+    "table": "customer_kyc",
+    "customer_id": "CUST1075",
+    "account_id": "ACC2075",
+    "branch_code": "BR009",
+    "created_at": "2026-07-20T10:15:00Z",
+    "status": "ACTIVE",
+    "reference": "20803617-4f43-43aa-91b7-1b28c214d2c6"
+  },
+  {
+    "id": 77,
+    "table": "customer_kyc",
+    "customer_id": "CUST1076",
+    "account_id": "ACC2076",
+    "branch_code": "BR020",
+    "created_at": "2026-07-21T10:16:00Z",
+    "status": "PENDING",
+    "reference": "f60a207f-c602-419b-a8bc-6215973f880e"
+  },
+  {
+    "id": 78,
+    "table": "customer_kyc",
+    "customer_id": "CUST1077",
+    "account_id": "ACC2077",
+    "branch_code": "BR016",
+    "created_at": "2026-07-22T10:17:00Z",
+    "status": "ACTIVE",
+    "reference": "ba4d1aa0-f592-434c-aaa1-3aee2f2d3165"
+  },
+  {
+    "id": 79,
+    "table": "customer_kyc",
+    "customer_id": "CUST1078",
+    "account_id": "ACC2078",
+    "branch_code": "BR019",
+    "created_at": "2026-07-23T10:18:00Z",
+    "status": "ACTIVE",
+    "reference": "a5d277cb-1271-43c8-9b83-d4a37fb5cdeb"
+  },
+  {
+    "id": 80,
+    "table": "customer_kyc",
+    "customer_id": "CUST1079",
+    "account_id": "ACC2079",
+    "branch_code": "BR007",
+    "created_at": "2026-07-24T10:19:00Z",
+    "status": "INACTIVE",
+    "reference": "a2da7a03-53c0-4ee1-a943-b965fba2cb6e"
+  },
+  {
+    "id": 81,
+    "table": "customer_kyc",
+    "customer_id": "CUST1080",
+    "account_id": "ACC2080",
+    "branch_code": "BR018",
+    "created_at": "2026-07-25T10:20:00Z",
+    "status": "INACTIVE",
+    "reference": "6b3778ec-429d-4eb1-b2fb-cd4c035afccc"
+  },
+  {
+    "id": 82,
+    "table": "customer_kyc",
+    "customer_id": "CUST1081",
+    "account_id": "ACC2081",
+    "branch_code": "BR011",
+    "created_at": "2026-07-26T10:21:00Z",
+    "status": "INACTIVE",
+    "reference": "eb2bb51f-cd50-42a8-9737-d4e00bc3a9e6"
+  },
+  {
+    "id": 83,
+    "table": "customer_kyc",
+    "customer_id": "CUST1082",
+    "account_id": "ACC2082",
+    "branch_code": "BR008",
+    "created_at": "2026-07-27T10:22:00Z",
+    "status": "ACTIVE",
+    "reference": "9753b23c-f77c-4f34-aa36-21b7fd2346b5"
+  },
+  {
+    "id": 84,
+    "table": "customer_kyc",
+    "customer_id": "CUST1083",
+    "account_id": "ACC2083",
+    "branch_code": "BR005",
+    "created_at": "2026-07-28T10:23:00Z",
+    "status": "INACTIVE",
+    "reference": "d6e4f94b-06e1-4020-861c-c33689cf5cd6"
+  },
+  {
+    "id": 85,
+    "table": "customer_kyc",
+    "customer_id": "CUST1084",
+    "account_id": "ACC2084",
+    "branch_code": "BR001",
+    "created_at": "2026-07-01T10:24:00Z",
+    "status": "ACTIVE",
+    "reference": "63eef8d0-8076-4ea8-9e08-76ac470cb2bd"
+  },
+  {
+    "id": 86,
+    "table": "customer_kyc",
+    "customer_id": "CUST1085",
+    "account_id": "ACC2085",
+    "branch_code": "BR019",
+    "created_at": "2026-07-02T10:25:00Z",
+    "status": "PENDING",
+    "reference": "053b6023-99b7-4c70-9f82-c7146fe74169"
+  },
+  {
+    "id": 87,
+    "table": "customer_kyc",
+    "customer_id": "CUST1086",
+    "account_id": "ACC2086",
+    "branch_code": "BR010",
+    "created_at": "2026-07-03T10:26:00Z",
+    "status": "INACTIVE",
+    "reference": "81f607c0-f1fd-46d6-9386-ca59a902f3e6"
+  },
+  {
+    "id": 88,
+    "table": "customer_kyc",
+    "customer_id": "CUST1087",
+    "account_id": "ACC2087",
+    "branch_code": "BR019",
+    "created_at": "2026-07-04T10:27:00Z",
+    "status": "PENDING",
+    "reference": "396b8a38-605e-42e3-b17e-2f2602f09bf5"
+  },
+  {
+    "id": 89,
+    "table": "customer_kyc",
+    "customer_id": "CUST1088",
+    "account_id": "ACC2088",
+    "branch_code": "BR005",
+    "created_at": "2026-07-05T10:28:00Z",
+    "status": "INACTIVE",
+    "reference": "016290bf-b455-4a1b-a7a7-b57546751615"
+  },
+  {
+    "id": 90,
+    "table": "customer_kyc",
+    "customer_id": "CUST1089",
+    "account_id": "ACC2089",
+    "branch_code": "BR011",
+    "created_at": "2026-07-06T10:29:00Z",
+    "status": "ACTIVE",
+    "reference": "e1f692ac-dbe8-4c56-99a6-0c53c791ddc3"
+  },
+  {
+    "id": 91,
+    "table": "customer_kyc",
+    "customer_id": "CUST1090",
+    "account_id": "ACC2090",
+    "branch_code": "BR001",
+    "created_at": "2026-07-07T10:30:00Z",
+    "status": "ACTIVE",
+    "reference": "5963aaab-2026-4d4f-8192-bc72f9f8faa3"
+  },
+  {
+    "id": 92,
+    "table": "customer_kyc",
+    "customer_id": "CUST1091",
+    "account_id": "ACC2091",
+    "branch_code": "BR003",
+    "created_at": "2026-07-08T10:31:00Z",
+    "status": "PENDING",
+    "reference": "adfa13e3-13be-4501-a8be-0c565d27635d"
+  },
+  {
+    "id": 93,
+    "table": "customer_kyc",
+    "customer_id": "CUST1092",
+    "account_id": "ACC2092",
+    "branch_code": "BR016",
+    "created_at": "2026-07-09T10:32:00Z",
+    "status": "PENDING",
+    "reference": "c188c685-a493-4905-80ba-0e2cfd9d3527"
+  },
+  {
+    "id": 94,
+    "table": "customer_kyc",
+    "customer_id": "CUST1093",
+    "account_id": "ACC2093",
+    "branch_code": "BR013",
+    "created_at": "2026-07-10T10:33:00Z",
+    "status": "PENDING",
+    "reference": "c1d599b5-6b5c-41c4-84b8-5f51cfabd3c6"
+  },
+  {
+    "id": 95,
+    "table": "customer_kyc",
+    "customer_id": "CUST1094",
+    "account_id": "ACC2094",
+    "branch_code": "BR015",
+    "created_at": "2026-07-11T10:34:00Z",
+    "status": "PENDING",
+    "reference": "bdd560df-84db-4df6-9ee2-42bf812d2fdd"
+  },
+  {
+    "id": 96,
+    "table": "customer_kyc",
+    "customer_id": "CUST1095",
+    "account_id": "ACC2095",
+    "branch_code": "BR004",
+    "created_at": "2026-07-12T10:35:00Z",
+    "status": "INACTIVE",
+    "reference": "7f2071ec-45c1-4eed-ba8c-9d04182f5262"
+  },
+  {
+    "id": 97,
+    "table": "customer_kyc",
+    "customer_id": "CUST1096",
+    "account_id": "ACC2096",
+    "branch_code": "BR013",
+    "created_at": "2026-07-13T10:36:00Z",
+    "status": "ACTIVE",
+    "reference": "5a719bee-0f46-41fc-b01d-4dcd933ed2e1"
+  },
+  {
+    "id": 98,
+    "table": "customer_kyc",
+    "customer_id": "CUST1097",
+    "account_id": "ACC2097",
+    "branch_code": "BR005",
+    "created_at": "2026-07-14T10:37:00Z",
+    "status": "INACTIVE",
+    "reference": "ead93c7b-f47d-4535-9fdf-7b892765009f"
+  },
+  {
+    "id": 99,
+    "table": "customer_kyc",
+    "customer_id": "CUST1098",
+    "account_id": "ACC2098",
+    "branch_code": "BR015",
+    "created_at": "2026-07-15T10:38:00Z",
+    "status": "PENDING",
+    "reference": "66b3c782-3bd8-477f-a66a-727b9c2779ce"
+  },
+  {
+    "id": 100,
+    "table": "customer_kyc",
+    "customer_id": "CUST1099",
+    "account_id": "ACC2099",
+    "branch_code": "BR016",
+    "created_at": "2026-07-16T10:39:00Z",
+    "status": "PENDING",
+    "reference": "0b664bed-8465-4447-b70d-f9ba0c5e1d6e"
+  }
+]

@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "table": "account_balance",
+    "customer_id": "CUST1000",
+    "account_id": "ACC2000",
+    "branch_code": "BR019",
+    "created_at": "2026-07-01T10:00:00Z",
+    "status": "INACTIVE",
+    "reference": "a6f113b4-4b34-4fee-b7fb-98d226c9162f"
+  },
+  {
+    "id": 2,
+    "table": "account_balance",
+    "customer_id": "CUST1001",
+    "account_id": "ACC2001",
+    "branch_code": "BR015",
+    "created_at": "2026-07-02T10:01:00Z",
+    "status": "INACTIVE",
+    "reference": "ca983ef9-ba18-4914-9238-8770e4f7a5e5"
+  },
+  {
+    "id": 3,
+    "table": "account_balance",
+    "customer_id": "CUST1002",
+    "account_id": "ACC2002",
+    "branch_code": "BR020",
+    "created_at": "2026-07-03T10:02:00Z",
+    "status": "PENDING",
+    "reference": "50383672-532e-4d0e-bd77-4fc0a7f09505"
+  },
+  {
+    "id": 4,
+    "table": "account_balance",
+    "customer_id": "CUST1003",
+    "account_id": "ACC2003",
+    "branch_code": "BR004",
+    "created_at": "2026-07-04T10:03:00Z",
+    "status": "INACTIVE",
+    "reference": "881fac48-e295-4bd3-a6fa-ca5c9aa704dc"
+  },
+  {
+    "id": 5,
+    "table": "account_balance",
+    "customer_id": "CUST1004",
+    "account_id": "ACC2004",
+    "branch_code": "BR016",
+    "created_at": "2026-07-05T10:04:00Z",
+    "status": "PENDING",
+    "reference": "a83696c2-3f74-4c23-99f4-7aedbd5c7ede"
+  },
+  {
+    "id": 6,
+    "table": "account_balance",
+    "customer_id": "CUST1005",
+    "account_id": "ACC2005",
+    "branch_code": "BR013",
+    "created_at": "2026-07-06T10:05:00Z",
+    "status": "PENDING",
+    "reference": "75ef14c9-1c15-4df8-b9ca-974642bda01b"
+  },
+  {
+    "id": 7,
+    "table": "account_balance",
+    "customer_id": "CUST1006",
+    "account_id": "ACC2006",
+    "branch_code": "BR013",
+    "created_at": "2026-07-07T10:06:00Z",
+    "status": "INACTIVE",
+    "reference": "13a124fa-76f9-4a7d-966a-63bdb87a0640"
+  },
+  {
+    "id": 8,
+    "table": "account_balance",
+    "customer_id": "CUST1007",
+    "account_id": "ACC2007",
+    "branch_code": "BR010",
+    "created_at": "2026-07-08T10:07:00Z",
+    "status": "INACTIVE",
+    "reference": "c7cf7a2f-032a-4e50-bb06-96f4c3fc068d"
+  },
+  {
+    "id": 9,
+    "table": "account_balance",
+    "customer_id": "CUST1008",
+    "account_id": "ACC2008",
+    "branch_code": "BR005",
+    "created_at": "2026-07-09T10:08:00Z",
+    "status": "PENDING",
+    "reference": "98cf7789-d83e-481b-aa8e-23c6736f0866"
+  },
+  {
+    "id": 10,
+    "table": "account_balance",
+    "customer_id": "CUST1009",
+    "account_id": "ACC2009",
+    "branch_code": "BR015",
+    "created_at": "2026-07-10T10:09:00Z",
+    "status": "PENDING",
+    "reference": "d705783f-5d05-49be-9fee-1304a27dd170"
+  },
+  {
+    "id": 11,
+    "table": "account_balance",
+    "customer_id": "CUST1010",
+    "account_id": "ACC2010",
+    "branch_code": "BR008",
+    "created_at": "2026-07-11T10:10:00Z",
+    "status": "ACTIVE",
+    "reference": "5d09c24a-6067-4504-92bc-30577423ff47"
+  },
+  {
+    "id": 12,
+    "table": "account_balance",
+    "customer_id": "CUST1011",
+    "account_id": "ACC2011",
+    "branch_code": "BR012",
+    "created_at": "2026-07-12T10:11:00Z",
+    "status": "ACTIVE",
+    "reference": "5052a11d-b3c1-493c-8f01-f9f5e8f66abb"
+  },
+  {
+    "id": 13,
+    "table": "account_balance",
+    "customer_id": "CUST1012",
+    "account_id": "ACC2012",
+    "branch_code": "BR007",
+    "created_at": "2026-07-13T10:12:00Z",
+    "status": "INACTIVE",
+    "reference": "8cbf988f-0285-459f-ab49-ad66171df562"
+  },
+  {
+    "id": 14,
+    "table": "account_balance",
+    "customer_id": "CUST1013",
+    "account_id": "ACC2013",
+    "branch_code": "BR005",
+    "created_at": "2026-07-14T10:13:00Z",
+    "status": "ACTIVE",
+    "reference": "932819fe-1e5a-4d06-8aea-ab37470c99bd"
+  },
+  {
+    "id": 15,
+    "table": "account_balance",
+    "customer_id": "CUST1014",
+    "account_id": "ACC2014",
+    "branch_code": "BR011",
+    "created_at": "2026-07-15T10:14:00Z",
+    "status": "INACTIVE",
+    "reference": "fbada12b-9372-4660-9e6f-978d5552cb06"
+  },
+  {
+    "id": 16,
+    "table": "account_balance",
+    "customer_id": "CUST1015",
+    "account_id": "ACC2015",
+    "branch_code": "BR005",
+    "created_at": "2026-07-16T10:15:00Z",
+    "status": "ACTIVE",
+    "reference": "9430324c-0d73-4040-9eae-b308b0a7fbae"
+  },
+  {
+    "id": 17,
+    "table": "account_balance",
+    "customer_id": "CUST1016",
+    "account_id": "ACC2016",
+    "branch_code": "BR011",
+    "created_at": "2026-07-17T10:16:00Z",
+    "status": "ACTIVE",
+    "reference": "65f3ccae-7a82-4918-bd8e-9f34caffcfdb"
+  },
+  {
+    "id": 18,
+    "table": "account_balance",
+    "customer_id": "CUST1017",
+    "account_id": "ACC2017",
+    "branch_code": "BR003",
+    "created_at": "2026-07-18T10:17:00Z",
+    "status": "ACTIVE",
+    "reference": "2da79056-028b-4e7e-ab9c-9d9ece86d62a"
+  },
+  {
+    "id": 19,
+    "table": "account_balance",
+    "customer_id": "CUST1018",
+    "account_id": "ACC2018",
+    "branch_code": "BR008",
+    "created_at": "2026-07-19T10:18:00Z",
+    "status": "ACTIVE",
+    "reference": "a2803304-618b-45ac-a470-78a47d68d759"
+  },
+  {
+    "id": 20,
+    "table": "account_balance",
+    "customer_id": "CUST1019",
+    "account_id": "ACC2019",
+    "branch_code": "BR006",
+    "created_at": "2026-07-20T10:19:00Z",
+    "status": "PENDING",
+    "reference": "52f91d69-6b35-4fca-a391-f526ee784c4e"
+  },
+  {
+    "id": 21,
+    "table": "account_balance",
+    "customer_id": "CUST1020",
+    "account_id": "ACC2020",
+    "branch_code": "BR020",
+    "created_at": "2026-07-21T10:20:00Z",
+    "status": "PENDING",
+    "reference": "5a767087-b809-412a-a3ec-3c891aab130a"
+  },
+  {
+    "id": 22,
+    "table": "account_balance",
+    "customer_id": "CUST1021",
+    "account_id": "ACC2021",
+    "branch_code": "BR019",
+    "created_at": "2026-07-22T10:21:00Z",
+    "status": "INACTIVE",
+    "reference": "25f6057f-642b-4997-99cb-220ddaf9bf8f"
+  },
+  {
+    "id": 23,
+    "table": "account_balance",
+    "customer_id": "CUST1022",
+    "account_id": "ACC2022",
+    "branch_code": "BR007",
+    "created_at": "2026-07-23T10:22:00Z",
+    "status": "ACTIVE",
+    "reference": "06651771-aed3-4ca8-ab0c-9425640bf3c8"
+  },
+  {
+    "id": 24,
+    "table": "account_balance",
+    "customer_id": "CUST1023",
+    "account_id": "ACC2023",
+    "branch_code": "BR006",
+    "created_at": "2026-07-24T10:23:00Z",
+    "status": "PENDING",
+    "reference": "77e06ef6-0e42-47ef-8b32-4f5072363571"
+  },
+  {
+    "id": 25,
+    "table": "account_balance",
+    "customer_id": "CUST1024",
+    "account_id": "ACC2024",
+    "branch_code": "BR013",
+    "created_at": "2026-07-25T10:24:00Z",
+    "status": "PENDING",
+    "reference": "53bb1832-67aa-4f66-9dbd-4ce74ba1c7de"
+  },
+  {
+    "id": 26,
+    "table": "account_balance",
+    "customer_id": "CUST1025",
+    "account_id": "ACC2025",
+    "branch_code": "BR006",
+    "created_at": "2026-07-26T10:25:00Z",
+    "status": "PENDING",
+    "reference": "8ebb0049-45d5-4d66-b414-9dd02df3e4d2"
+  },
+  {
+    "id": 27,
+    "table": "account_balance",
+    "customer_id": "CUST1026",
+    "account_id": "ACC2026",
+    "branch_code": "BR012",
+    "created_at": "2026-07-27T10:26:00Z",
+    "status": "ACTIVE",
+    "reference": "88514732-f6cb-47c1-b851-bfac14321d3d"
+  },
+  {
+    "id": 28,
+    "table": "account_balance",
+    "customer_id": "CUST1027",
+    "account_id": "ACC2027",
+    "branch_code": "BR008",
+    "created_at": "2026-07-28T10:27:00Z",
+    "status": "ACTIVE",
+    "reference": "5f65bab0-a053-46e8-9bfc-870552c16817"
+  },
+  {
+    "id": 29,
+    "table": "account_balance",
+    "customer_id": "CUST1028",
+    "account_id": "ACC2028",
+    "branch_code": "BR012",
+    "created_at": "2026-07-01T10:28:00Z",
+    "status": "PENDING",
+    "reference": "ffb6aa10-1dd4-482a-be7e-4acb03f75cfc"
+  },
+  {
+    "id": 30,
+    "table": "account_balance",
+    "customer_id": "CUST1029",
+    "account_id": "ACC2029",
+    "branch_code": "BR001",
+    "created_at": "2026-07-02T10:29:00Z",
+    "status": "INACTIVE",
+    "reference": "0d244046-6996-44b5-9242-e0b5b0ebdd8d"
+  },
+  {
+    "id": 31,
+    "table": "account_balance",
+    "customer_id": "CUST1030",
+    "account_id": "ACC2030",
+    "branch_code": "BR012",
+    "created_at": "2026-07-03T10:30:00Z",
+    "status": "PENDING",
+    "reference": "0012f4fe-e77d-4d24-94d9-0bf5ca80d57a"
+  },
+  {
+    "id": 32,
+    "table": "account_balance",
+    "customer_id": "CUST1031",
+    "account_id": "ACC2031",
+    "branch_code": "BR001",
+    "created_at": "2026-07-04T10:31:00Z",
+    "status": "INACTIVE",
+    "reference": "f5778987-b916-4f31-9948-efdd6545eead"
+  },
+  {
+    "id": 33,
+    "table": "account_balance",
+    "customer_id": "CUST1032",
+    "account_id": "ACC2032",
+    "branch_code": "BR019",
+    "created_at": "2026-07-05T10:32:00Z",
+    "status": "ACTIVE",
+    "reference": "383953c6-3d72-47e6-bb4a-3967f712b1a4"
+  },
+  {
+    "id": 34,
+    "table": "account_balance",
+    "customer_id": "CUST1033",
+    "account_id": "ACC2033",
+    "branch_code": "BR016",
+    "created_at": "2026-07-06T10:33:00Z",
+    "status": "PENDING",
+    "reference": "39b4856d-ea73-4556-b126-eb375e429b04"
+  },
+  {
+    "id": 35,
+    "table": "account_balance",
+    "customer_id": "CUST1034",
+    "account_id": "ACC2034",
+    "branch_code": "BR015",
+    "created_at": "2026-07-07T10:34:00Z",
+    "status": "PENDING",
+    "reference": "56cb2453-f825-47ab-ae7b-22ce82b9e776"
+  },
+  {
+    "id": 36,
+    "table": "account_balance",
+    "customer_id": "CUST1035",
+    "account_id": "ACC2035",
+    "branch_code": "BR007",
+    "created_at": "2026-07-08T10:35:00Z",
+    "status": "ACTIVE",
+    "reference": "e58fc883-8852-4445-a129-4624f8e9927f"
+  },
+  {
+    "id": 37,
+    "table": "account_balance",
+    "customer_id": "CUST1036",
+    "account_id": "ACC2036",
+    "branch_code": "BR014",
+    "created_at": "2026-07-09T10:36:00Z",
+    "status": "PENDING",
+    "reference": "21835308-5b0c-4b4d-ae56-e50a1ce8dbde"
+  },
+  {
+    "id": 38,
+    "table": "account_balance",
+    "customer_id": "CUST1037",
+    "account_id": "ACC2037",
+    "branch_code": "BR016",
+    "created_at": "2026-07-10T10:37:00Z",
+    "status": "ACTIVE",
+    "reference": "1e1fbe4c-68b3-4e6d-9c24-f807eabe9d70"
+  },
+  {
+    "id": 39,
+    "table": "account_balance",
+    "customer_id": "CUST1038",
+    "account_id": "ACC2038",
+    "branch_code": "BR018",
+    "created_at": "2026-07-11T10:38:00Z",
+    "status": "INACTIVE",
+    "reference": "67087d99-5391-4868-b785-f98620f780b1"
+  },
+  {
+    "id": 40,
+    "table": "account_balance",
+    "customer_id": "CUST1039",
+    "account_id": "ACC2039",
+    "branch_code": "BR008",
+    "created_at": "2026-07-12T10:39:00Z",
+    "status": "PENDING",
+    "reference": "e97d87bf-06e9-43a8-a014-1d3beae050bf"
+  },
+  {
+    "id": 41,
+    "table": "account_balance",
+    "customer_id": "CUST1040",
+    "account_id": "ACC2040",
+    "branch_code": "BR012",
+    "created_at": "2026-07-13T10:40:00Z",
+    "status": "ACTIVE",
+    "reference": "ca452767-4634-4cdb-b6e6-563b9a5c7635"
+  },
+  {
+    "id": 42,
+    "table": "account_balance",
+    "customer_id": "CUST1041",
+    "account_id": "ACC2041",
+    "branch_code": "BR009",
+    "created_at": "2026-07-14T10:41:00Z",
+    "status": "INACTIVE",
+    "reference": "dcd5431c-e1cf-4841-8e8c-b1e08f4a1eff"
+  },
+  {
+    "id": 43,
+    "table": "account_balance",
+    "customer_id": "CUST1042",
+    "account_id": "ACC2042",
+    "branch_code": "BR011",
+    "created_at": "2026-07-15T10:42:00Z",
+    "status": "PENDING",
+    "reference": "041a17b9-9cc3-4aa4-afce-f52834b703e4"
+  },
+  {
+    "id": 44,
+    "table": "account_balance",
+    "customer_id": "CUST1043",
+    "account_id": "ACC2043",
+    "branch_code": "BR009",
+    "created_at": "2026-07-16T10:43:00Z",
+    "status": "ACTIVE",
+    "reference": "d0455298-5358-4c4c-9cc5-b30db64c8787"
+  },
+  {
+    "id": 45,
+    "table": "account_balance",
+    "customer_id": "CUST1044",
+    "account_id": "ACC2044",
+    "branch_code": "BR015",
+    "created_at": "2026-07-17T10:44:00Z",
+    "status": "ACTIVE",
+    "reference": "91c9766a-a366-4bd8-b0a8-b13537d148f7"
+  },
+  {
+    "id": 46,
+    "table": "account_balance",
+    "customer_id": "CUST1045",
+    "account_id": "ACC2045",
+    "branch_code": "BR018",
+    "created_at": "2026-07-18T10:45:00Z",
+    "status": "INACTIVE",
+    "reference": "800b3645-cab0-4342-b2eb-55381499d532"
+  },
+  {
+    "id": 47,
+    "table": "account_balance",
+    "customer_id": "CUST1046",
+    "account_id": "ACC2046",
+    "branch_code": "BR019",
+    "created_at": "2026-07-19T10:46:00Z",
+    "status": "PENDING",
+    "reference": "595a45f3-2277-473b-9b8f-201ba46d8e02"
+  },
+  {
+    "id": 48,
+    "table": "account_balance",
+    "customer_id": "CUST1047",
+    "account_id": "ACC2047",
+    "branch_code": "BR016",
+    "created_at": "2026-07-20T10:47:00Z",
+    "status": "ACTIVE",
+    "reference": "d5b5a4d0-259b-4f2f-95ba-356eb30c2e36"
+  },
+  {
+    "id": 49,
+    "table": "account_balance",
+    "customer_id": "CUST1048",
+    "account_id": "ACC2048",
+    "branch_code": "BR010",
+    "created_at": "2026-07-21T10:48:00Z",
+    "status": "INACTIVE",
+    "reference": "7c34a591-3cc8-4946-9b2b-49207d877e67"
+  },
+  {
+    "id": 50,
+    "table": "account_balance",
+    "customer_id": "CUST1049",
+    "account_id": "ACC2049",
+    "branch_code": "BR008",
+    "created_at": "2026-07-22T10:49:00Z",
+    "status": "ACTIVE",
+    "reference": "66f26756-0e36-4fc0-89bb-e4385c6bb766"
+  },
+  {
+    "id": 51,
+    "table": "account_balance",
+    "customer_id": "CUST1050",
+    "account_id": "ACC2050",
+    "branch_code": "BR014",
+    "created_at": "2026-07-23T10:50:00Z",
+    "status": "ACTIVE",
+    "reference": "376449dc-c16e-45ca-917e-76f09533badd"
+  },
+  {
+    "id": 52,
+    "table": "account_balance",
+    "customer_id": "CUST1051",
+    "account_id": "ACC2051",
+    "branch_code": "BR001",
+    "created_at": "2026-07-24T10:51:00Z",
+    "status": "INACTIVE",
+    "reference": "8d294f0d-5a0a-457e-bf72-582dd71f2061"
+  },
+  {
+    "id": 53,
+    "table": "account_balance",
+    "customer_id": "CUST1052",
+    "account_id": "ACC2052",
+    "branch_code": "BR020",
+    "created_at": "2026-07-25T10:52:00Z",
+    "status": "ACTIVE",
+    "reference": "18d8f5b0-fcd9-4c20-bbb5-57fb53b710a8"
+  },
+  {
+    "id": 54,
+    "table": "account_balance",
+    "customer_id": "CUST1053",
+    "account_id": "ACC2053",
+    "branch_code": "BR014",
+    "created_at": "2026-07-26T10:53:00Z",
+    "status": "ACTIVE",
+    "reference": "a29b4788-321f-42ed-a90d-c047e85d388e"
+  },
+  {
+    "id": 55,
+    "table": "account_balance",
+    "customer_id": "CUST1054",
+    "account_id": "ACC2054",
+    "branch_code": "BR010",
+    "created_at": "2026-07-27T10:54:00Z",
+    "status": "ACTIVE",
+    "reference": "6c522929-6e28-4690-97cb-767efe7ca569"
+  },
+  {
+    "id": 56,
+    "table": "account_balance",
+    "customer_id": "CUST1055",
+    "account_id": "ACC2055",
+    "branch_code": "BR003",
+    "created_at": "2026-07-28T10:55:00Z",
+    "status": "PENDING",
+    "reference": "f5e761d5-ff84-421b-8b95-5f632f826834"
+  },
+  {
+    "id": 57,
+    "table": "account_balance",
+    "customer_id": "CUST1056",
+    "account_id": "ACC2056",
+    "branch_code": "BR003",
+    "created_at": "2026-07-01T10:56:00Z",
+    "status": "INACTIVE",
+    "reference": "b75c6400-6ef7-45ca-8e6e-cd71fb264d31"
+  },
+  {
+    "id": 58,
+    "table": "account_balance",
+    "customer_id": "CUST1057",
+    "account_id": "ACC2057",
+    "branch_code": "BR017",
+    "created_at": "2026-07-02T10:57:00Z",
+    "status": "ACTIVE",
+    "reference": "5cf9aab2-00c7-410e-b055-4309f300044d"
+  },
+  {
+    "id": 59,
+    "table": "account_balance",
+    "customer_id": "CUST1058",
+    "account_id": "ACC2058",
+    "branch_code": "BR007",
+    "created_at": "2026-07-03T10:58:00Z",
+    "status": "INACTIVE",
+    "reference": "62ea4402-b958-4cde-a404-d6d844f7a70a"
+  },
+  {
+    "id": 60,
+    "table": "account_balance",
+    "customer_id": "CUST1059",
+    "account_id": "ACC2059",
+    "branch_code": "BR011",
+    "created_at": "2026-07-04T10:59:00Z",
+    "status": "ACTIVE",
+    "reference": "aecf4bbc-b4ea-42fa-9d8c-020cf4e57567"
+  },
+  {
+    "id": 61,
+    "table": "account_balance",
+    "customer_id": "CUST1060",
+    "account_id": "ACC2060",
+    "branch_code": "BR019",
+    "created_at": "2026-07-05T10:00:00Z",
+    "status": "INACTIVE",
+    "reference": "d5772831-6884-41d7-8cd6-6bc3d7affea5"
+  },
+  {
+    "id": 62,
+    "table": "account_balance",
+    "customer_id": "CUST1061",
+    "account_id": "ACC2061",
+    "branch_code": "BR011",
+    "created_at": "2026-07-06T10:01:00Z",
+    "status": "ACTIVE",
+    "reference": "b1dfd36d-bd84-4675-a4b9-995327cff844"
+  },
+  {
+    "id": 63,
+    "table": "account_balance",
+    "customer_id": "CUST1062",
+    "account_id": "ACC2062",
+    "branch_code": "BR015",
+    "created_at": "2026-07-07T10:02:00Z",
+    "status": "INACTIVE",
+    "reference": "1eb9eeef-2f97-408b-8054-b86ac2783c0e"
+  },
+  {
+    "id": 64,
+    "table": "account_balance",
+    "customer_id": "CUST1063",
+    "account_id": "ACC2063",
+    "branch_code": "BR012",
+    "created_at": "2026-07-08T10:03:00Z",
+    "status": "ACTIVE",
+    "reference": "78aa1037-3083-41c4-8cd7-61a76a422a98"
+  },
+  {
+    "id": 65,
+    "table": "account_balance",
+    "customer_id": "CUST1064",
+    "account_id": "ACC2064",
+    "branch_code": "BR016",
+    "created_at": "2026-07-09T10:04:00Z",
+    "status": "ACTIVE",
+    "reference": "23b92928-c8fe-43e6-8d12-f3bf686e9443"
+  },
+  {
+    "id": 66,
+    "table": "account_balance",
+    "customer_id": "CUST1065",
+    "account_id": "ACC2065",
+    "branch_code": "BR009",
+    "created_at": "2026-07-10T10:05:00Z",
+    "status": "PENDING",
+    "reference": "0d457de7-9839-401b-8bd2-14b3187e8c06"
+  },
+  {
+    "id": 67,
+    "table": "account_balance",
+    "customer_id": "CUST1066",
+    "account_id": "ACC2066",
+    "branch_code": "BR016",
+    "created_at": "2026-07-11T10:06:00Z",
+    "status": "INACTIVE",
+    "reference": "fbaa36b6-ea2d-46c3-b1c2-fe3919fc8977"
+  },
+  {
+    "id": 68,
+    "table": "account_balance",
+    "customer_id": "CUST1067",
+    "account_id": "ACC2067",
+    "branch_code": "BR012",
+    "created_at": "2026-07-12T10:07:00Z",
+    "status": "PENDING",
+    "reference": "f479cce7-ee98-44af-8b1d-376b6b90a7ed"
+  },
+  {
+    "id": 69,
+    "table": "account_balance",
+    "customer_id": "CUST1068",
+    "account_id": "ACC2068",
+    "branch_code": "BR009",
+    "created_at": "2026-07-13T10:08:00Z",
+    "status": "INACTIVE",
+    "reference": "3ff7ac0f-fd59-41d1-a4ea-7d612897296e"
+  },
+  {
+    "id": 70,
+    "table": "account_balance",
+    "customer_id": "CUST1069",
+    "account_id": "ACC2069",
+    "branch_code": "BR019",
+    "created_at": "2026-07-14T10:09:00Z",
+    "status": "PENDING",
+    "reference": "d1eb889f-adb6-43a8-a87f-2c1f14072aba"
+  },
+  {
+    "id": 71,
+    "table": "account_balance",
+    "customer_id": "CUST1070",
+    "account_id": "ACC2070",
+    "branch_code": "BR002",
+    "created_at": "2026-07-15T10:10:00Z",
+    "status": "PENDING",
+    "reference": "32ef06c1-41e9-4290-a3ef-ae01dab3394d"
+  },
+  {
+    "id": 72,
+    "table": "account_balance",
+    "customer_id": "CUST1071",
+    "account_id": "ACC2071",
+    "branch_code": "BR012",
+    "created_at": "2026-07-16T10:11:00Z",
+    "status": "PENDING",
+    "reference": "1e9a9cd3-eb3e-4cce-9466-4ba84021f03c"
+  },
+  {
+    "id": 73,
+    "table": "account_balance",
+    "customer_id": "CUST1072",
+    "account_id": "ACC2072",
+    "branch_code": "BR018",
+    "created_at": "2026-07-17T10:12:00Z",
+    "status": "PENDING",
+    "reference": "c290dfb3-b545-47c3-bab1-aba2a9f2e0e3"
+  },
+  {
+    "id": 74,
+    "table": "account_balance",
+    "customer_id": "CUST1073",
+    "account_id": "ACC2073",
+    "branch_code": "BR004",
+    "created_at": "2026-07-18T10:13:00Z",
+    "status": "INACTIVE",
+    "reference": "c3bdd71c-2ed6-4a7c-a054-add0e9cfaaae"
+  },
+  {
+    "id": 75,
+    "table": "account_balance",
+    "customer_id": "CUST1074",
+    "account_id": "ACC2074",
+    "branch_code": "BR012",
+    "created_at": "2026-07-19T10:14:00Z",
+    "status": "ACTIVE",
+    "reference": "8ac57313-b6d7-4b46-901f-3aa891b23f58"
+  },
+  {
+    "id": 76,
+    "table": "account_balance",
+    "customer_id": "CUST1075",
+    "account_id": "ACC2075",
+    "branch_code": "BR018",
+    "created_at": "2026-07-20T10:15:00Z",
+    "status": "PENDING",
+    "reference": "f54932c2-4038-45d7-8634-d2eb772c17ad"
+  },
+  {
+    "id": 77,
+    "table": "account_balance",
+    "customer_id": "CUST1076",
+    "account_id": "ACC2076",
+    "branch_code": "BR014",
+    "created_at": "2026-07-21T10:16:00Z",
+    "status": "ACTIVE",
+    "reference": "10568d3f-06e7-493c-8856-a38701ff4023"
+  },
+  {
+    "id": 78,
+    "table": "account_balance",
+    "customer_id": "CUST1077",
+    "account_id": "ACC2077",
+    "branch_code": "BR016",
+    "created_at": "2026-07-22T10:17:00Z",
+    "status": "PENDING",
+    "reference": "5c59b1cc-2950-4dbf-9fe0-440346594d48"
+  },
+  {
+    "id": 79,
+    "table": "account_balance",
+    "customer_id": "CUST1078",
+    "account_id": "ACC2078",
+    "branch_code": "BR005",
+    "created_at": "2026-07-23T10:18:00Z",
+    "status": "PENDING",
+    "reference": "625f848f-0a8f-4edc-b3f6-f3f3b39a4f54"
+  },
+  {
+    "id": 80,
+    "table": "account_balance",
+    "customer_id": "CUST1079",
+    "account_id": "ACC2079",
+    "branch_code": "BR017",
+    "created_at": "2026-07-24T10:19:00Z",
+    "status": "INACTIVE",
+    "reference": "565ae32b-1332-427f-a8d8-a0604fcb93aa"
+  },
+  {
+    "id": 81,
+    "table": "account_balance",
+    "customer_id": "CUST1080",
+    "account_id": "ACC2080",
+    "branch_code": "BR005",
+    "created_at": "2026-07-25T10:20:00Z",
+    "status": "ACTIVE",
+    "reference": "295de1c9-7bb3-4e38-947b-8ea5f0986979"
+  },
+  {
+    "id": 82,
+    "table": "account_balance",
+    "customer_id": "CUST1081",
+    "account_id": "ACC2081",
+    "branch_code": "BR020",
+    "created_at": "2026-07-26T10:21:00Z",
+    "status": "ACTIVE",
+    "reference": "10778b4d-1767-4824-a572-c2fded61de6f"
+  },
+  {
+    "id": 83,
+    "table": "account_balance",
+    "customer_id": "CUST1082",
+    "account_id": "ACC2082",
+    "branch_code": "BR004",
+    "created_at": "2026-07-27T10:22:00Z",
+    "status": "PENDING",
+    "reference": "367c5c0d-8208-452d-996f-c1aa3419ed00"
+  },
+  {
+    "id": 84,
+    "table": "account_balance",
+    "customer_id": "CUST1083",
+    "account_id": "ACC2083",
+    "branch_code": "BR010",
+    "created_at": "2026-07-28T10:23:00Z",
+    "status": "ACTIVE",
+    "reference": "bfc270aa-5322-4656-8064-5904947ad215"
+  },
+  {
+    "id": 85,
+    "table": "account_balance",
+    "customer_id": "CUST1084",
+    "account_id": "ACC2084",
+    "branch_code": "BR003",
+    "created_at": "2026-07-01T10:24:00Z",
+    "status": "INACTIVE",
+    "reference": "7af6f1b4-8d6a-4c38-be69-6aad75d7f1a5"
+  },
+  {
+    "id": 86,
+    "table": "account_balance",
+    "customer_id": "CUST1085",
+    "account_id": "ACC2085",
+    "branch_code": "BR016",
+    "created_at": "2026-07-02T10:25:00Z",
+    "status": "INACTIVE",
+    "reference": "04d3e992-8a37-4ab2-952c-641127e31433"
+  },
+  {
+    "id": 87,
+    "table": "account_balance",
+    "customer_id": "CUST1086",
+    "account_id": "ACC2086",
+    "branch_code": "BR019",
+    "created_at": "2026-07-03T10:26:00Z",
+    "status": "PENDING",
+    "reference": "2c1fe96b-d471-4bc2-ab4b-ad9a17a51b45"
+  },
+  {
+    "id": 88,
+    "table": "account_balance",
+    "customer_id": "CUST1087",
+    "account_id": "ACC2087",
+    "branch_code": "BR001",
+    "created_at": "2026-07-04T10:27:00Z",
+    "status": "ACTIVE",
+    "reference": "96d7ae80-f252-4a55-a91a-dc40817a6f00"
+  },
+  {
+    "id": 89,
+    "table": "account_balance",
+    "customer_id": "CUST1088",
+    "account_id": "ACC2088",
+    "branch_code": "BR020",
+    "created_at": "2026-07-05T10:28:00Z",
+    "status": "ACTIVE",
+    "reference": "23dad819-b165-4131-a572-ea61646f85f7"
+  },
+  {
+    "id": 90,
+    "table": "account_balance",
+    "customer_id": "CUST1089",
+    "account_id": "ACC2089",
+    "branch_code": "BR020",
+    "created_at": "2026-07-06T10:29:00Z",
+    "status": "PENDING",
+    "reference": "0c607b12-a4c5-4a13-b3c3-a62d9cb72159"
+  },
+  {
+    "id": 91,
+    "table": "account_balance",
+    "customer_id": "CUST1090",
+    "account_id": "ACC2090",
+    "branch_code": "BR007",
+    "created_at": "2026-07-07T10:30:00Z",
+    "status": "PENDING",
+    "reference": "c4e6f5d8-963b-4358-85aa-eb48df2fc008"
+  },
+  {
+    "id": 92,
+    "table": "account_balance",
+    "customer_id": "CUST1091",
+    "account_id": "ACC2091",
+    "branch_code": "BR002",
+    "created_at": "2026-07-08T10:31:00Z",
+    "status": "INACTIVE",
+    "reference": "0e1f4a29-110e-4aee-a31d-e120ab58ddaf"
+  },
+  {
+    "id": 93,
+    "table": "account_balance",
+    "customer_id": "CUST1092",
+    "account_id": "ACC2092",
+    "branch_code": "BR005",
+    "created_at": "2026-07-09T10:32:00Z",
+    "status": "INACTIVE",
+    "reference": "2e1a92b1-aba0-44e0-923e-fe8e7f0df7e3"
+  },
+  {
+    "id": 94,
+    "table": "account_balance",
+    "customer_id": "CUST1093",
+    "account_id": "ACC2093",
+    "branch_code": "BR005",
+    "created_at": "2026-07-10T10:33:00Z",
+    "status": "PENDING",
+    "reference": "aa3029fd-596f-4ace-800d-cc13f884b695"
+  },
+  {
+    "id": 95,
+    "table": "account_balance",
+    "customer_id": "CUST1094",
+    "account_id": "ACC2094",
+    "branch_code": "BR018",
+    "created_at": "2026-07-11T10:34:00Z",
+    "status": "INACTIVE",
+    "reference": "a400b791-0ef8-4041-8ff7-08670cb21a57"
+  },
+  {
+    "id": 96,
+    "table": "account_balance",
+    "customer_id": "CUST1095",
+    "account_id": "ACC2095",
+    "branch_code": "BR016",
+    "created_at": "2026-07-12T10:35:00Z",
+    "status": "INACTIVE",
+    "reference": "4966d9af-e169-4013-b258-3a26470ff9a8"
+  },
+  {
+    "id": 97,
+    "table": "account_balance",
+    "customer_id": "CUST1096",
+    "account_id": "ACC2096",
+    "branch_code": "BR001",
+    "created_at": "2026-07-13T10:36:00Z",
+    "status": "ACTIVE",
+    "reference": "bbbf12ad-c1a2-4264-9912-146dc60ad855"
+  },
+  {
+    "id": 98,
+    "table": "account_balance",
+    "customer_id": "CUST1097",
+    "account_id": "ACC2097",
+    "branch_code": "BR006",
+    "created_at": "2026-07-14T10:37:00Z",
+    "status": "PENDING",
+    "reference": "b233f979-cf7a-47cf-a822-06bc54ea57a9"
+  },
+  {
+    "id": 99,
+    "table": "account_balance",
+    "customer_id": "CUST1098",
+    "account_id": "ACC2098",
+    "branch_code": "BR002",
+    "created_at": "2026-07-15T10:38:00Z",
+    "status": "ACTIVE",
+    "reference": "73783f55-6546-4004-8c3d-993ccc618675"
+  },
+  {
+    "id": 100,
+    "table": "account_balance",
+    "customer_id": "CUST1099",
+    "account_id": "ACC2099",
+    "branch_code": "BR019",
+    "created_at": "2026-07-16T10:39:00Z",
+    "status": "PENDING",
+    "reference": "bf5f089b-9d1f-4885-b688-1a25ad846b87"
+  }
+]

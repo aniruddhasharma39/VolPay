@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "table": "customer_master",
+    "customer_id": "CUST1000",
+    "account_id": "ACC2000",
+    "branch_code": "BR014",
+    "created_at": "2026-07-01T10:00:00Z",
+    "status": "PENDING",
+    "reference": "d6861a2f-fa81-4c89-a6ff-c70b8636a346"
+  },
+  {
+    "id": 2,
+    "table": "customer_master",
+    "customer_id": "CUST1001",
+    "account_id": "ACC2001",
+    "branch_code": "BR019",
+    "created_at": "2026-07-02T10:01:00Z",
+    "status": "ACTIVE",
+    "reference": "bdc3820f-4221-4fe2-beac-6b9e6f2d3086"
+  },
+  {
+    "id": 3,
+    "table": "customer_master",
+    "customer_id": "CUST1002",
+    "account_id": "ACC2002",
+    "branch_code": "BR004",
+    "created_at": "2026-07-03T10:02:00Z",
+    "status": "ACTIVE",
+    "reference": "2f640af6-aea0-4935-b689-a8619a5b4614"
+  },
+  {
+    "id": 4,
+    "table": "customer_master",
+    "customer_id": "CUST1003",
+    "account_id": "ACC2003",
+    "branch_code": "BR003",
+    "created_at": "2026-07-04T10:03:00Z",
+    "status": "PENDING",
+    "reference": "797d8198-0880-4178-8f7a-e554114b7da0"
+  },
+  {
+    "id": 5,
+    "table": "customer_master",
+    "customer_id": "CUST1004",
+    "account_id": "ACC2004",
+    "branch_code": "BR006",
+    "created_at": "2026-07-05T10:04:00Z",
+    "status": "PENDING",
+    "reference": "bf514ecf-1e05-48d3-9c20-64b318505262"
+  },
+  {
+    "id": 6,
+    "table": "customer_master",
+    "customer_id": "CUST1005",
+    "account_id": "ACC2005",
+    "branch_code": "BR007",
+    "created_at": "2026-07-06T10:05:00Z",
+    "status": "INACTIVE",
+    "reference": "c45bbd4f-d575-421d-96a5-9d65f89a523e"
+  },
+  {
+    "id": 7,
+    "table": "customer_master",
+    "customer_id": "CUST1006",
+    "account_id": "ACC2006",
+    "branch_code": "BR020",
+    "created_at": "2026-07-07T10:06:00Z",
+    "status": "INACTIVE",
+    "reference": "be278ba8-2e1e-492f-8d19-bede7ec07278"
+  },
+  {
+    "id": 8,
+    "table": "customer_master",
+    "customer_id": "CUST1007",
+    "account_id": "ACC2007",
+    "branch_code": "BR018",
+    "created_at": "2026-07-08T10:07:00Z",
+    "status": "ACTIVE",
+    "reference": "6e2f5842-814f-4895-9b22-01b9f8d96401"
+  },
+  {
+    "id": 9,
+    "table": "customer_master",
+    "customer_id": "CUST1008",
+    "account_id": "ACC2008",
+    "branch_code": "BR017",
+    "created_at": "2026-07-09T10:08:00Z",
+    "status": "INACTIVE",
+    "reference": "8c2967ff-6449-405b-926a-6bb1ac564f54"
+  },
+  {
+    "id": 10,
+    "table": "customer_master",
+    "customer_id": "CUST1009",
+    "account_id": "ACC2009",
+    "branch_code": "BR016",
+    "created_at": "2026-07-10T10:09:00Z",
+    "status": "PENDING",
+    "reference": "86289c1b-0a1f-49b6-bfe1-64eb02651601"
+  },
+  {
+    "id": 11,
+    "table": "customer_master",
+    "customer_id": "CUST1010",
+    "account_id": "ACC2010",
+    "branch_code": "BR004",
+    "created_at": "2026-07-11T10:10:00Z",
+    "status": "INACTIVE",
+    "reference": "1e21bf11-0248-41e2-a6ea-2243acfaf043"
+  },
+  {
+    "id": 12,
+    "table": "customer_master",
+    "customer_id": "CUST1011",
+    "account_id": "ACC2011",
+    "branch_code": "BR007",
+    "created_at": "2026-07-12T10:11:00Z",
+    "status": "PENDING",
+    "reference": "d9de5b49-8d97-41a5-abf5-1af2d10c1716"
+  },
+  {
+    "id": 13,
+    "table": "customer_master",
+    "customer_id": "CUST1012",
+    "account_id": "ACC2012",
+    "branch_code": "BR018",
+    "created_at": "2026-07-13T10:12:00Z",
+    "status": "PENDING",
+    "reference": "3eaac3cf-ef06-401f-a921-42a337727d8f"
+  },
+  {
+    "id": 14,
+    "table": "customer_master",
+    "customer_id": "CUST1013",
+    "account_id": "ACC2013",
+    "branch_code": "BR015",
+    "created_at": "2026-07-14T10:13:00Z",
+    "status": "ACTIVE",
+    "reference": "fd15ac9f-cf8e-4593-96d5-bf5f88bdf303"
+  },
+  {
+    "id": 15,
+    "table": "customer_master",
+    "customer_id": "CUST1014",
+    "account_id": "ACC2014",
+    "branch_code": "BR004",
+    "created_at": "2026-07-15T10:14:00Z",
+    "status": "INACTIVE",
+    "reference": "c3238d7f-ba16-45bb-8bb9-9c532f9a1ac0"
+  },
+  {
+    "id": 16,
+    "table": "customer_master",
+    "customer_id": "CUST1015",
+    "account_id": "ACC2015",
+    "branch_code": "BR008",
+    "created_at": "2026-07-16T10:15:00Z",
+    "status": "INACTIVE",
+    "reference": "ff29b4ab-4d27-4ed5-964d-8f005ba0ee3c"
+  },
+  {
+    "id": 17,
+    "table": "customer_master",
+    "customer_id": "CUST1016",
+    "account_id": "ACC2016",
+    "branch_code": "BR004",
+    "created_at": "2026-07-17T10:16:00Z",
+    "status": "PENDING",
+    "reference": "7cb8a509-0af6-40b5-8ef0-0a1388956c42"
+  },
+  {
+    "id": 18,
+    "table": "customer_master",
+    "customer_id": "CUST1017",
+    "account_id": "ACC2017",
+    "branch_code": "BR012",
+    "created_at": "2026-07-18T10:17:00Z",
+    "status": "PENDING",
+    "reference": "feb90da2-bc67-467f-92c0-84744d6e4be7"
+  },
+  {
+    "id": 19,
+    "table": "customer_master",
+    "customer_id": "CUST1018",
+    "account_id": "ACC2018",
+    "branch_code": "BR011",
+    "created_at": "2026-07-19T10:18:00Z",
+    "status": "ACTIVE",
+    "reference": "1ce278d6-76c4-4587-bf9b-5cb98c6b9596"
+  },
+  {
+    "id": 20,
+    "table": "customer_master",
+    "customer_id": "CUST1019",
+    "account_id": "ACC2019",
+    "branch_code": "BR007",
+    "created_at": "2026-07-20T10:19:00Z",
+    "status": "INACTIVE",
+    "reference": "51ba21cf-e733-4802-9dbf-4ab4b1a7d89f"
+  },
+  {
+    "id": 21,
+    "table": "customer_master",
+    "customer_id": "CUST1020",
+    "account_id": "ACC2020",
+    "branch_code": "BR001",
+    "created_at": "2026-07-21T10:20:00Z",
+    "status": "PENDING",
+    "reference": "baa94568-1f70-4544-9f45-432e81f4ed60"
+  },
+  {
+    "id": 22,
+    "table": "customer_master",
+    "customer_id": "CUST1021",
+    "account_id": "ACC2021",
+    "branch_code": "BR012",
+    "created_at": "2026-07-22T10:21:00Z",
+    "status": "PENDING",
+    "reference": "534adb2b-c5be-4913-966e-167df1d935a8"
+  },
+  {
+    "id": 23,
+    "table": "customer_master",
+    "customer_id": "CUST1022",
+    "account_id": "ACC2022",
+    "branch_code": "BR012",
+    "created_at": "2026-07-23T10:22:00Z",
+    "status": "ACTIVE",
+    "reference": "881171cd-99c0-4ad9-8d7f-401a33c88fbb"
+  },
+  {
+    "id": 24,
+    "table": "customer_master",
+    "customer_id": "CUST1023",
+    "account_id": "ACC2023",
+    "branch_code": "BR014",
+    "created_at": "2026-07-24T10:23:00Z",
+    "status": "PENDING",
+    "reference": "f73dc3f0-869a-4150-9580-5008fae9bc69"
+  },
+  {
+    "id": 25,
+    "table": "customer_master",
+    "customer_id": "CUST1024",
+    "account_id": "ACC2024",
+    "branch_code": "BR010",
+    "created_at": "2026-07-25T10:24:00Z",
+    "status": "PENDING",
+    "reference": "63de894a-0f2d-4aa4-ada4-1813871eb4ff"
+  },
+  {
+    "id": 26,
+    "table": "customer_master",
+    "customer_id": "CUST1025",
+    "account_id": "ACC2025",
+    "branch_code": "BR005",
+    "created_at": "2026-07-26T10:25:00Z",
+    "status": "ACTIVE",
+    "reference": "e14019c3-a6e8-4ec8-ac82-39cd5998f835"
+  },
+  {
+    "id": 27,
+    "table": "customer_master",
+    "customer_id": "CUST1026",
+    "account_id": "ACC2026",
+    "branch_code": "BR001",
+    "created_at": "2026-07-27T10:26:00Z",
+    "status": "INACTIVE",
+    "reference": "70b98ba7-bb19-4ac3-b2cd-a657e8b3251a"
+  },
+  {
+    "id": 28,
+    "table": "customer_master",
+    "customer_id": "CUST1027",
+    "account_id": "ACC2027",
+    "branch_code": "BR004",
+    "created_at": "2026-07-28T10:27:00Z",
+    "status": "INACTIVE",
+    "reference": "31e08cbe-64a4-4fe8-b27c-6aa01d74494f"
+  },
+  {
+    "id": 29,
+    "table": "customer_master",
+    "customer_id": "CUST1028",
+    "account_id": "ACC2028",
+    "branch_code": "BR012",
+    "created_at": "2026-07-01T10:28:00Z",
+    "status": "PENDING",
+    "reference": "85a58fce-9094-4750-9ae6-dd7e207f2fb0"
+  },
+  {
+    "id": 30,
+    "table": "customer_master",
+    "customer_id": "CUST1029",
+    "account_id": "ACC2029",
+    "branch_code": "BR010",
+    "created_at": "2026-07-02T10:29:00Z",
+    "status": "PENDING",
+    "reference": "b20bc604-0e02-4d62-8541-d036c5e4a359"
+  },
+  {
+    "id": 31,
+    "table": "customer_master",
+    "customer_id": "CUST1030",
+    "account_id": "ACC2030",
+    "branch_code": "BR015",
+    "created_at": "2026-07-03T10:30:00Z",
+    "status": "PENDING",
+    "reference": "4722259e-bcc3-4c4d-ba97-ce3b2a63820a"
+  },
+  {
+    "id": 32,
+    "table": "customer_master",
+    "customer_id": "CUST1031",
+    "account_id": "ACC2031",
+    "branch_code": "BR017",
+    "created_at": "2026-07-04T10:31:00Z",
+    "status": "ACTIVE",
+    "reference": "044d03cc-d09d-47db-900f-b7e105a2f138"
+  },
+  {
+    "id": 33,
+    "table": "customer_master",
+    "customer_id": "CUST1032",
+    "account_id": "ACC2032",
+    "branch_code": "BR008",
+    "created_at": "2026-07-05T10:32:00Z",
+    "status": "INACTIVE",
+    "reference": "a5bb886e-ee8d-4b79-a34e-0289437dc00b"
+  },
+  {
+    "id": 34,
+    "table": "customer_master",
+    "customer_id": "CUST1033",
+    "account_id": "ACC2033",
+    "branch_code": "BR003",
+    "created_at": "2026-07-06T10:33:00Z",
+    "status": "PENDING",
+    "reference": "9071aef7-858b-4a57-bd8b-86ec31388136"
+  },
+  {
+    "id": 35,
+    "table": "customer_master",
+    "customer_id": "CUST1034",
+    "account_id": "ACC2034",
+    "branch_code": "BR002",
+    "created_at": "2026-07-07T10:34:00Z",
+    "status": "INACTIVE",
+    "reference": "65d972c6-86e4-4b7a-a20d-c48824fec171"
+  },
+  {
+    "id": 36,
+    "table": "customer_master",
+    "customer_id": "CUST1035",
+    "account_id": "ACC2035",
+    "branch_code": "BR006",
+    "created_at": "2026-07-08T10:35:00Z",
+    "status": "ACTIVE",
+    "reference": "1450b8e9-72da-42fc-8b09-a4fece0da76b"
+  },
+  {
+    "id": 37,
+    "table": "customer_master",
+    "customer_id": "CUST1036",
+    "account_id": "ACC2036",
+    "branch_code": "BR001",
+    "created_at": "2026-07-09T10:36:00Z",
+    "status": "INACTIVE",
+    "reference": "66fa044f-bff6-46c5-b988-6b300fdf6565"
+  },
+  {
+    "id": 38,
+    "table": "customer_master",
+    "customer_id": "CUST1037",
+    "account_id": "ACC2037",
+    "branch_code": "BR002",
+    "created_at": "2026-07-10T10:37:00Z",
+    "status": "ACTIVE",
+    "reference": "bc803920-9a46-44aa-ad66-1328fd7034bb"
+  },
+  {
+    "id": 39,
+    "table": "customer_master",
+    "customer_id": "CUST1038",
+    "account_id": "ACC2038",
+    "branch_code": "BR016",
+    "created_at": "2026-07-11T10:38:00Z",
+    "status": "INACTIVE",
+    "reference": "ccbd7bb7-c2c5-4544-aff2-8ba56712719c"
+  },
+  {
+    "id": 40,
+    "table": "customer_master",
+    "customer_id": "CUST1039",
+    "account_id": "ACC2039",
+    "branch_code": "BR003",
+    "created_at": "2026-07-12T10:39:00Z",
+    "status": "ACTIVE",
+    "reference": "58fe74c4-4133-42d4-8aa0-c01550c74e90"
+  },
+  {
+    "id": 41,
+    "table": "customer_master",
+    "customer_id": "CUST1040",
+    "account_id": "ACC2040",
+    "branch_code": "BR016",
+    "created_at": "2026-07-13T10:40:00Z",
+    "status": "ACTIVE",
+    "reference": "7bb2ba1e-b3d1-47fa-b7ea-cfff82e072c6"
+  },
+  {
+    "id": 42,
+    "table": "customer_master",
+    "customer_id": "CUST1041",
+    "account_id": "ACC2041",
+    "branch_code": "BR018",
+    "created_at": "2026-07-14T10:41:00Z",
+    "status": "PENDING",
+    "reference": "b173b01e-bfde-41e1-9d68-2bc10c8613a6"
+  },
+  {
+    "id": 43,
+    "table": "customer_master",
+    "customer_id": "CUST1042",
+    "account_id": "ACC2042",
+    "branch_code": "BR006",
+    "created_at": "2026-07-15T10:42:00Z",
+    "status": "PENDING",
+    "reference": "f57dadaa-39e1-429d-924f-ea9fb96a5dd5"
+  },
+  {
+    "id": 44,
+    "table": "customer_master",
+    "customer_id": "CUST1043",
+    "account_id": "ACC2043",
+    "branch_code": "BR002",
+    "created_at": "2026-07-16T10:43:00Z",
+    "status": "ACTIVE",
+    "reference": "2721a6d6-c0d0-4f23-b472-ffc0e7ef90fe"
+  },
+  {
+    "id": 45,
+    "table": "customer_master",
+    "customer_id": "CUST1044",
+    "account_id": "ACC2044",
+    "branch_code": "BR012",
+    "created_at": "2026-07-17T10:44:00Z",
+    "status": "ACTIVE",
+    "reference": "a815e656-5d35-4c0a-a7e3-e94d7d419675"
+  },
+  {
+    "id": 46,
+    "table": "customer_master",
+    "customer_id": "CUST1045",
+    "account_id": "ACC2045",
+    "branch_code": "BR007",
+    "created_at": "2026-07-18T10:45:00Z",
+    "status": "PENDING",
+    "reference": "280312b5-08f8-43d6-9b15-2b185182cb9c"
+  },
+  {
+    "id": 47,
+    "table": "customer_master",
+    "customer_id": "CUST1046",
+    "account_id": "ACC2046",
+    "branch_code": "BR005",
+    "created_at": "2026-07-19T10:46:00Z",
+    "status": "INACTIVE",
+    "reference": "de47f4e1-765e-40eb-914f-0264ea251b3b"
+  },
+  {
+    "id": 48,
+    "table": "customer_master",
+    "customer_id": "CUST1047",
+    "account_id": "ACC2047",
+    "branch_code": "BR011",
+    "created_at": "2026-07-20T10:47:00Z",
+    "status": "PENDING",
+    "reference": "01b6c76e-bd4f-4306-a4cf-179156613c2f"
+  },
+  {
+    "id": 49,
+    "table": "customer_master",
+    "customer_id": "CUST1048",
+    "account_id": "ACC2048",
+    "branch_code": "BR002",
+    "created_at": "2026-07-21T10:48:00Z",
+    "status": "PENDING",
+    "reference": "6ef2db32-822a-460e-883c-6287ee776968"
+  },
+  {
+    "id": 50,
+    "table": "customer_master",
+    "customer_id": "CUST1049",
+    "account_id": "ACC2049",
+    "branch_code": "BR019",
+    "created_at": "2026-07-22T10:49:00Z",
+    "status": "PENDING",
+    "reference": "c9461b86-2d9b-4dd1-84b4-5b6d7a184d2d"
+  },
+  {
+    "id": 51,
+    "table": "customer_master",
+    "customer_id": "CUST1050",
+    "account_id": "ACC2050",
+    "branch_code": "BR004",
+    "created_at": "2026-07-23T10:50:00Z",
+    "status": "PENDING",
+    "reference": "e63dbc6d-eda9-4577-b000-41fa3b403fa2"
+  },
+  {
+    "id": 52,
+    "table": "customer_master",
+    "customer_id": "CUST1051",
+    "account_id": "ACC2051",
+    "branch_code": "BR020",
+    "created_at": "2026-07-24T10:51:00Z",
+    "status": "ACTIVE",
+    "reference": "59d7c099-bb23-43e6-b1b1-04aa4cf1ab7e"
+  },
+  {
+    "id": 53,
+    "table": "customer_master",
+    "customer_id": "CUST1052",
+    "account_id": "ACC2052",
+    "branch_code": "BR010",
+    "created_at": "2026-07-25T10:52:00Z",
+    "status": "ACTIVE",
+    "reference": "ffa9899f-ba71-43d9-ba64-f172bd8b7385"
+  },
+  {
+    "id": 54,
+    "table": "customer_master",
+    "customer_id": "CUST1053",
+    "account_id": "ACC2053",
+    "branch_code": "BR013",
+    "created_at": "2026-07-26T10:53:00Z",
+    "status": "ACTIVE",
+    "reference": "09d6d717-12ad-43df-989e-29f873a1357f"
+  },
+  {
+    "id": 55,
+    "table": "customer_master",
+    "customer_id": "CUST1054",
+    "account_id": "ACC2054",
+    "branch_code": "BR009",
+    "created_at": "2026-07-27T10:54:00Z",
+    "status": "PENDING",
+    "reference": "17abaab1-ff92-4ef2-8990-d2d18bb016ac"
+  },
+  {
+    "id": 56,
+    "table": "customer_master",
+    "customer_id": "CUST1055",
+    "account_id": "ACC2055",
+    "branch_code": "BR019",
+    "created_at": "2026-07-28T10:55:00Z",
+    "status": "INACTIVE",
+    "reference": "5749f178-8caa-4834-9c90-aaa12dd8dfad"
+  },
+  {
+    "id": 57,
+    "table": "customer_master",
+    "customer_id": "CUST1056",
+    "account_id": "ACC2056",
+    "branch_code": "BR020",
+    "created_at": "2026-07-01T10:56:00Z",
+    "status": "ACTIVE",
+    "reference": "a470d016-0768-487d-b8da-5d6710b70c85"
+  },
+  {
+    "id": 58,
+    "table": "customer_master",
+    "customer_id": "CUST1057",
+    "account_id": "ACC2057",
+    "branch_code": "BR005",
+    "created_at": "2026-07-02T10:57:00Z",
+    "status": "INACTIVE",
+    "reference": "7f1e0c6b-940b-4a1b-a43b-bac3101e6de1"
+  },
+  {
+    "id": 59,
+    "table": "customer_master",
+    "customer_id": "CUST1058",
+    "account_id": "ACC2058",
+    "branch_code": "BR005",
+    "created_at": "2026-07-03T10:58:00Z",
+    "status": "PENDING",
+    "reference": "7b8f7fa6-7bda-468e-8d11-8f4b49956f1c"
+  },
+  {
+    "id": 60,
+    "table": "customer_master",
+    "customer_id": "CUST1059",
+    "account_id": "ACC2059",
+    "branch_code": "BR010",
+    "created_at": "2026-07-04T10:59:00Z",
+    "status": "INACTIVE",
+    "reference": "355a07af-4d34-4b7d-9c99-490038df595c"
+  },
+  {
+    "id": 61,
+    "table": "customer_master",
+    "customer_id": "CUST1060",
+    "account_id": "ACC2060",
+    "branch_code": "BR017",
+    "created_at": "2026-07-05T10:00:00Z",
+    "status": "PENDING",
+    "reference": "1baa7933-e77e-4116-bdba-32fd1c19169d"
+  },
+  {
+    "id": 62,
+    "table": "customer_master",
+    "customer_id": "CUST1061",
+    "account_id": "ACC2061",
+    "branch_code": "BR005",
+    "created_at": "2026-07-06T10:01:00Z",
+    "status": "ACTIVE",
+    "reference": "4f7d7ad0-754b-4090-a851-27ce2a417cd8"
+  },
+  {
+    "id": 63,
+    "table": "customer_master",
+    "customer_id": "CUST1062",
+    "account_id": "ACC2062",
+    "branch_code": "BR013",
+    "created_at": "2026-07-07T10:02:00Z",
+    "status": "PENDING",
+    "reference": "ad321d25-bccc-494a-9664-ec8dbf147f74"
+  },
+  {
+    "id": 64,
+    "table": "customer_master",
+    "customer_id": "CUST1063",
+    "account_id": "ACC2063",
+    "branch_code": "BR013",
+    "created_at": "2026-07-08T10:03:00Z",
+    "status": "PENDING",
+    "reference": "39d1ffa7-0b06-4756-96a6-1c24e19d6da3"
+  },
+  {
+    "id": 65,
+    "table": "customer_master",
+    "customer_id": "CUST1064",
+    "account_id": "ACC2064",
+    "branch_code": "BR005",
+    "created_at": "2026-07-09T10:04:00Z",
+    "status": "ACTIVE",
+    "reference": "e47dba33-0190-474d-8213-fbb0ced17a53"
+  },
+  {
+    "id": 66,
+    "table": "customer_master",
+    "customer_id": "CUST1065",
+    "account_id": "ACC2065",
+    "branch_code": "BR005",
+    "created_at": "2026-07-10T10:05:00Z",
+    "status": "PENDING",
+    "reference": "a2a3b758-bd6a-4ea4-b11e-a07f335e7981"
+  },
+  {
+    "id": 67,
+    "table": "customer_master",
+    "customer_id": "CUST1066",
+    "account_id": "ACC2066",
+    "branch_code": "BR015",
+    "created_at": "2026-07-11T10:06:00Z",
+    "status": "ACTIVE",
+    "reference": "0c893faf-c950-402b-b5cf-57ae4be3d788"
+  },
+  {
+    "id": 68,
+    "table": "customer_master",
+    "customer_id": "CUST1067",
+    "account_id": "ACC2067",
+    "branch_code": "BR008",
+    "created_at": "2026-07-12T10:07:00Z",
+    "status": "INACTIVE",
+    "reference": "85933835-8273-4d94-8a30-a25382dc9b4c"
+  },
+  {
+    "id": 69,
+    "table": "customer_master",
+    "customer_id": "CUST1068",
+    "account_id": "ACC2068",
+    "branch_code": "BR016",
+    "created_at": "2026-07-13T10:08:00Z",
+    "status": "INACTIVE",
+    "reference": "5a844384-1c98-4ca7-9447-5bc7e728eedc"
+  },
+  {
+    "id": 70,
+    "table": "customer_master",
+    "customer_id": "CUST1069",
+    "account_id": "ACC2069",
+    "branch_code": "BR019",
+    "created_at": "2026-07-14T10:09:00Z",
+    "status": "ACTIVE",
+    "reference": "e96aad82-6dbb-4ad3-824b-9e797e400d8a"
+  },
+  {
+    "id": 71,
+    "table": "customer_master",
+    "customer_id": "CUST1070",
+    "account_id": "ACC2070",
+    "branch_code": "BR014",
+    "created_at": "2026-07-15T10:10:00Z",
+    "status": "INACTIVE",
+    "reference": "1c817852-0889-4fd9-925b-5a80d17b9a16"
+  },
+  {
+    "id": 72,
+    "table": "customer_master",
+    "customer_id": "CUST1071",
+    "account_id": "ACC2071",
+    "branch_code": "BR014",
+    "created_at": "2026-07-16T10:11:00Z",
+    "status": "PENDING",
+    "reference": "60aa392c-527f-446c-ad3a-9b87c3e28013"
+  },
+  {
+    "id": 73,
+    "table": "customer_master",
+    "customer_id": "CUST1072",
+    "account_id": "ACC2072",
+    "branch_code": "BR004",
+    "created_at": "2026-07-17T10:12:00Z",
+    "status": "PENDING",
+    "reference": "73c1e811-e090-4c23-9786-df2069509a0c"
+  },
+  {
+    "id": 74,
+    "table": "customer_master",
+    "customer_id": "CUST1073",
+    "account_id": "ACC2073",
+    "branch_code": "BR014",
+    "created_at": "2026-07-18T10:13:00Z",
+    "status": "PENDING",
+    "reference": "61b62508-bcc8-4c61-9b47-de4ac6668387"
+  },
+  {
+    "id": 75,
+    "table": "customer_master",
+    "customer_id": "CUST1074",
+    "account_id": "ACC2074",
+    "branch_code": "BR017",
+    "created_at": "2026-07-19T10:14:00Z",
+    "status": "INACTIVE",
+    "reference": "44a88fb1-9ad6-40fd-aba4-931c7e1ef1ba"
+  },
+  {
+    "id": 76,
+    "table": "customer_master",
+    "customer_id": "CUST1075",
+    "account_id": "ACC2075",
+    "branch_code": "BR016",
+    "created_at": "2026-07-20T10:15:00Z",
+    "status": "ACTIVE",
+    "reference": "5463ee1b-96f3-4d67-8550-b5d7479ba72a"
+  },
+  {
+    "id": 77,
+    "table": "customer_master",
+    "customer_id": "CUST1076",
+    "account_id": "ACC2076",
+    "branch_code": "BR012",
+    "created_at": "2026-07-21T10:16:00Z",
+    "status": "PENDING",
+    "reference": "00da442a-ea65-4fa4-b567-10b26e9cdab3"
+  },
+  {
+    "id": 78,
+    "table": "customer_master",
+    "customer_id": "CUST1077",
+    "account_id": "ACC2077",
+    "branch_code": "BR012",
+    "created_at": "2026-07-22T10:17:00Z",
+    "status": "ACTIVE",
+    "reference": "565c171e-b56d-45a4-a108-50ac2710d6fb"
+  },
+  {
+    "id": 79,
+    "table": "customer_master",
+    "customer_id": "CUST1078",
+    "account_id": "ACC2078",
+    "branch_code": "BR001",
+    "created_at": "2026-07-23T10:18:00Z",
+    "status": "ACTIVE",
+    "reference": "1270e9c5-1106-4b09-849f-e0346600f7e5"
+  },
+  {
+    "id": 80,
+    "table": "customer_master",
+    "customer_id": "CUST1079",
+    "account_id": "ACC2079",
+    "branch_code": "BR011",
+    "created_at": "2026-07-24T10:19:00Z",
+    "status": "ACTIVE",
+    "reference": "0de6314b-e7d5-4a8c-acbc-da13dc79ec73"
+  },
+  {
+    "id": 81,
+    "table": "customer_master",
+    "customer_id": "CUST1080",
+    "account_id": "ACC2080",
+    "branch_code": "BR006",
+    "created_at": "2026-07-25T10:20:00Z",
+    "status": "PENDING",
+    "reference": "788d5f22-0d56-4040-b52e-66521971c2b4"
+  },
+  {
+    "id": 82,
+    "table": "customer_master",
+    "customer_id": "CUST1081",
+    "account_id": "ACC2081",
+    "branch_code": "BR014",
+    "created_at": "2026-07-26T10:21:00Z",
+    "status": "ACTIVE",
+    "reference": "a06eb243-597d-4a57-a858-a1606fccc420"
+  },
+  {
+    "id": 83,
+    "table": "customer_master",
+    "customer_id": "CUST1082",
+    "account_id": "ACC2082",
+    "branch_code": "BR002",
+    "created_at": "2026-07-27T10:22:00Z",
+    "status": "INACTIVE",
+    "reference": "b5430a37-2e2e-4373-8843-2e1e72ca4c27"
+  },
+  {
+    "id": 84,
+    "table": "customer_master",
+    "customer_id": "CUST1083",
+    "account_id": "ACC2083",
+    "branch_code": "BR001",
+    "created_at": "2026-07-28T10:23:00Z",
+    "status": "PENDING",
+    "reference": "b3f12142-f987-483e-971c-9aefe1633640"
+  },
+  {
+    "id": 85,
+    "table": "customer_master",
+    "customer_id": "CUST1084",
+    "account_id": "ACC2084",
+    "branch_code": "BR004",
+    "created_at": "2026-07-01T10:24:00Z",
+    "status": "PENDING",
+    "reference": "0b3ca2c1-5cde-4ec9-90f6-22168923f05c"
+  },
+  {
+    "id": 86,
+    "table": "customer_master",
+    "customer_id": "CUST1085",
+    "account_id": "ACC2085",
+    "branch_code": "BR012",
+    "created_at": "2026-07-02T10:25:00Z",
+    "status": "ACTIVE",
+    "reference": "63054db7-f3dc-4eaa-ba8c-95bc21d30c5b"
+  },
+  {
+    "id": 87,
+    "table": "customer_master",
+    "customer_id": "CUST1086",
+    "account_id": "ACC2086",
+    "branch_code": "BR014",
+    "created_at": "2026-07-03T10:26:00Z",
+    "status": "PENDING",
+    "reference": "7db01765-7b3a-4a8b-b24d-e38c8bc67648"
+  },
+  {
+    "id": 88,
+    "table": "customer_master",
+    "customer_id": "CUST1087",
+    "account_id": "ACC2087",
+    "branch_code": "BR005",
+    "created_at": "2026-07-04T10:27:00Z",
+    "status": "INACTIVE",
+    "reference": "c530f7e0-7045-4a16-aa31-9aa152d3d9ee"
+  },
+  {
+    "id": 89,
+    "table": "customer_master",
+    "customer_id": "CUST1088",
+    "account_id": "ACC2088",
+    "branch_code": "BR015",
+    "created_at": "2026-07-05T10:28:00Z",
+    "status": "PENDING",
+    "reference": "37933219-7f4c-4dfd-88c8-7b9a51482802"
+  },
+  {
+    "id": 90,
+    "table": "customer_master",
+    "customer_id": "CUST1089",
+    "account_id": "ACC2089",
+    "branch_code": "BR019",
+    "created_at": "2026-07-06T10:29:00Z",
+    "status": "PENDING",
+    "reference": "e5a43c76-cf06-4f67-ada3-1a6a08176c84"
+  },
+  {
+    "id": 91,
+    "table": "customer_master",
+    "customer_id": "CUST1090",
+    "account_id": "ACC2090",
+    "branch_code": "BR012",
+    "created_at": "2026-07-07T10:30:00Z",
+    "status": "INACTIVE",
+    "reference": "05e98285-eb12-4c26-8dd2-9576ab670089"
+  },
+  {
+    "id": 92,
+    "table": "customer_master",
+    "customer_id": "CUST1091",
+    "account_id": "ACC2091",
+    "branch_code": "BR008",
+    "created_at": "2026-07-08T10:31:00Z",
+    "status": "PENDING",
+    "reference": "207dfde3-35bd-462e-b56c-99bd4d72fde5"
+  },
+  {
+    "id": 93,
+    "table": "customer_master",
+    "customer_id": "CUST1092",
+    "account_id": "ACC2092",
+    "branch_code": "BR001",
+    "created_at": "2026-07-09T10:32:00Z",
+    "status": "INACTIVE",
+    "reference": "d5713f94-4b7f-41af-8606-b351dde87239"
+  },
+  {
+    "id": 94,
+    "table": "customer_master",
+    "customer_id": "CUST1093",
+    "account_id": "ACC2093",
+    "branch_code": "BR003",
+    "created_at": "2026-07-10T10:33:00Z",
+    "status": "PENDING",
+    "reference": "63bf0c86-6e53-48aa-8547-ed3a38d082e1"
+  },
+  {
+    "id": 95,
+    "table": "customer_master",
+    "customer_id": "CUST1094",
+    "account_id": "ACC2094",
+    "branch_code": "BR005",
+    "created_at": "2026-07-11T10:34:00Z",
+    "status": "INACTIVE",
+    "reference": "5c969da4-5511-4f3e-9c3f-9627d9096998"
+  },
+  {
+    "id": 96,
+    "table": "customer_master",
+    "customer_id": "CUST1095",
+    "account_id": "ACC2095",
+    "branch_code": "BR004",
+    "created_at": "2026-07-12T10:35:00Z",
+    "status": "PENDING",
+    "reference": "e90dccfb-9a63-4e43-9f46-de107c411b30"
+  },
+  {
+    "id": 97,
+    "table": "customer_master",
+    "customer_id": "CUST1096",
+    "account_id": "ACC2096",
+    "branch_code": "BR011",
+    "created_at": "2026-07-13T10:36:00Z",
+    "status": "INACTIVE",
+    "reference": "49852b6e-bc2a-4410-8985-5aeabaabce39"
+  },
+  {
+    "id": 98,
+    "table": "customer_master",
+    "customer_id": "CUST1097",
+    "account_id": "ACC2097",
+    "branch_code": "BR005",
+    "created_at": "2026-07-14T10:37:00Z",
+    "status": "INACTIVE",
+    "reference": "140b72b9-5ef9-46d4-a554-c370e660c70d"
+  },
+  {
+    "id": 99,
+    "table": "customer_master",
+    "customer_id": "CUST1098",
+    "account_id": "ACC2098",
+    "branch_code": "BR009",
+    "created_at": "2026-07-15T10:38:00Z",
+    "status": "ACTIVE",
+    "reference": "95875e0c-d1e7-4b47-a511-525e744a4af3"
+  },
+  {
+    "id": 100,
+    "table": "customer_master",
+    "customer_id": "CUST1099",
+    "account_id": "ACC2099",
+    "branch_code": "BR020",
+    "created_at": "2026-07-16T10:39:00Z",
+    "status": "PENDING",
+    "reference": "10ae9369-bd28-40bf-8b18-01cddfca2f6a"
+  }
+]
