@@ -58,6 +58,7 @@ class BuilderManager {
         // Ensure builder mode state defaults
         if(!window.appState.get().currentBuilder.mode) {
             window.appState.update(s => ({
+                ...s,
                 currentBuilder: { ...s.currentBuilder, mode: 'core' }
             }));
         } else {
@@ -268,6 +269,7 @@ class BuilderManager {
                 };
                 
                 window.appState.update(s => ({
+                    ...s,
                     catalogue: [newReport, ...(s.catalogue || [])]
                 }));
                 
@@ -960,6 +962,7 @@ class ReportManager {
         };
         
         window.appState.update(state => ({
+            ...state,
             generatedReports: [report, ...state.generatedReports]
         }));
         
