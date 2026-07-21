@@ -107,7 +107,8 @@
                                 <li class="wizard-step" data-mode="core" data-step="3" onclick="window.appBuilderManager.setWizardStep('core', 3)">Filters</li>
                                 <li class="wizard-step" data-mode="core" data-step="4" onclick="window.appBuilderManager.setWizardStep('core', 4)">Conditions</li>
                                 <li class="wizard-step" data-mode="core" data-step="5" onclick="window.appBuilderManager.setWizardStep('core', 5)">Grouping & Sorting</li>
-                                <li class="wizard-step" data-mode="core" data-step="6" onclick="window.appBuilderManager.setWizardStep('core', 6)">Preview</li>
+                                <li class="wizard-step" data-mode="core" data-step="6" onclick="window.appBuilderManager.setWizardStep('core', 6)">Summary & Calculations</li>
+                                <li class="wizard-step" data-mode="core" data-step="7" onclick="window.appBuilderManager.setWizardStep('core', 7)">Preview</li>
                             </ul>
                         </div>
 
@@ -122,7 +123,8 @@
                                 <li class="wizard-step" data-mode="template" data-step="3" onclick="window.appBuilderManager.setWizardStep('template', 3)">Filters</li>
                                 <li class="wizard-step" data-mode="template" data-step="4" onclick="window.appBuilderManager.setWizardStep('template', 4)">Conditions</li>
                                 <li class="wizard-step" data-mode="template" data-step="5" onclick="window.appBuilderManager.setWizardStep('template', 5)">Grouping & Sorting</li>
-                                <li class="wizard-step" data-mode="template" data-step="6" onclick="window.appBuilderManager.setWizardStep('template', 6)">Preview</li>
+                                <li class="wizard-step" data-mode="template" data-step="6" onclick="window.appBuilderManager.setWizardStep('template', 6)">Summary & Calculations</li>
+                                <li class="wizard-step" data-mode="template" data-step="7" onclick="window.appBuilderManager.setWizardStep('template', 7)">Preview</li>
                             </ul>
                         </div>
                     </div>
@@ -219,15 +221,50 @@
 
                         <!-- Step 5: Grouping & Sorting (Shared) -->
                         <div id="step-5-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
-                            <h3 style="margin-top:0;">Grouping & Sorting</h3>
-                            <div style="color: var(--text-muted); text-align: center; margin-top: 24px;">
-                                Grouping and Sorting options will appear here.
+                            <h2 style="margin-top: 0; color: #1e293b;">Grouping & Sorting</h2>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Group your data by specific fields and define sort orders.</p>
+                            <div style="padding: 40px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: var(--radius); background: #f8fafc;">
+                                Grouping & Sorting interface will be implemented here.
                             </div>
                         </div>
 
-                        <!-- Step 6: Preview (Shared) -->
-                        <div id="step-6-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
-                            <h3 style="margin-top:0;">Preview</h3>
+                        <!-- Step 6: Summary & Calculations -->
+                        <div id="step-6-content" class="wizard-step-content" style="display: none; height: 100%; flex-direction: row; overflow: hidden; background: #f8fafc;">
+                            <!-- Left Pane: Live Preview -->
+                            <div style="flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid var(--border-color); background: #fff;">
+                                <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                                    <h2 style="margin: 0; color: #1e293b; font-size: 1.125rem;">Live Preview</h2>
+                                    <div style="display: flex; gap: 8px;" id="calc-preview-badges">
+                                        <!-- Badges injected by JS -->
+                                    </div>
+                                </div>
+                                <div style="flex-grow: 1; overflow: auto; padding: 24px; background: #f1f5f9;">
+                                    <div class="mock-table-container" style="background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);">
+                                        <table class="data-table" id="calc-preview-table" style="width: 100%; border-collapse: collapse;">
+                                            <thead><tr id="calc-preview-th"></tr></thead>
+                                            <tbody id="calc-preview-tb"></tbody>
+                                            <tfoot id="calc-preview-tf"></tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Pane: Configuration -->
+                            <div style="width: 380px; flex-shrink: 0; display: flex; flex-direction: column; background: #fff; overflow-y: auto;">
+                                <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); background: #f8fafc; position: sticky; top: 0; z-index: 10;">
+                                    <h3 style="margin: 0; font-size: 1rem; color: #0f172a;">Calculations</h3>
+                                    <p style="margin: 4px 0 0 0; font-size: 0.75rem; color: #64748b;">Add derived columns & summaries</p>
+                                </div>
+                                <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;" id="calc-config-container">
+                                    <!-- Dynamic content inserted by JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 7: Preview (Final) -->
+                        <div id="step-7-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
+                            <h2 style="margin-top: 0; color: #1e293b;">Final Report Preview</h2>
+                            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px;">Review your configured report layout based on a sample of the data.</p>
+                            
                             <div id="preview-container">
                                 <!-- Populated by PreviewEngine -->
                             </div>
@@ -255,7 +292,7 @@
                     <div style="display: flex; gap: 12px; align-items: center;">
                         <button class="btn btn-secondary" onclick="window.appBuilderManager.startNewReport(window.appState.get().currentBuilder.mode)">Reset</button>
                         <button class="btn btn-secondary" id="btn-save-report">Save</button>
-                        <button class="btn btn-secondary" id="btn-preview-data" onclick="window.appBuilderManager.setWizardStep(window.appState.get().currentBuilder.mode, 6)"><i data-lucide="play"></i> Preview Data</button>
+                        <button class="btn btn-secondary" id="btn-preview-data" onclick="window.appBuilderManager.setWizardStep(window.appState.get().currentBuilder.mode, 7)"><i data-lucide="play"></i> Preview Data</button>
                         <button class="btn btn-secondary" id="btn-prev-step" onclick="window.appBuilderManager.prevWizardStep()"><i data-lucide="arrow-left"></i> Previous</button>
                         <button class="btn btn-primary" id="btn-next-step" onclick="window.appBuilderManager.nextWizardStep()">Next Step <i data-lucide="arrow-right"></i></button>
                         <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
@@ -496,6 +533,7 @@
     <script src="js/UIComponents.js"></script>
     <script src="js/DataEngine.js"></script>
     <script src="js/CoreReportSelector.js"></script>
+    <script src="js/SummaryCalculations.js"></script>
     <script src="js/Managers.js"></script>
     <script src="js/App.js"></script>
     <script>
