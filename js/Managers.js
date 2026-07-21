@@ -104,6 +104,8 @@ class BuilderManager {
                 conditions: [],
                 sorts: [],
                 groups: [],
+                summaries: [],
+                calculatedColumns: [],
                 mode: mode,
                 wizardStep: mode === 'core' ? 1 : 0
             }
@@ -135,7 +137,9 @@ class BuilderManager {
             filters: {},
             conditions: [],
             sorts: [],
-            groups: []
+            groups: [],
+            summaries: [],
+            calculatedColumns: []
         };
 
         window.appState.update(s => ({
@@ -189,13 +193,14 @@ class BuilderManager {
         const state = window.appState.get();
         const mode = state.currentBuilder.mode;
         const currentStep = state.currentBuilder.wizardStep;
-        let nextStep = 6;
+        let nextStep = 7;
         
         if (mode === 'core') {
             if (currentStep === 1) nextStep = 3;
             else if (currentStep === 3) nextStep = 4;
             else if (currentStep === 4) nextStep = 5;
             else if (currentStep === 5) nextStep = 6;
+            else if (currentStep === 6) nextStep = 7;
         } else {
             // template
             if (currentStep === 0) nextStep = 2;
@@ -203,6 +208,7 @@ class BuilderManager {
             else if (currentStep === 3) nextStep = 4;
             else if (currentStep === 4) nextStep = 5;
             else if (currentStep === 5) nextStep = 6;
+            else if (currentStep === 6) nextStep = 7;
         }
         
         this.setWizardStep(mode, nextStep);
@@ -215,14 +221,16 @@ class BuilderManager {
         let prevStep = 0;
         
         if (mode === 'core') {
-            if (currentStep === 6) prevStep = 5;
+            if (currentStep === 7) prevStep = 6;
+            else if (currentStep === 6) prevStep = 5;
             else if (currentStep === 5) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
             else if (currentStep === 3) prevStep = 1;
             else prevStep = 1;
         } else {
             // template
-            if (currentStep === 6) prevStep = 5;
+            if (currentStep === 7) prevStep = 6;
+            else if (currentStep === 6) prevStep = 5;
             else if (currentStep === 5) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
             else if (currentStep === 3) prevStep = 2;
@@ -1012,7 +1020,7 @@ renderFieldsList() {
         // Show active step content
         const stepContent = document.getElementById(`step-${state.currentBuilder.wizardStep}-content`);
         if (stepContent) {
-            stepContent.style.display = (state.currentBuilder.wizardStep === 1) ? 'flex' : 'block';
+            stepContent.style.display = (state.currentBuilder.wizardStep === 1 || state.currentBuilder.wizardStep === 6) ? 'flex' : 'block';
         }
 
         if (state.currentBuilder.mode === 'template' && state.currentBuilder.wizardStep === 0) {
@@ -1041,7 +1049,7 @@ renderFieldsList() {
         const btnPrevStep = document.getElementById('btn-prev-step');
         
         // Next, Preview, and Generate toggles
-        if (state.currentBuilder.wizardStep === 6) {
+        if (state.currentBuilder.wizardStep === 7) {
             if (btnPreviewData) btnPreviewData.style.display = 'inline-flex';
             if (btnGenerateReport) btnGenerateReport.style.display = 'inline-flex';
             if (btnNextStep) btnNextStep.style.display = 'none';
@@ -1072,6 +1080,14 @@ renderFieldsList() {
         // Render fields to reflect pinning changes
         if (state.currentBuilder.wizardStep === 2) {
             this.renderFieldsList();
+        }
+
+        // Render Summary & Calculations Panel
+        if (state.currentBuilder.wizardStep === 6) {
+            if (window.appSummaryCalc) {
+                window.appSummaryCalc.renderRightPanel();
+                window.appSummaryCalc.renderLivePreview();
+            }
         }
 
         const fields = state.currentBuilder.fields || [];
