@@ -21,48 +21,7 @@ class BuilderManager {
         this.currentCategory = 'All Fields';
         this.searchQuery = '';
         
-        this.availableFields = [
-            // Identifiers
-            { id: 'trn', label: 'Transaction Reference (TRN)', type: 'string', key: true, category: 'Identifiers' },
-            { id: 'uetr', label: 'UETR', type: 'string', key: true, category: 'Identifiers' },
-            { id: 'endToEndId', label: 'End-to-End ID', type: 'string', category: 'Identifiers' },
-            { id: 'instructionId', label: 'Instruction ID', type: 'string', category: 'Identifiers' },
-            { id: 'clearingSystemRef', label: 'Clearing System Ref', type: 'string', category: 'Identifiers' },
-            
-            // Amounts & Currency
-            { id: 'instructedAmount', label: 'Instructed Amount', type: 'number', category: 'Amounts & Currency' },
-            { id: 'instructedCurrency', label: 'Instructed Currency', type: 'string', category: 'Amounts & Currency' },
-            { id: 'settlementAmount', label: 'Settlement Amount', type: 'number', category: 'Amounts & Currency' },
-            { id: 'settlementCurrency', label: 'Settlement Currency', type: 'string', category: 'Amounts & Currency' },
-            { id: 'exchangeRate', label: 'Exchange Rate', type: 'number', category: 'Amounts & Currency' },
-            { id: 'chargeAmount', label: 'Charge Amount', type: 'number', category: 'Amounts & Currency' },
-            
-            // Parties
-            { id: 'debtorName', label: 'Debtor Name', type: 'string', pii: true, category: 'Parties' },
-            { id: 'debtorAccount', label: 'Debtor Account', type: 'string', pii: true, category: 'Parties' },
-            { id: 'debtorAgent', label: 'Debtor Agent (BIC)', type: 'string', category: 'Parties' },
-            { id: 'creditorName', label: 'Creditor Name', type: 'string', pii: true, category: 'Parties' },
-            { id: 'creditorAccount', label: 'Creditor Account', type: 'string', pii: true, category: 'Parties' },
-            { id: 'creditorAgent', label: 'Creditor Agent (BIC)', type: 'string', category: 'Parties' },
-            { id: 'instructingAgent', label: 'Instructing Agent', type: 'string', category: 'Parties' },
-            { id: 'instructedAgent', label: 'Instructed Agent', type: 'string', category: 'Parties' },
-            
-            // Status & Routing
-            { id: 'rail', label: 'Payment Rail', type: 'string', category: 'Status & Routing' },
-            { id: 'status', label: 'Status', type: 'string', category: 'Status & Routing' },
-            { id: 'reasonCode', label: 'Reason Code', type: 'string', category: 'Status & Routing' },
-            { id: 'messageType', label: 'Message Type', type: 'string', category: 'Status & Routing' },
-            { id: 'direction', label: 'Direction', type: 'string', category: 'Status & Routing' },
-            { id: 'priority', label: 'Priority', type: 'string', category: 'Status & Routing' },
-            { id: 'repairQueue', label: 'Repair Queue', type: 'string', category: 'Status & Routing' },
-            
-            // Dates & Timestamps
-            { id: 'valueDate', label: 'Value Date', type: 'date', category: 'Dates & Timestamps' },
-            { id: 'businessDate', label: 'Business Date', type: 'date', category: 'Dates & Timestamps' },
-            { id: 'settlementDate', label: 'Settlement Date', type: 'date', category: 'Dates & Timestamps' },
-            { id: 'creationTimestamp', label: 'Creation Timestamp', type: 'date', category: 'Dates & Timestamps' },
-            { id: 'lastUpdateTimestamp', label: 'Last Update Timestamp', type: 'date', category: 'Dates & Timestamps' }
-        ];
+        this.availableFields = window.VOLPAY_AVAILABLE_FIELDS || [];
     }
 
     init() {

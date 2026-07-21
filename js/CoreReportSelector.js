@@ -1,37 +1,6 @@
 class CoreReportSelector {
     constructor() {
-        this.databases = {
-            'Master Data': [
-                { name: 'CUSTOMER_MASTER', fields: ['CUSTOMER_ID', 'FIRST_NAME', 'LAST_NAME', 'DOB', 'KYC_STATUS', 'ONBOARDING_DATE', 'RISK_SCORE'] },
-                { name: 'ACCOUNT_MASTER', fields: ['ACCOUNT_ID', 'CUSTOMER_ID', 'ACCOUNT_TYPE', 'CURRENCY', 'STATUS', 'OPEN_DATE'] },
-                { name: 'BANK_DIRECTORY', fields: ['BIC', 'BANK_NAME', 'COUNTRY', 'REGION'] }
-            ],
-            'Payments': [
-                { name: 'PAYMENT_TRANSACTION', fields: ['TRX_ID', 'MESSAGE_ID', 'DEBTOR_ACCOUNT', 'CREDITOR_ACCOUNT', 'AMOUNT', 'CURRENCY', 'STATUS', 'VALUE_DATE'] },
-                { name: 'PAYMENT_CHARGE', fields: ['TRX_ID', 'FEE_AMOUNT', 'TAX_AMOUNT', 'CHARGE_BEARER'] }
-            ],
-            'Payment Messages': [
-                { name: 'PACS008', fields: ['MSG_ID', 'INSTR_ID', 'END_TO_END_ID', 'SETTLEMENT_AMT', 'SETTLEMENT_CUR', 'CHARGE_BEARER', 'INSTR_PRTY'] },
-                { name: 'PACS009', fields: ['MSG_ID', 'INSTR_ID', 'END_TO_END_ID', 'SETTLEMENT_AMT', 'SETTLEMENT_CUR'] },
-                { name: 'CAMT054', fields: ['MSG_ID', 'ACCT_ID', 'NTFCTN_ID', 'AMT', 'CRDT_DBT_IND'] }
-            ],
-            'Routing': [
-                { name: 'ROUTING_RULE', fields: ['RULE_ID', 'PRIORITY', 'CHANNEL', 'CUTOFF_TIME', 'NETWORK'] },
-                { name: 'DELIVERY_LOG', fields: ['DELIVERY_ID', 'TRX_ID', 'STATUS', 'TIMESTAMP', 'ACK_NACK'] }
-            ],
-            'Settlement': [
-                { name: 'SETTLEMENT_POSITION', fields: ['POSITION_ID', 'ACCOUNT', 'BALANCE', 'AS_OF_DATE'] },
-                { name: 'NOSTRO_VOSTRO', fields: ['ACCT_ID', 'BANK_BIC', 'TYPE', 'LEDGER_BAL', 'AVAIL_BAL'] }
-            ],
-            'Exceptions': [
-                { name: 'REPAIR_QUEUE', fields: ['CASE_ID', 'TRX_ID', 'ERROR_CODE', 'ASSIGNED_TO', 'STATUS', 'AGE'] },
-                { name: 'EXCEPTION_LOG', fields: ['LOG_ID', 'TRX_ID', 'SEVERITY', 'DESCRIPTION', 'TIMESTAMP'] }
-            ],
-            'Compliance': [
-                { name: 'SANCTION_SCREENING', fields: ['SCREENING_ID', 'TRX_ID', 'MATCH_SCORE', 'HIT_TYPE', 'RESULT', 'ANALYST'] },
-                { name: 'AML_ALERT', fields: ['ALERT_ID', 'TRX_ID', 'RISK_LEVEL', 'STATUS'] }
-            ]
-        };
+        this.databases = window.VOLPAY_DB_SCHEMA || {};
         
         // e.g. [{ dbName: 'Payments', instanceId: 'db_xyz' }]
         this.activeDatabaseSections = [];
