@@ -29,10 +29,10 @@
                 </a>
                 <div class="submenu" id="nav-builder-submenu" style="display: none;">
                     <a href="#" class="nav-item sub-item" id="nav-core-report" onclick="window.appBuilderManager.startNewReport('core'); switchView('builder');">
-                        <i data-lucide="database" style="width: 14px;"></i> Core Report
+                        <i data-lucide="database" style="width: 14px;"></i> Create Report
                     </a>
                     <a href="#" class="nav-item sub-item" id="nav-template-report" onclick="window.appBuilderManager.startNewReport('template'); switchView('builder');">
-                        <i data-lucide="copy" style="width: 14px;"></i> Template Report
+                        <i data-lucide="copy" style="width: 14px;"></i> Clone Report
                     </a>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 16px 32px; border-bottom: 1px solid var(--border-color);"
                     id="header-report-inputs">
                     <span style="font-size: 0.875rem; font-weight: 500; color: var(--primary); background: #eff6ff; padding: 4px 10px; border-radius: 12px;"
-                        id="builder-mode-badge">Core Report</span>
+                        id="builder-mode-badge">Create Report</span>
                     <input type="text" id="report-name-input" class="form-control" placeholder="Enter report name..."
                         style="width: 300px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: #fff; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); font-size: 1rem; font-weight: 500; color: #1e293b;">
                     <select id="report-access-select"
@@ -99,7 +99,7 @@
                         <!-- Core Report Section -->
                         <div class="sidebar-section" id="core-sidebar-section">
                             <div style="padding: 16px 20px; font-weight: 600; background: #f8fafc; color: #1d4ed8; border-bottom: 1px solid #e2e8f0; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;" onclick="window.appBuilderManager.startNewReport('core')">
-                                Core Report Steps
+                                Create Report Steps
                             </div>
                             <ul id="core-wizard-nav" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
                                 <li class="wizard-step" data-mode="core" data-step="1" onclick="window.appBuilderManager.setWizardStep('core', 1)">Select Fields (DB)</li>
@@ -113,7 +113,7 @@
                         <!-- Template Report Section -->
                         <div class="sidebar-section" id="template-sidebar-section">
                             <div style="padding: 16px 20px; font-weight: 600; background: #f8fafc; color: #d97706; border-bottom: 1px solid #e2e8f0; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em;" onclick="window.appBuilderManager.startNewReport('template')">
-                                Template Report Steps
+                                Clone Report Steps
                             </div>
                             <ul id="template-wizard-nav" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
                                 <li class="wizard-step" data-mode="template" data-step="0" onclick="window.appBuilderManager.setWizardStep('template', 0)">Select Base Report</li>
@@ -132,8 +132,8 @@
                         
                         <!-- Step 0: Choose Core Report (Template only) -->
                         <div id="step-0-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
-                            <h3 style="margin-top:0;">Select Base Core Report</h3>
-                            <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select a foundational core report to build your template upon.</div>
+                            <h3 style="margin-top:0;">Select Base Report to Clone</h3>
+                            <div style="margin-bottom: 16px; font-size: 0.875rem; color: var(--text-muted);">Select a foundational report to clone and build upon.</div>
                             <div class="dataset-grid" id="core-reports-grid">
                                 <!-- Populated by JS -->
                             </div>
@@ -255,6 +255,8 @@
                         <button class="btn btn-secondary" onclick="window.appBuilderManager.startNewReport(window.appState.get().currentBuilder.mode)">Reset</button>
                         <button class="btn btn-secondary" id="btn-save-report">Save</button>
                         <button class="btn btn-secondary" id="btn-preview-data" onclick="window.appBuilderManager.setWizardStep(window.appState.get().currentBuilder.mode, 6)"><i data-lucide="play"></i> Preview Data</button>
+                        <button class="btn btn-secondary" id="btn-prev-step" onclick="window.appBuilderManager.prevWizardStep()"><i data-lucide="arrow-left"></i> Previous</button>
+                        <button class="btn btn-primary" id="btn-next-step" onclick="window.appBuilderManager.nextWizardStep()">Next Step <i data-lucide="arrow-right"></i></button>
                         <button class="btn btn-primary" id="btn-generate-report"><i data-lucide="check-circle"></i> Generate Report</button>
                     </div>
                 </div>
@@ -275,12 +277,12 @@
                         <div class="filter-chip">My Reports</div>
                         <div style="flex-grow: 1;"></div>
                         <button class="btn btn-secondary" style="flex-shrink:0;"><i data-lucide="filter"></i> Filters</button>
-                        <button class="btn btn-primary" style="flex-shrink:0;" onclick="window.appBuilderManager.startNewReport('core'); switchView('builder');"><i data-lucide="plus"></i> New Core Report</button>
+                        <button class="btn btn-primary" style="flex-shrink:0;" onclick="window.appBuilderManager.startNewReport('core'); switchView('builder');"><i data-lucide="plus"></i> Create New Report</button>
                     </div>
 
                     <!-- Core Reports Section -->
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Core Reports</h3>
+                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Created Reports</h3>
                         <span style="background:#dbeafe; color:#2563eb; font-size:0.72rem; font-weight:600; padding:2px 10px; border-radius:20px;">Standard</span>
                     </div>
                     <div class="report-grid" id="catalogue-core-static" style="margin-bottom:16px;">
@@ -288,8 +290,13 @@
                             <div class="report-card-header">
                                 <div class="report-title">Daily SWIFT Outbound</div>
                                 <div style="position:relative;">
-                                    <button class="icon-btn" onclick="const m=this.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
-                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:130px;overflow:hidden;">
+                                    <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
+                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:160px;overflow:hidden;">
+                                        <button onclick="window.appToast.show('Static demo reports cannot be edited. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be cloned. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be exported.', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                                        <button onclick="window.appBuilderManager.shareReport(null); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
+                                        <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
                                         <button onclick="if(confirm('Delete?'))this.closest('.report-card').remove();" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                                     </div>
                                 </div>
@@ -308,8 +315,13 @@
                             <div class="report-card-header">
                                 <div class="report-title">Repair Queue Aging</div>
                                 <div style="position:relative;">
-                                    <button class="icon-btn" onclick="const m=this.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
-                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:130px;overflow:hidden;">
+                                    <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
+                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:160px;overflow:hidden;">
+                                        <button onclick="window.appToast.show('Static demo reports cannot be edited. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be cloned. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be exported.', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                                        <button onclick="window.appBuilderManager.shareReport(null); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
+                                        <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
                                         <button onclick="if(confirm('Delete?'))this.closest('.report-card').remove();" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                                     </div>
                                 </div>
@@ -328,8 +340,13 @@
                             <div class="report-card-header">
                                 <div class="report-title">Nostro Balance Projections</div>
                                 <div style="position:relative;">
-                                    <button class="icon-btn" onclick="const m=this.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
-                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:130px;overflow:hidden;">
+                                    <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;"><i data-lucide="more-vertical"></i></button>
+                                    <div class="card-menu-wrap" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);z-index:100;min-width:160px;overflow:hidden;">
+                                        <button onclick="window.appToast.show('Static demo reports cannot be edited. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be cloned. Save a custom report first!', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                                        <button onclick="window.appToast.show('Static demo reports cannot be exported.', 'warning'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                                        <button onclick="window.appBuilderManager.shareReport(null); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
+                                        <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
                                         <button onclick="if(confirm('Delete?'))this.closest('.report-card').remove();" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                                     </div>
                                 </div>
@@ -350,7 +367,7 @@
 
                     <!-- Template Reports Section -->
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Template Reports</h3>
+                        <h3 style="margin:0; font-size:1rem; font-weight:700; color:#1e293b;">Cloned Reports</h3>
                         <span style="background:#fdf4ff; color:#c026d3; font-size:0.72rem; font-weight:600; padding:2px 10px; border-radius:20px;">Custom</span>
                     </div>
                     <div class="report-grid" id="catalogue-reports-grid"></div>
@@ -387,8 +404,8 @@
                             <div class="search-box" style="width: 250px;"><i data-lucide="search"></i><input type="text" placeholder="Search by Job ID or Name..."></div>
                         </div>
                         <div class="collapsible-section" style="margin-bottom: 16px;">
-                            <div class="collapsible-header" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.collapsible-icon').classList.toggle('open')">
-                                <div><i data-lucide="folder" style="color: var(--primary); margin-right: 8px; width: 18px; vertical-align: middle;"></i>Core Reports Executions</div>
+                            <div class="stat-card" style="cursor:pointer;" onclick="document.querySelectorAll('.stat-card').forEach(c=>c.style.borderColor='transparent'); this.style.borderColor='var(--primary)'; document.getElementById('queue-title').innerText='Created Reports Executions'">
+                                <div><i data-lucide="folder" style="color: var(--primary); margin-right: 8px; width: 18px; vertical-align: middle;"></i>Created Reports Executions</div>
                                 <i data-lucide="chevron-right" class="collapsible-icon open"></i>
                             </div>
                             <div class="collapsible-content active">
@@ -430,8 +447,8 @@
                     <div style="background: #eff6ff; color: #2563eb; padding: 8px; border-radius: 6px;"><i
                             data-lucide="file-bar-chart-2"></i></div>
                     <div>
-                        <div style="font-weight: 600; font-size: 0.875rem;" id="run-modal-report-name">Report Name</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Standard Core Report</div>
+                        <div style="font-weight: 600; color: var(--text-main);">Daily SWIFT Outbound</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Standard Report</div>
                     </div>
                 </div>
 

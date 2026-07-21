@@ -119,6 +119,64 @@ class BuilderManager {
         }
     }
 
+    editReport(reportId, isClone = false) {
+        const state = window.appState.get();
+        const report = (state.catalogue || []).find(r => r.id === reportId);
+        if (!report) {
+            window.appToast.show('Static demo reports cannot be edited. Save a custom report first!', 'warning');
+            return;
+        }
+
+        window.appHistory.pushState();
+
+        const config = report.config || {
+            dataset: null,
+            fields: [],
+            filters: {},
+            conditions: [],
+            sorts: [],
+            groups: []
+        };
+
+        window.appState.update(s => ({
+            ...s,
+            currentBuilder: {
+                ...config,
+                pinnedFields: s.currentBuilder.pinnedFields || [],
+                mode: report.type,
+                wizardStep: report.type === 'core' ? 1 : 0,
+                editingId: isClone ? null : report.id
+            }
+        }));
+
+        const nameInput = document.getElementById('report-name-input');
+        if (nameInput) nameInput.value = isClone ? `Copy of ${report.name}` : report.name;
+
+        if (typeof switchView === 'function') switchView('builder');
+    }
+
+    exportReport(reportId) {
+        const state = window.appState.get();
+        const report = (state.catalogue || []).find(r => r.id === reportId);
+        if (!report) {
+            window.appToast.show('Static demo reports cannot be exported.', 'warning');
+            return;
+        }
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(report, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", report.name.replace(/\s+/g, '_') + ".json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        
+        window.appToast.show('Report exported successfully', 'success');
+    }
+
+    shareReport(reportId) {
+        window.appModal.show('Share / Access', 'Sharing features will be integrated when connected to the backend. Currently running in local offline mode.', [{label: 'Close', primary: true}]);
+    }
 
     setWizardStep(mode, step) {
         window.appState.update(state => ({
@@ -127,6 +185,53 @@ class BuilderManager {
         }));
     }
 
+    nextWizardStep() {
+        const state = window.appState.get();
+        const mode = state.currentBuilder.mode;
+        const currentStep = state.currentBuilder.wizardStep;
+        let nextStep = 6;
+        
+        if (mode === 'core') {
+            if (currentStep === 1) nextStep = 3;
+            else if (currentStep === 3) nextStep = 4;
+            else if (currentStep === 4) nextStep = 5;
+            else if (currentStep === 5) nextStep = 6;
+        } else {
+            // template
+            if (currentStep === 0) nextStep = 2;
+            else if (currentStep === 2) nextStep = 3;
+            else if (currentStep === 3) nextStep = 4;
+            else if (currentStep === 4) nextStep = 5;
+            else if (currentStep === 5) nextStep = 6;
+        }
+        
+        this.setWizardStep(mode, nextStep);
+    }
+
+    prevWizardStep() {
+        const state = window.appState.get();
+        const mode = state.currentBuilder.mode;
+        const currentStep = state.currentBuilder.wizardStep;
+        let prevStep = 0;
+        
+        if (mode === 'core') {
+            if (currentStep === 6) prevStep = 5;
+            else if (currentStep === 5) prevStep = 4;
+            else if (currentStep === 4) prevStep = 3;
+            else if (currentStep === 3) prevStep = 1;
+            else prevStep = 1;
+        } else {
+            // template
+            if (currentStep === 6) prevStep = 5;
+            else if (currentStep === 5) prevStep = 4;
+            else if (currentStep === 4) prevStep = 3;
+            else if (currentStep === 3) prevStep = 2;
+            else if (currentStep === 2) prevStep = 0;
+            else prevStep = 0;
+        }
+        
+        this.setWizardStep(mode, prevStep);
+    }
 
     bindEvents() {
 
@@ -281,18 +386,37 @@ class BuilderManager {
                 const type = state.currentBuilder.mode === 'core' ? 'core' : 'template';
                 
                 const newReport = {
-                    id: 'CAT-' + Math.floor(Math.random() * 10000),
+                    id: state.currentBuilder.editingId || ('CAT-' + Math.floor(Math.random() * 10000)),
                     name: repName,
                     type: type,
                     access: access,
                     updatedAt: 'Just now',
-                    author: 'JS'
+                    author: 'JS',
+                    desc: 'Custom created report definition.',
+                    config: {
+                        dataset: state.currentBuilder.dataset,
+                        fields: state.currentBuilder.fields,
+                        filters: state.currentBuilder.filters,
+                        conditions: state.currentBuilder.conditions,
+                        sorts: state.currentBuilder.sorts,
+                        groups: state.currentBuilder.groups
+                    }
                 };
                 
-                window.appState.update(s => ({
-                    ...s,
-                    catalogue: [newReport, ...(s.catalogue || [])]
-                }));
+                window.appState.update(s => {
+                    const existingIndex = s.catalogue.findIndex(r => r.id === newReport.id);
+                    let newCatalogue = [...(s.catalogue || [])];
+                    if (existingIndex >= 0) {
+                        newCatalogue[existingIndex] = newReport;
+                    } else {
+                        newCatalogue = [newReport, ...newCatalogue];
+                    }
+                    return {
+                        ...s,
+                        catalogue: newCatalogue,
+                        currentBuilder: { ...s.currentBuilder, editingId: newReport.id }
+                    };
+                });
                 
                 window.appToast.show('Report Saved successfully to Catalogue', 'success');
             });
@@ -854,13 +978,13 @@ renderFieldsList() {
         const modeBadge = document.getElementById('builder-mode-badge');
         if (state.currentBuilder.mode === 'core') {
             if (modeBadge) {
-                modeBadge.innerText = 'Core Report';
+                modeBadge.innerText = 'Create Report';
                 modeBadge.style.color = 'var(--primary)';
                 modeBadge.style.background = '#eff6ff';
             }
         } else {
             if (modeBadge) {
-                modeBadge.innerText = 'Template Report';
+                modeBadge.innerText = 'Clone Report';
                 modeBadge.style.color = 'var(--warning)';
                 modeBadge.style.background = '#fef3c7';
             }
@@ -905,11 +1029,37 @@ renderFieldsList() {
                     </div>
                 `).join('');
                 if (coreReportsList.length === 0) {
-                    grid.innerHTML = '<div style="color: var(--text-muted); font-size: 0.875rem;">No core reports available. Create one first.</div>';
+                    grid.innerHTML = '<div style="color: var(--text-muted); font-size: 0.875rem;">No created reports available. Create one first.</div>';
                 }
             }
         }
 
+        // Toggle action buttons based on step
+        const btnPreviewData = document.getElementById('btn-preview-data');
+        const btnGenerateReport = document.getElementById('btn-generate-report');
+        const btnNextStep = document.getElementById('btn-next-step');
+        const btnPrevStep = document.getElementById('btn-prev-step');
+        
+        // Next, Preview, and Generate toggles
+        if (state.currentBuilder.wizardStep === 6) {
+            if (btnPreviewData) btnPreviewData.style.display = 'inline-flex';
+            if (btnGenerateReport) btnGenerateReport.style.display = 'inline-flex';
+            if (btnNextStep) btnNextStep.style.display = 'none';
+        } else {
+            if (btnPreviewData) btnPreviewData.style.display = 'none';
+            if (btnGenerateReport) btnGenerateReport.style.display = 'none';
+            if (btnNextStep) btnNextStep.style.display = 'inline-flex';
+        }
+
+        // Previous button toggle
+        if ((state.currentBuilder.mode === 'core' && state.currentBuilder.wizardStep === 1) ||
+            (state.currentBuilder.mode === 'template' && state.currentBuilder.wizardStep === 0)) {
+            if (btnPrevStep) btnPrevStep.style.display = 'none';
+        } else {
+            if (btnPrevStep) btnPrevStep.style.display = 'inline-flex';
+        }
+
+        // Auto-initialize components if needed based on active step
         if (state.currentBuilder.mode === 'core' && state.currentBuilder.wizardStep === 1) {
             if (window.appCoreReportSelector) {
                 if (window.appCoreReportSelector.activeDatabaseSections.length === 0) {
@@ -966,17 +1116,22 @@ renderFieldsList() {
             const templateReports = catalogue.filter(r => r.type === 'template');
             
             if (templateReports.length === 0) {
-                templateGrid.innerHTML = '<div style="color:#94a3b8; padding:20px 0; font-size:0.875rem;">No template reports yet. Save a Core Report as a template to see it here.</div>';
+                templateGrid.innerHTML = '<div style="color:#94a3b8; padding:20px 0; font-size:0.875rem;">No cloned reports yet. Save a report to see it here.</div>';
             } else {
                 templateGrid.innerHTML = templateReports.map(r => `
                     <div class="report-card" id="catalogue-card-${r.id}" style="position:relative;">
                         <div class="report-card-header">
                             <div class="report-title">${r.name}</div>
                             <div style="position:relative;">
-                                <button class="icon-btn" onclick="const m=this.nextElementSibling; m.style.display=m.style.display==='block'?'none':'block'; document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;">
+                                <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
                                     <i data-lucide="more-vertical"></i>
                                 </button>
-                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:130px; overflow:hidden;">
+                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
+                                    <button onclick="window.appBuilderManager.editReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                                    <button onclick="window.appBuilderManager.editReport('${r.id}', true); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                                    <button onclick="window.appBuilderManager.exportReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                                    <button onclick="window.appBuilderManager.shareReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
+                                    <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
                                     <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                                 </div>
                             </div>
@@ -1014,10 +1169,15 @@ renderFieldsList() {
                         <div class="report-card-header">
                             <div class="report-title">${r.name}</div>
                             <div style="position:relative;">
-                                <button class="icon-btn" onclick="const m=this.nextElementSibling; m.style.display=m.style.display==='block'?'none':'block'; document.addEventListener('click',function h(e){if(!e.target.closest('.card-menu-wrap')){m.style.display='none';document.removeEventListener('click',h)}},{once:true});" style="color:#94a3b8;">
+                                <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
                                     <i data-lucide="more-vertical"></i>
                                 </button>
-                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:130px; overflow:hidden;">
+                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
+                                    <button onclick="window.appBuilderManager.editReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                                    <button onclick="window.appBuilderManager.editReport('${r.id}', true); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                                    <button onclick="window.appBuilderManager.exportReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                                    <button onclick="window.appBuilderManager.shareReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
+                                    <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
                                     <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-core-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                                 </div>
                             </div>

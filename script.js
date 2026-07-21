@@ -50,7 +50,7 @@ function switchView(viewName) {
     
     if (viewName === 'builder') {
         const state = window.appState.get();
-        titleElement.textContent = state.currentBuilder.mode === 'core' ? 'Create New Core Report' : 'Create New Template Report';
+        titleElement.textContent = state.currentBuilder.mode === 'core' ? 'Create New Report' : 'Clone Existing Report';
         if (summaryPanel) summaryPanel.style.display = 'flex';
     } else if (viewName === 'catalogue') {
         titleElement.textContent = 'Report Catalogue';
