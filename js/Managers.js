@@ -1353,14 +1353,14 @@ renderFieldsList() {
                 let valueInput = '';
 
                 if(selectedField.type === 'number') {
-                    operatorOptions = '<option>Equals</option><option>Greater Than</option><option>Less Than</option>';
-                    valueInput = `<input type="number" class="cond-val" value="${cond.value || ''}" placeholder="0" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">`;
+                    operatorOptions = '<option>Equals</option><option>Not Equals</option><option>Greater Than</option><option>Greater Than or Equals</option><option>Less Than</option><option>Less Than or Equals</option><option>Is Empty</option><option>Is Not Empty</option>';
+                    valueInput = `<input type="number" class="cond-val" value="${cond.value || ''}" placeholder="0" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; display: ${['Is Empty', 'Is Not Empty'].includes(cond.operator) ? 'none' : 'inline-block'};">`;
                 } else if(selectedField.type === 'date') {
-                    operatorOptions = '<option>Equals</option><option>Before</option><option>After</option>';
-                    valueInput = `<input type="date" class="cond-val" value="${cond.value || ''}" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">`;
+                    operatorOptions = '<option>Equals</option><option>Not Equals</option><option>Before</option><option>Before or Equals</option><option>After</option><option>After or Equals</option><option>Is Empty</option><option>Is Not Empty</option>';
+                    valueInput = `<input type="date" class="cond-val" value="${cond.value || ''}" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; display: ${['Is Empty', 'Is Not Empty'].includes(cond.operator) ? 'none' : 'inline-block'};">`;
                 } else {
-                    operatorOptions = '<option>Equals</option><option>Not Equals</option><option>Contains</option>';
-                    valueInput = `<input type="text" class="cond-val" value="${cond.value || ''}" placeholder="Value" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px;">`;
+                    operatorOptions = '<option>Equals</option><option>Not Equals</option><option>Contains</option><option>Starts With</option><option>Ends With</option><option>Is Empty</option><option>Is Not Empty</option>';
+                    valueInput = `<input type="text" class="cond-val" value="${cond.value || ''}" placeholder="Value" style="padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; display: ${['Is Empty', 'Is Not Empty'].includes(cond.operator) ? 'none' : 'inline-block'};">`;
                 }
 
                 return `

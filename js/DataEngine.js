@@ -145,10 +145,18 @@ class PreviewEngine {
                     if (c.operator === 'Equals') condMatch = String(val).toLowerCase() === String(c.value).toLowerCase();
                     else if (c.operator === 'Not Equals') condMatch = String(val).toLowerCase() !== String(c.value).toLowerCase();
                     else if (c.operator === 'Contains') condMatch = String(val).toLowerCase().includes(String(c.value).toLowerCase());
+                    else if (c.operator === 'Starts With') condMatch = String(val).toLowerCase().startsWith(String(c.value).toLowerCase());
+                    else if (c.operator === 'Ends With') condMatch = String(val).toLowerCase().endsWith(String(c.value).toLowerCase());
+                    else if (c.operator === 'Is Empty') condMatch = val === undefined || val === null || String(val).trim() === '';
+                    else if (c.operator === 'Is Not Empty') condMatch = val !== undefined && val !== null && String(val).trim() !== '';
                     else if (c.operator === 'Greater Than') condMatch = parseFloat(val) > parseFloat(c.value);
+                    else if (c.operator === 'Greater Than or Equals') condMatch = parseFloat(val) >= parseFloat(c.value);
                     else if (c.operator === 'Less Than') condMatch = parseFloat(val) < parseFloat(c.value);
+                    else if (c.operator === 'Less Than or Equals') condMatch = parseFloat(val) <= parseFloat(c.value);
                     else if (c.operator === 'Before') condMatch = new Date(val) < new Date(c.value);
+                    else if (c.operator === 'Before or Equals') condMatch = new Date(val) <= new Date(c.value);
                     else if (c.operator === 'After') condMatch = new Date(val) > new Date(c.value);
+                    else if (c.operator === 'After or Equals') condMatch = new Date(val) >= new Date(c.value);
                     
                     if (i === 0 || c.logicalOp === 'IF' || c.logicalOp === 'AND') {
                         rowMatch = rowMatch && condMatch;
