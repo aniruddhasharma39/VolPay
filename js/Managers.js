@@ -148,11 +148,159 @@ class BuilderManager {
         }));
     }
 
+    setCurrentUser(user) {
+        this.currentUser = user;
+        this.renderCatalogue();
+    }
+
+    switchCatalogueTab(tab) {
+        this.currentTab = tab;
+        document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        this.renderCatalogue();
+    }
+
+    renderCatalogue() {
+        const grid = document.getElementById('catalogue-reports-grid');
+        if (!grid) return;
+
+        // Ensure we load mockReports if they are available
+        const baseReports = (window.mockReports || []).concat(window.appState.get().catalogue || []);
+        // Deduplicate just in case
+        const reportsMap = new Map();
+        baseReports.forEach(r => reportsMap.set(r.id, r));
+        let reports = Array.from(reportsMap.values());
+
+        // Setup filter values
+        const searchInput = document.getElementById('catalogue-search');
+        const railSelect = document.getElementById('catalogue-filter-rail');
+        const catSelect = document.getElementById('catalogue-filter-category');
+        const regionSelect = document.getElementById('catalogue-filter-region');
+        const freqSelect = document.getElementById('catalogue-filter-frequency');
+        const authSelect = document.getElementById('catalogue-filter-author');
+
+        const search = searchInput ? searchInput.value.toLowerCase() : '';
+        const rail = railSelect ? railSelect.value : '';
+        const category = catSelect ? catSelect.value : '';
+        const region = regionSelect ? regionSelect.value : '';
+        const frequency = freqSelect ? freqSelect.value : '';
+        const authorFilter = authSelect ? authSelect.value : '';
+        const currentUser = this.currentUser || 'Rahul Mehta';
+        const currentTab = this.currentTab || 'public';
+
+        // Apply filters
+        reports = reports.filter(r => {
+            if (currentTab === 'public' && r.visibility === 'private') return false;
+            if (currentTab === 'private' && (r.author !== currentUser || r.visibility !== 'private')) return false;
+            if (search && !(r.reportName || r.name || '').toLowerCase().includes(search) && !(r.id || '').toLowerCase().includes(search)) return false;
+            if (rail && r.paymentRail !== rail) return false;
+            if (category && r.category !== category) return false;
+            if (region && r.region !== region) return false;
+            if (frequency && r.frequency !== frequency) return false;
+            if (authorFilter && r.author !== authorFilter) return false;
+            return true;
+        });
+
+        if (reports.length === 0) {
+            grid.innerHTML = '<div style="color: var(--text-muted); padding: 24px;">No reports match your filters.</div>';
+            return;
+        }
+
+        grid.innerHTML = reports.map(r => {
+            const name = r.reportName || r.name;
+            const desc = r.description || r.desc || 'Custom created report definition.';
+            const railTag = r.paymentRail ? \`<span class="tag" style="background:#dbeafe; color:#2563eb; border:1px solid #bfdbfe;">\${r.paymentRail}</span>\` : '';
+            const catTag = r.category ? \`<span class="tag" style="background:#fef3c7; color:#d97706; border:1px solid #fde68a;">\${r.category}</span>\` : '';
+
+            return \`
+            <div class="report-card" id="catalogue-card-\${r.id}" style="position:relative;">
+                <div class="report-card-header">
+                    <div class="report-title">\${name}</div>
+                    <div style="position:relative;">
+                        <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                        <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
+                            <button onclick="window.appBuilderManager.editReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
+                            <button onclick="window.appBuilderManager.cloneReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
+                            <button onclick="window.appBuilderManager.exportReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                            <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
+                            <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-\${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-desc">\${desc}</div>
+                <div style="margin-bottom: 16px;">
+                    \${railTag} \${catTag}
+                </div>
+                <div class="report-footer">
+                    <div class="report-author">
+                        <div class="avatar-sm" style="width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">\${(r.author || 'JS').split(' ').map(n=>n[0]).join('')}</div>
+                        Updated \${r.updatedAt || 'Just now'}
+                    </div>
+                    <div class="report-actions">
+                        <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('\${name}')" title="Run"><i data-lucide="play"></i></button>
+                    </div>
+                </div>
+            </div>
+            \`;
+        }).join('');
+        lucide.createIcons();
+    }
+
+    cloneReport(reportId) {
+        const baseReports = (window.mockReports || []).concat(window.appState.get().catalogue || []);
+        const original = baseReports.find(r => r.id === reportId);
+        if(!original) {
+            window.appToast.show('Report not found for cloning', 'error');
+            return;
+        }
+
+        const clone = JSON.parse(JSON.stringify(original));
+        clone.id = 'CAT-' + Math.floor(Math.random() * 10000);
+        clone.reportName = (clone.reportName || clone.name) + ' (Copy)';
+        clone.name = clone.reportName;
+        clone.author = this.currentUser || 'Rahul Mehta';
+        clone.updatedAt = new Date().toISOString().split('T')[0];
+        // Ensure clone belongs to current user so it appears in private tab
+        clone.visibility = 'private';
+        
+        window.appState.update(s => {
+            const newCatalogue = [clone, ...(s.catalogue || [])];
+            return {
+                ...s,
+                catalogue: newCatalogue
+            };
+        });
+        
+        this.renderCatalogue();
+        window.appToast.show('Report Cloned Successfully', 'success');
+        
+        // Switch to private tab to see the clone
+        this.switchCatalogueTab('private');
+    }
+
+    exportReport(reportId) {
+        const baseReports = (window.mockReports || []).concat(window.appState.get().catalogue || []);
+        const original = baseReports.find(r => r.id === reportId);
+        if(!original) {
+            window.appToast.show('Report not found for export', 'error');
+            return;
+        }
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(original, null, 2));
+        const dlAnchorElem = document.createElement('a');
+        dlAnchorElem.setAttribute("href", dataStr);
+        dlAnchorElem.setAttribute("download", (original.reportName || original.name).replace(/\s+/g, '_') + ".json");
+        dlAnchorElem.click();
+        window.appToast.show('Report JSON Exported', 'success');
+    }
+
     nextWizardStep() {
         const state = window.appState.get();
         const mode = state.currentBuilder.mode;
         const currentStep = state.currentBuilder.wizardStep;
-        let nextStep = 7;
+        let nextStep = 8;
         
         if (mode === 'core') {
             if (currentStep === 1) nextStep = 3;
@@ -160,6 +308,7 @@ class BuilderManager {
             else if (currentStep === 4) nextStep = 5;
             else if (currentStep === 5) nextStep = 6;
             else if (currentStep === 6) nextStep = 7;
+            else if (currentStep === 7) nextStep = 8;
         } else {
             // template
             if (currentStep === 0) nextStep = 2;
@@ -168,6 +317,7 @@ class BuilderManager {
             else if (currentStep === 4) nextStep = 5;
             else if (currentStep === 5) nextStep = 6;
             else if (currentStep === 6) nextStep = 7;
+            else if (currentStep === 7) nextStep = 8;
         }
         
         this.setWizardStep(mode, nextStep);
@@ -180,7 +330,8 @@ class BuilderManager {
         let prevStep = 0;
         
         if (mode === 'core') {
-            if (currentStep === 7) prevStep = 6;
+            if (currentStep === 8) prevStep = 7;
+            else if (currentStep === 7) prevStep = 6;
             else if (currentStep === 6) prevStep = 5;
             else if (currentStep === 5) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
@@ -188,7 +339,8 @@ class BuilderManager {
             else prevStep = 1;
         } else {
             // template
-            if (currentStep === 7) prevStep = 6;
+            if (currentStep === 8) prevStep = 7;
+            else if (currentStep === 7) prevStep = 6;
             else if (currentStep === 6) prevStep = 5;
             else if (currentStep === 5) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
@@ -1084,98 +1236,8 @@ renderFieldsList() {
         const totalFilters = Object.values(state.currentBuilder.filters || {}).reduce((acc, arr) => acc + arr.length, 0);
         if(summaryFiltersCount) summaryFiltersCount.innerText = `${totalFilters} Active`;
         
-        // Update Catalogue UI - TEMPLATE section (dynamically saved template reports)
-        const templateGrid = document.getElementById('catalogue-reports-grid');
-        if (templateGrid) {
-            const catalogue = state.catalogue || [];
-            const templateReports = catalogue.filter(r => r.type === 'template');
-            
-            if (templateReports.length === 0) {
-                templateGrid.innerHTML = '<div style="color:#94a3b8; padding:20px 0; font-size:0.875rem;">No cloned reports yet. Save a report to see it here.</div>';
-            } else {
-                templateGrid.innerHTML = templateReports.map(r => `
-                    <div class="report-card" id="catalogue-card-${r.id}" style="position:relative;">
-                        <div class="report-card-header">
-                            <div class="report-title">${r.name}</div>
-                            <div style="position:relative;">
-                                <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
-                                    <i data-lucide="more-vertical"></i>
-                                </button>
-                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
-                                    <button onclick="window.appBuilderManager.editReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
-                                    <button onclick="window.appBuilderManager.editReport('${r.id}', true); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
-                                    <button onclick="window.appBuilderManager.exportReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
-                                    <button onclick="window.appBuilderManager.shareReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
-                                    <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
-                                    <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
-                        <div style="margin-bottom: 16px;">
-                            <span class="tag" style="background:#fdf4ff; color:#c026d3; border:1px solid #f5d0fe;">Template</span>
-                            <span class="tag" style="background:#e2e8f0; color:#475569;"><i data-lucide="users" style="width:10px; margin-right:4px;"></i>${r.access || 'private'}</span>
-                        </div>
-                        <div class="report-footer">
-                            <div class="report-author">
-                                <div class="avatar-sm">${r.author || 'JS'}</div>
-                                Updated ${r.updatedAt || 'Just now'}
-                            </div>
-                            <div class="report-actions">
-                                <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Customize as Template"><i data-lucide="copy"></i></button>
-                                <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run Report"><i data-lucide="play"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Update Catalogue UI - CORE section (dynamically saved core reports)
-        const coreGrid = document.getElementById('catalogue-core-dynamic');
-        if (coreGrid) {
-            const catalogue = state.catalogue || [];
-            const coreReports = catalogue.filter(r => r.type === 'core');
-            if (coreReports.length === 0) {
-                coreGrid.innerHTML = '';
-            } else {
-                coreGrid.innerHTML = coreReports.map(r => `
-                    <div class="report-card" id="catalogue-core-card-${r.id}" style="position:relative;">
-                        <div class="report-card-header">
-                            <div class="report-title">${r.name}</div>
-                            <div style="position:relative;">
-                                <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
-                                    <i data-lucide="more-vertical"></i>
-                                </button>
-                                <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
-                                    <button onclick="window.appBuilderManager.editReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
-                                    <button onclick="window.appBuilderManager.editReport('${r.id}', true); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
-                                    <button onclick="window.appBuilderManager.exportReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
-                                    <button onclick="window.appBuilderManager.shareReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="share-2" style="width:14px;margin-right:6px;"></i>Share / Access</button>
-                                    <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
-                                    <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-core-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="report-desc">${r.desc || 'Custom created report definition.'}</div>
-                        <div style="margin-bottom: 16px;">
-                            <span class="tag" style="background:#dbeafe; color:#2563eb; border:1px solid #bfdbfe;">Core</span>
-                            <span class="tag" style="background:#e2e8f0; color:#475569;"><i data-lucide="users" style="width:10px; margin-right:4px;"></i>${r.access || 'private'}</span>
-                        </div>
-                        <div class="report-footer">
-                            <div class="report-author">
-                                <div class="avatar-sm">${r.author || 'JS'}</div>
-                                Updated ${r.updatedAt || 'Just now'}
-                            </div>
-                            <div class="report-actions">
-                                <button class="icon-btn" onclick="window.appBuilderManager.startNewReport('template', '${r.name}')" title="Use as Template"><i data-lucide="copy"></i></button>
-                                <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${r.name}')" title="Run"><i data-lucide="play"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
+        // Update Catalogue UI via the centralized method
+        this.renderCatalogue();
         
         lucide.createIcons();
     }
@@ -1434,6 +1496,45 @@ class ReportManager {
     init() {
         window.appState.subscribe(state => this.updateCentreUI(state));
         this.activeRunReport = null;
+    }
+
+    generatePDF() {
+        try {
+            const { jsPDF } = window.jspdf;
+            if (!jsPDF) {
+                window.appToast.show('PDF Library not loaded properly', 'error');
+                return;
+            }
+            
+            const doc = new jsPDF('landscape');
+            
+            doc.setFontSize(18);
+            doc.text('VolPay Payment Report', 14, 22);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(100);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
+            
+            const previewTable = document.querySelector('#preview-container table');
+            
+            if (previewTable) {
+                doc.autoTable({
+                    html: previewTable,
+                    startY: 40,
+                    theme: 'grid',
+                    headStyles: { fillColor: [37, 99, 235] }, // matches var(--primary)
+                    styles: { fontSize: 8, cellPadding: 4 }
+                });
+            } else {
+                doc.text('No tabular data available for this report preview.', 14, 45);
+            }
+            
+            doc.save('VolPay_Report_Export.pdf');
+            window.appToast.show('PDF Generated Successfully', 'success');
+        } catch (e) {
+            console.error(e);
+            window.appToast.show('Error generating PDF', 'error');
+        }
     }
 
     openRunModal(reportName) {
