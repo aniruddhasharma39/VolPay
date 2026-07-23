@@ -208,7 +208,7 @@ class PreviewEngine {
             Showing first ${displayData.length} of ${filteredData.length} records matching criteria.
         </div>`;
         
-        tableHtml += '<div style="overflow: auto; max-height: 400px;"><table class="data-table" style="min-width: 100%;">';
+        tableHtml += '<div style="overflow: auto; max-height: 400px; padding-bottom: 40px;"><table class="data-table" id="preview-data-table" style="min-width: 100%;">';
         tableHtml += '<thead style="position: sticky; top: 0; background: #f8fafc; box-shadow: 0 1px 2px rgba(0,0,0,0.05); z-index:1;"><tr>';
         
         fields.forEach(f => {
@@ -230,6 +230,58 @@ class PreviewEngine {
 
         tableHtml += '</tbody></table></div>';
         container.innerHTML = tableHtml;
+    }
+
+    exportPDF() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            window.appToast && window.appToast.show('PDF Export library not loaded.', 'error');
+            return;
+        }
+
+        const state = window.appState ? window.appState.get() : null;
+        if (!state || !state.currentBuilder || !state.currentBuilder.fields || state.currentBuilder.fields.length === 0) {
+            window.appToast && window.appToast.show('No fields selected to export.', 'error');
+            return;
+        }
+
+        const fields = state.currentBuilder.fields;
+        const data = this.loadData();
+        let filteredData = this.applyFiltersAndConditions(data, state.currentBuilder.filters, state.currentBuilder.conditions);
+
+        // Limit to 1000 for PDF
+        filteredData = filteredData.slice(0, 1000);
+
+        const doc = new window.jspdf.jsPDF('landscape');
+        
+        const reportName = state.currentBuilder.reportName || 'Custom_Report';
+        doc.setFontSize(16);
+        doc.text(reportName, 14, 15);
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Generated on ${new Date().toLocaleString()}`, 14, 22);
+
+        const head = [fields.map(f => f.label)];
+        const body = filteredData.map(row => {
+            return fields.map(f => {
+                let cellValue = row[f.id] || '-';
+                if (f.id === 'amount') {
+                    cellValue = new Intl.NumberFormat('en-US', { style: 'currency', currency: row.currency || 'USD' }).format(cellValue);
+                }
+                return cellValue;
+            });
+        });
+
+        doc.autoTable({
+            startY: 30,
+            head: head,
+            body: body,
+            theme: 'striped',
+            styles: { fontSize: 8, cellPadding: 2 },
+            headStyles: { fillColor: [59, 130, 246] }
+        });
+
+        doc.save(`${reportName.replace(/\\s+/g, '_')}_Preview.pdf`);
+        window.appToast && window.appToast.show('PDF Downloaded successfully', 'success');
     }
 }
 

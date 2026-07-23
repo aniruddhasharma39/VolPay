@@ -285,8 +285,15 @@
 
                         <!-- Step 8: Preview (Final) -->
                         <div id="step-8-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
-                            <h2 style="margin-top: 0; color: #1e293b;">Final Report Preview</h2>
-                            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px;">Review your configured report layout based on a sample of the data.</p>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                                <div>
+                                    <h2 style="margin-top: 0; color: #1e293b; margin-bottom: 4px;">Final Report Preview</h2>
+                                    <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Review your configured report layout based on a sample of the data.</p>
+                                </div>
+                                <div style="display: flex; gap: 12px;">
+                                    <button class="btn btn-primary" onclick="if(window.appPreviewEngine) window.appPreviewEngine.exportPDF()"><i data-lucide="file-text"></i> Download PDF</button>
+                                </div>
+                            </div>
                             
                             <div id="preview-container" style="padding-bottom: 60px;">
                                 <!-- Populated by PreviewEngine -->
@@ -344,10 +351,13 @@
                         </select>
                         <select id="catalogue-filter-category" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Categories</option>
-                            <option value="Payment Transactions">Payment Transactions</option>
-                            <option value="Exceptions">Exceptions</option>
-                            <option value="Users">Users</option>
-                            <option value="Entitlements">Entitlements</option>
+                            <option value="Availability Reports">Availability Reports</option>
+                            <option value="Operational Reports">Operational Reports</option>
+                            <option value="Reconciliation Reports">Reconciliation Reports</option>
+                            <option value="Risk Reports">Risk Reports</option>
+                            <option value="Exception Reports">Exception Reports</option>
+                            <option value="Compliance Reports">Compliance Reports</option>
+                            <option value="Audit Reports">Audit Reports</option>
                         </select>
                         <select id="catalogue-filter-region" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Regions</option>

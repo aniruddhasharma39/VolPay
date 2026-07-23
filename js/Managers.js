@@ -266,8 +266,20 @@ class BuilderManager {
 
     switchCatalogueTab(tab) {
         this.currentTab = tab;
-        document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
-        document.getElementById('tab-' + tab).classList.add('active');
+        document.querySelectorAll('.tabs .tab').forEach(t => {
+            t.classList.remove('active');
+            t.style.fontWeight = '500';
+            t.style.color = 'var(--text-muted)';
+            t.style.borderBottom = 'none';
+            t.style.paddingBottom = '4px';
+        });
+        const activeTab = document.getElementById('tab-' + tab);
+        if (activeTab) {
+            activeTab.classList.add('active');
+            activeTab.style.fontWeight = '600';
+            activeTab.style.color = 'var(--primary)';
+            activeTab.style.borderBottom = '2px solid var(--primary)';
+        }
         this.renderCatalogue();
     }
 
