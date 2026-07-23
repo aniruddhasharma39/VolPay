@@ -25,8 +25,8 @@ class BuilderManager {
     }
 
     init() {
-        // Subscribe to state changes to update builder UI
-        window.appState.subscribe(state => this.updateUI(state));
+        // Subscribe to state changes if needed
+        // window.appState.subscribe(state => this.updateUI(state));
         this.bindEvents();
         this.renderFieldsList();
         if (window.appCoreReportSelector) window.appCoreReportSelector.init();
@@ -37,8 +37,6 @@ class BuilderManager {
                 ...s,
                 currentBuilder: { ...s.currentBuilder, mode: 'core' }
             }));
-        } else {
-            this.updateUI(window.appState.get());
         }
     }
 
@@ -78,13 +76,16 @@ class BuilderManager {
         if (mode === 'template' && baseReportName) {
             this.setDataset(baseReportName);
         }
+        
+        this.renderWizardUI(mode, mode === 'core' ? 1 : 0);
     }
 
     editReport(reportId, isClone = false) {
         const state = window.appState.get();
-        const report = (state.catalogue || []).find(r => r.id === reportId);
+        const baseReports = (window.mockReports || []).concat(state.catalogue || []);
+        const report = baseReports.find(r => r.id === reportId);
         if (!report) {
-            window.appToast.show('Static demo reports cannot be edited. Save a custom report first!', 'warning');
+            window.appToast.show('Report not found.', 'warning');
             return;
         }
 
@@ -113,9 +114,11 @@ class BuilderManager {
         }));
 
         const nameInput = document.getElementById('report-name-input');
-        if (nameInput) nameInput.value = isClone ? `Copy of ${report.name}` : report.name;
+        if (nameInput) nameInput.value = isClone ? `Copy of ${report.name || report.reportName}` : (report.name || report.reportName);
 
         if (typeof switchView === 'function') switchView('builder');
+        
+        this.renderWizardUI(report.type, report.type === 'core' ? 1 : 0);
     }
 
     exportReport(reportId) {
@@ -146,6 +149,53 @@ class BuilderManager {
             ...state,
             currentBuilder: { ...state.currentBuilder, mode: mode, wizardStep: step }
         }));
+        this.renderWizardUI(mode, step);
+    }
+
+    renderWizardUI(mode, step) {
+        // Hide all step contents
+        document.querySelectorAll('.wizard-step-content').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Show target step content
+        const targetContent = document.getElementById(`step-${step}-content`);
+        if (targetContent) {
+            targetContent.style.display = targetContent.id === 'step-6-content' ? 'flex' : 'block';
+        }
+
+        // Update active class on sidebar
+        document.querySelectorAll('.wizard-step').forEach(el => {
+            el.classList.remove('active');
+            if (parseInt(el.dataset.step) === step) {
+                el.classList.add('active');
+            }
+        });
+    }
+
+    updateScheduleState(key, value) {
+        window.appState.update(state => ({
+            ...state,
+            currentBuilder: {
+                ...state.currentBuilder,
+                schedule: {
+                    ...(state.currentBuilder.schedule || {}),
+                    [key]: value
+                }
+            }
+        }));
+        
+        // Update summary text
+        const state = window.appState.get();
+        const schedule = state.currentBuilder.schedule || {};
+        const summary = document.getElementById('schedule-summary');
+        if (summary) {
+            if (schedule.frequency && schedule.frequency !== 'Ad Hoc') {
+                summary.innerText = `Scheduled to run ${schedule.frequency} at ${schedule.runTime || '12:00'} ${schedule.timezone || 'UTC'}, delivered via ${schedule.delivery || 'Download'} with ${schedule.retention || '30 days'} retention.`;
+            } else {
+                summary.innerText = 'Ad Hoc generation on demand.';
+            }
+        }
     }
 
     setCurrentUser(user) {
@@ -190,8 +240,9 @@ class BuilderManager {
 
         // Apply filters
         reports = reports.filter(r => {
-            if (currentTab === 'public' && r.visibility === 'private') return false;
-            if (currentTab === 'private' && (r.author !== currentUser || r.visibility !== 'private')) return false;
+            const isPrivate = r.visibility === 'private' || r.access === 'private';
+            if (currentTab === 'public' && isPrivate) return false;
+            if (currentTab === 'private' && (!isPrivate || r.author !== currentUser)) return false;
             if (search && !(r.reportName || r.name || '').toLowerCase().includes(search) && !(r.id || '').toLowerCase().includes(search)) return false;
             if (rail && r.paymentRail !== rail) return false;
             if (category && r.category !== category) return false;
@@ -209,41 +260,40 @@ class BuilderManager {
         grid.innerHTML = reports.map(r => {
             const name = r.reportName || r.name;
             const desc = r.description || r.desc || 'Custom created report definition.';
-            const railTag = r.paymentRail ? \`<span class="tag" style="background:#dbeafe; color:#2563eb; border:1px solid #bfdbfe;">\${r.paymentRail}</span>\` : '';
-            const catTag = r.category ? \`<span class="tag" style="background:#fef3c7; color:#d97706; border:1px solid #fde68a;">\${r.category}</span>\` : '';
+            const railTag = r.paymentRail ? `<span class="tag" style="background:#dbeafe; color:#2563eb; border:1px solid #bfdbfe;">${r.paymentRail}</span>` : '';
+            const catTag = r.category ? `<span class="tag" style="background:#fef3c7; color:#d97706; border:1px solid #fde68a;">${r.category}</span>` : '';
 
-            return \`
-            <div class="report-card" id="catalogue-card-\${r.id}" style="position:relative;">
+            return `
+            <div class="report-card" id="catalogue-card-${r.id}" style="position:relative;">
                 <div class="report-card-header">
-                    <div class="report-title">\${name}</div>
+                    <div class="report-title">${name}</div>
                     <div style="position:relative;">
                         <button class="icon-btn" onclick="event.stopPropagation(); document.querySelectorAll('.card-menu-wrap').forEach(el => { if(el !== this.nextElementSibling) { el.style.display='none'; const p=el.closest('.report-card'); if(p) p.style.zIndex=''; } }); var m = this.nextElementSibling; var p = this.closest('.report-card'); if(m.style.display === 'block'){ m.style.display='none'; if(p) p.style.zIndex=''; } else { m.style.display='block'; if(p) p.style.zIndex='50'; } document.addEventListener('click', function _closeMenu(e){ if(!e.target.closest('.card-menu-wrap')){ m.style.display='none'; if(p) p.style.zIndex=''; document.removeEventListener('click', _closeMenu); } });" style="color:#94a3b8;">
                             <i data-lucide="more-vertical"></i>
                         </button>
                         <div class="card-menu-wrap" style="display:none; position:absolute; right:0; top:100%; background:#fff; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.12); z-index:100; min-width:160px; overflow:hidden;">
-                            <button onclick="window.appBuilderManager.editReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="edit" style="width:14px;margin-right:6px;"></i>Edit Definition</button>
-                            <button onclick="window.appBuilderManager.cloneReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone as New</button>
-                            <button onclick="window.appBuilderManager.exportReport('\${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
+                            <button onclick="window.appBuilderManager.editReport('${r.id}', true); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="copy" style="width:14px;margin-right:6px;"></i>Clone</button>
+                            <button onclick="window.appBuilderManager.exportReport('${r.id}'); this.closest('.card-menu-wrap').style.display='none';" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#475569;cursor:pointer;font-size:0.875rem;"><i data-lucide="download" style="width:14px;margin-right:6px;"></i>Export JSON</button>
                             <hr style="border:none;border-top:1px solid #e2e8f0;margin:4px 0;">
-                            <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-\${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
+                            <button onclick="if(confirm('Delete this report?')){const el=document.getElementById('catalogue-card-${r.id}');if(el)el.remove();}" style="display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:0.875rem;"><i data-lucide="trash-2" style="width:14px;margin-right:6px;"></i>Delete</button>
                         </div>
                     </div>
                 </div>
-                <div class="report-desc">\${desc}</div>
+                <div class="report-desc">${desc}</div>
                 <div style="margin-bottom: 16px;">
-                    \${railTag} \${catTag}
+                    ${railTag} ${catTag}
                 </div>
                 <div class="report-footer">
                     <div class="report-author">
-                        <div class="avatar-sm" style="width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">\${(r.author || 'JS').split(' ').map(n=>n[0]).join('')}</div>
-                        Updated \${r.updatedAt || 'Just now'}
+                        <div class="avatar-sm" style="width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">${(r.author || 'JS').split(' ').map(n=>n[0]).join('')}</div>
+                        Updated ${r.updatedAt || 'Just now'}
                     </div>
                     <div class="report-actions">
-                        <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('\${name}')" title="Run"><i data-lucide="play"></i></button>
+                        <button class="icon-btn icon-btn-primary" onclick="window.appReportManager.openRunModal('${name}')" title="Run"><i data-lucide="play"></i></button>
                     </div>
                 </div>
             </div>
-            \`;
+            `;
         }).join('');
         lucide.createIcons();
     }
@@ -305,8 +355,7 @@ class BuilderManager {
         if (mode === 'core') {
             if (currentStep === 1) nextStep = 3;
             else if (currentStep === 3) nextStep = 4;
-            else if (currentStep === 4) nextStep = 5;
-            else if (currentStep === 5) nextStep = 6;
+            else if (currentStep === 4) nextStep = 6;
             else if (currentStep === 6) nextStep = 7;
             else if (currentStep === 7) nextStep = 8;
         } else {
@@ -314,8 +363,7 @@ class BuilderManager {
             if (currentStep === 0) nextStep = 2;
             else if (currentStep === 2) nextStep = 3;
             else if (currentStep === 3) nextStep = 4;
-            else if (currentStep === 4) nextStep = 5;
-            else if (currentStep === 5) nextStep = 6;
+            else if (currentStep === 4) nextStep = 6;
             else if (currentStep === 6) nextStep = 7;
             else if (currentStep === 7) nextStep = 8;
         }
@@ -332,8 +380,7 @@ class BuilderManager {
         if (mode === 'core') {
             if (currentStep === 8) prevStep = 7;
             else if (currentStep === 7) prevStep = 6;
-            else if (currentStep === 6) prevStep = 5;
-            else if (currentStep === 5) prevStep = 4;
+            else if (currentStep === 6) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
             else if (currentStep === 3) prevStep = 1;
             else prevStep = 1;
@@ -341,8 +388,7 @@ class BuilderManager {
             // template
             if (currentStep === 8) prevStep = 7;
             else if (currentStep === 7) prevStep = 6;
-            else if (currentStep === 6) prevStep = 5;
-            else if (currentStep === 5) prevStep = 4;
+            else if (currentStep === 6) prevStep = 4;
             else if (currentStep === 4) prevStep = 3;
             else if (currentStep === 3) prevStep = 2;
             else if (currentStep === 2) prevStep = 0;

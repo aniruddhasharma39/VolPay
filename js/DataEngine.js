@@ -208,7 +208,7 @@ class PreviewEngine {
             Showing first ${displayData.length} of ${filteredData.length} records matching criteria.
         </div>`;
         
-        tableHtml += '<div style="overflow-x: auto; max-height: 400px;"><table class="data-table" style="min-width: 100%;">';
+        tableHtml += '<div style="overflow: auto; max-height: 400px;"><table class="data-table" style="min-width: 100%;">';
         tableHtml += '<thead style="position: sticky; top: 0; background: #f8fafc; box-shadow: 0 1px 2px rgba(0,0,0,0.05); z-index:1;"><tr>';
         
         fields.forEach(f => {

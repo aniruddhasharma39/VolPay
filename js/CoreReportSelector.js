@@ -58,6 +58,7 @@ class CoreReportSelector {
             });
         }
 
+        window.appState.subscribe(state => this.updateUI(state));
     }
 
     addDatabase() {

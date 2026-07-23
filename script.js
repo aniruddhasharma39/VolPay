@@ -14,9 +14,11 @@ function switchView(viewName) {
         if (submenu) submenu.style.display = 'flex'; // our new css makes it flex
         
         if (state.currentBuilder.mode === 'core') {
-            document.getElementById('nav-core-report').classList.add('active');
+            const el = document.getElementById('nav-core-report');
+            if (el) el.classList.add('active');
         } else {
-            document.getElementById('nav-template-report').classList.add('active');
+            const el = document.getElementById('nav-template-report');
+            if (el) el.classList.add('active');
         }
     } else {
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -138,16 +140,7 @@ document.querySelectorAll('.btn, .icon-btn').forEach(btn => {
         if(this.classList.contains('nav-item')) return; // handled by switchView
         
         // Add a small ripple or click effect for demonstration
-        const originalText = this.innerHTML;
-        if (this.classList.contains('btn-primary')) {
-            const tempText = '<i data-lucide="loader" style="animation: spin 2s linear infinite;"></i> Processing...';
-            this.innerHTML = tempText;
-            lucide.createIcons();
-            setTimeout(() => {
-                this.innerHTML = originalText;
-                lucide.createIcons();
-            }, 800);
-        } else if (this.classList.contains('icon-btn-primary') && this.querySelector('[data-lucide="play"]')) {
+        if (this.classList.contains('icon-btn-primary') && this.querySelector('[data-lucide="play"]')) {
             alert('Initiating Report Execution...');
         }
     });

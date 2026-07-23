@@ -76,8 +76,7 @@
         <div class="content-area">
 
             <!-- Builder View -->
-                        <!-- Builder View -->
-            <div id="view-builder" class="view-container" style="flex-grow:1; display: flex; flex-direction: column;">
+            <div id="view-builder" class="view-container" style="flex-grow:1; display: none; flex-direction: column;">
                 <div style="display: flex; align-items: center; gap: 12px; padding: 24px 32px 16px 32px; border-bottom: 1px solid var(--border-color);"
                     id="header-report-inputs">
                     <span style="font-size: 0.875rem; font-weight: 500; color: var(--primary); background: #eff6ff; padding: 4px 10px; border-radius: 12px;"
@@ -107,7 +106,6 @@
                                 <li class="wizard-step" data-mode="core" data-step="1" onclick="window.appBuilderManager.setWizardStep('core', 1)">Select Fields (DB)</li>
                                 <li class="wizard-step" data-mode="core" data-step="3" onclick="window.appBuilderManager.setWizardStep('core', 3)">Filters</li>
                                 <li class="wizard-step" data-mode="core" data-step="4" onclick="window.appBuilderManager.setWizardStep('core', 4)">Conditions</li>
-                                <li class="wizard-step" data-mode="core" data-step="5" onclick="window.appBuilderManager.setWizardStep('core', 5)">Grouping & Sorting</li>
                                 <li class="wizard-step" data-mode="core" data-step="6" onclick="window.appBuilderManager.setWizardStep('core', 6)">Summary & Calculations</li>
                                 <li class="wizard-step" data-mode="core" data-step="7" onclick="window.appBuilderManager.setWizardStep('core', 7)">Scheduling</li>
                                 <li class="wizard-step" data-mode="core" data-step="8" onclick="window.appBuilderManager.setWizardStep('core', 8)">Preview</li>
@@ -115,7 +113,6 @@
                         </div>
 
                         </div>
-                    </div>
 
                     <!-- Wizard Main Content Area -->
                     <div id="wizard-main-content" style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; position: relative;">
@@ -148,8 +145,6 @@
                             </div>
                         </div>
 
-                        </div>
-
                         <!-- Step 3: Filters (Shared) -->
                         <div id="step-3-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
                             <h3 style="margin-top:0;">Apply Filters</h3>
@@ -166,16 +161,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 5: Grouping & Sorting (Shared) -->
-                        <div id="step-5-content" class="wizard-step-content" style="display: none; padding: 24px; overflow-y: auto; height: 100%;">
-                            <h2 style="margin-top: 0; color: #1e293b;">Grouping & Sorting</h2>
-                            <p style="color: var(--text-muted); font-size: 0.875rem;">Group your data by specific fields and define sort orders.</p>
-                            <div style="padding: 40px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: var(--radius); background: #f8fafc;">
-                                Grouping & Sorting interface will be implemented here.
-                            </div>
-                        </div>
-
-                        <!-- Step 6: Summary & Calculations -->
+                        <!-- Step 5 has been removed -->                        <!-- Step 6: Summary & Calculations -->
                         <div id="step-6-content" class="wizard-step-content" style="display: none; height: 100%; flex-direction: row; overflow: hidden; background: #f8fafc;">
                             <!-- Left Pane: Live Preview -->
                             <div style="flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid var(--border-color); background: #fff;">
@@ -338,15 +324,15 @@
             </div>
             
             <!-- Other Views -->
-            <div id="view-catalogue" class="view-container active">
+            <div id="view-catalogue" class="view-container" style="display: none;">
                 <div class="main-content">
                     <!-- Single unified toolbar row -->
                     <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 32px; flex-wrap: wrap;">
-                        <div class="search-box" style="flex-shrink: 0;">
-                            <i data-lucide="search"></i>
-                            <input type="text" id="catalogue-search" placeholder="Search by Name or ID..." onkeyup="window.appBuilderManager.renderCatalogue()">
+                        <div class="search-box" style="flex-shrink: 0; display: flex; align-items: center; position: relative;">
+                            <i data-lucide="search" style="position: absolute; left: 12px; width: 18px; color: #64748b; top: 50%; transform: translateY(-50%);"></i>
+                            <input type="text" id="catalogue-search" placeholder="Search by Name or ID..." onkeyup="window.appBuilderManager.renderCatalogue()" style="width: 250px; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.875rem;">
                         </div>
-                        <select id="catalogue-filter-rail" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px;">
+                        <select id="catalogue-filter-rail" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Rails</option>
                             <option value="FedNow">FedNow</option>
                             <option value="Fedwire">Fedwire</option>
@@ -356,20 +342,20 @@
                             <option value="SDD Core">SDD Core</option>
                             <option value="System">System</option>
                         </select>
-                        <select id="catalogue-filter-category" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px;">
+                        <select id="catalogue-filter-category" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Categories</option>
                             <option value="Payment Transactions">Payment Transactions</option>
                             <option value="Exceptions">Exceptions</option>
                             <option value="Users">Users</option>
                             <option value="Entitlements">Entitlements</option>
                         </select>
-                        <select id="catalogue-filter-region" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px;">
+                        <select id="catalogue-filter-region" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Regions</option>
-                            <option value="US">US</option>
+                            <option value="United States">United States</option>
                             <option value="Europe">Europe</option>
                             <option value="Global">Global</option>
                         </select>
-                        <select id="catalogue-filter-frequency" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px;">
+                        <select id="catalogue-filter-frequency" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Frequencies</option>
                             <option value="Daily">Daily</option>
                             <option value="Weekly">Weekly</option>
@@ -378,7 +364,7 @@
                             <option value="Hourly">Hourly</option>
                             <option value="Ad Hoc">Ad Hoc</option>
                         </select>
-                        <select id="catalogue-filter-author" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; width: 140px;">
+                        <select id="catalogue-filter-author" class="form-control" onchange="window.appBuilderManager.renderCatalogue()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.875rem; width: 140px;">
                             <option value="">All Authors</option>
                             <option value="Rahul Mehta">Rahul Mehta</option>
                             <option value="Ananya Sharma">Ananya Sharma</option>
@@ -525,7 +511,7 @@
     <script src="js/DataEngine.js"></script>
     <script src="js/CoreReportSelector.js"></script>
     <script src="js/SummaryCalculations.js"></script>
-    <script src="js/Managers.js"></script>
+    <script src="js/Managers.js?v=3"></script>
     <script src="js/App.js"></script>
     <script>
         lucide.createIcons();

@@ -1,4 +1,23 @@
-window.mockReports = [
+export interface Report {
+  id: string;
+  reportName: string;
+  description: string;
+  author: string;
+  visibility: 'public' | 'private';
+  category: string;
+  paymentRail: string;
+  regulatoryBody: string;
+  region: string;
+  frequency: string;
+  reportStatus: 'draft' | 'published' | 'archived' | 'deprecated';
+  version: string;
+  createdAt: string;   // ISO date
+  updatedAt: string;   // ISO date
+  tags: string[];
+  dataset: string;
+}
+
+export const reports: Report[] = [
   {
     id: 'RPT-FEDNOW-001',
     reportName: 'FedNow Immediate Funds Availability Evidence Report',
@@ -16,8 +35,6 @@ window.mockReports = [
     updatedAt: '2026-06-18',
     tags: ['fednow', 'availability', 'compliance'],
     dataset: 'Payment Transactions',
-    filters: [],
-    selectedFields: ['transaction_id', 'amount', 'status', 'rail']
   },
   {
     id: 'RPT-FEDNOW-002',
@@ -36,15 +53,13 @@ window.mockReports = [
     updatedAt: '2026-05-20',
     tags: ['fednow', 'uptime', 'resilience', 'downtime'],
     dataset: 'System Availability',
-    filters: [],
-    selectedFields: ['uptime_percentage', 'downtime_minutes', 'impacted_transactions']
   },
   {
     id: 'RPT-FEDNOW-003',
     reportName: 'FedNow Payment Status / Operational Processing Report',
     description: 'Continuous operational record providing a transaction-level view of each FedNow payment’s processing state and lifecycle from initiation to settlement and posting.',
     author: 'Rahul Mehta',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Operational Reports',
     paymentRail: 'FedNow',
     regulatoryBody: 'Federal Reserve Banks / FedNow Service',
@@ -56,8 +71,6 @@ window.mockReports = [
     updatedAt: '2026-04-12',
     tags: ['fednow', 'status', 'lifecycle', 'processing'],
     dataset: 'Payment Transactions',
-    filters: [],
-    selectedFields: ['transaction_id', 'status', 'lifecycle_stage']
   },
   {
     id: 'RPT-FEDNOW-004',
@@ -76,15 +89,13 @@ window.mockReports = [
     updatedAt: '2026-07-05',
     tags: ['fednow', 'reconciliation', 'settlement', 'ledger'],
     dataset: 'Settlement Entries',
-    filters: [],
-    selectedFields: ['settlement_id', 'amount', 'ledger_status']
   },
   {
     id: 'RPT-FEDNOW-005',
     reportName: 'FedNow Participant Limit / Risk Control Breach Report',
     description: 'Continuous monitoring report detailing payments blocked, rejected, or delayed due to participant, customer, account, or transaction limits. Includes limit override flags.',
     author: 'David Johnson',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Risk Reports',
     paymentRail: 'FedNow',
     regulatoryBody: 'Federal Reserve Banks / FedNow Service',
@@ -96,8 +107,6 @@ window.mockReports = [
     updatedAt: '2026-06-25',
     tags: ['fednow', 'limits', 'risk', 'breach'],
     dataset: 'Entitlements',
-    filters: [],
-    selectedFields: ['limit_id', 'transaction_id', 'breach_reason']
   },
   {
     id: 'RPT-FEDNOW-006',
@@ -116,15 +125,13 @@ window.mockReports = [
     updatedAt: '2026-05-30',
     tags: ['fednow', 'returns', 'exceptions'],
     dataset: 'Exceptions',
-    filters: [],
-    selectedFields: ['return_id', 'original_transaction', 'reason_code']
   },
   {
     id: 'RPT-FEDNOW-007',
     reportName: 'FedNow ISO 20022 Message Validation Report',
     description: 'Continuous validation report identifying FedNow ISO 20022 message validation failures, missing mandatory fields, and repaired/rejected messages during scheme processing.',
     author: 'Rahul Mehta',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Compliance Reports',
     paymentRail: 'FedNow',
     regulatoryBody: 'Federal Reserve Banks / FedNow Service',
@@ -136,8 +143,6 @@ window.mockReports = [
     updatedAt: '2026-07-15',
     tags: ['fednow', 'iso20022', 'validation', 'compliance'],
     dataset: 'ISO Messages',
-    filters: [],
-    selectedFields: ['message_id', 'validation_error', 'field_name']
   },
   {
     id: 'RPT-FEDWIRE-008',
@@ -156,8 +161,6 @@ window.mockReports = [
     updatedAt: '2026-07-01',
     tags: ['fedwire', 'audit', 'imad', 'omad'],
     dataset: 'Payment Transactions',
-    filters: [],
-    selectedFields: ['imad', 'omad', 'amount', 'settlement_status']
   },
   {
     id: 'RPT-FEDWIRE-009',
@@ -176,15 +179,13 @@ window.mockReports = [
     updatedAt: '2026-06-25',
     tags: ['fedwire', 'iso20022', 'format', 'compliance'],
     dataset: 'ISO Messages',
-    filters: [],
-    selectedFields: ['message_id', 'format_error', 'pacs_type']
   },
   {
     id: 'RPT-FEDWIRE-010',
     reportName: 'Fedwire Cut-off / Operating Window Compliance Report',
     description: 'Daily operational evidence report proving whether Fedwire payments were submitted, processed, and settled within the applicable operating windows and cut-offs.',
     author: 'David Johnson',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Operational Reports',
     paymentRail: 'Fedwire',
     regulatoryBody: 'Federal Reserve Banks / Fedwire Funds Service',
@@ -196,8 +197,6 @@ window.mockReports = [
     updatedAt: '2026-07-10',
     tags: ['fedwire', 'cut-off', 'operational', 'timing'],
     dataset: 'Payment Transactions',
-    filters: [],
-    selectedFields: ['transaction_id', 'submission_time', 'window_status']
   },
   {
     id: 'RPT-FEDWIRE-011',
@@ -216,8 +215,6 @@ window.mockReports = [
     updatedAt: '2026-06-30',
     tags: ['fedwire', 'reconciliation', 'settlement', 'finality'],
     dataset: 'Settlement Entries',
-    filters: [],
-    selectedFields: ['settlement_id', 'gl_reference', 'reconciliation_status']
   },
   {
     id: 'RPT-FEDWIRE-012',
@@ -236,8 +233,6 @@ window.mockReports = [
     updatedAt: '2026-07-18',
     tags: ['fedwire', 'rejection', 'returns', 'exceptions'],
     dataset: 'Exceptions',
-    filters: [],
-    selectedFields: ['exception_id', 'reason', 'operator_action']
   },
   {
     id: 'RPT-ACH-013',
@@ -256,15 +251,13 @@ window.mockReports = [
     updatedAt: '2026-05-30',
     tags: ['ach', 'returns', 'compliance', 'exceptions'],
     dataset: 'Exceptions',
-    filters: [],
-    selectedFields: ['return_code', 'noc_entry', 'dispute_status']
   },
   {
     id: 'RPT-CROSS-US-014',
     reportName: 'US Payment Service Availability Impact Report',
     description: 'Event-driven report produced during service disruptions detailing affected rails (FedNow, Fedwire, ACH), downtime windows, payments delayed, and customer impact.',
     author: 'Michael Carter',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Availability Reports',
     paymentRail: 'Cross-Rail (US)',
     regulatoryBody: 'OCC / Federal Reserve / FDIC',
@@ -276,15 +269,13 @@ window.mockReports = [
     updatedAt: '2026-07-20',
     tags: ['us-rails', 'outage', 'availability', 'impact'],
     dataset: 'System Availability',
-    filters: [],
-    selectedFields: ['rail', 'downtime_start', 'downtime_end', 'impact']
   },
   {
     id: 'RPT-CROSS-US-015',
     reportName: 'US Computer-Security Incident - Payment Impact Report',
     description: 'Event-driven report to notify regulators within 36 hours of a security incident, detailing payment initiation, clearing, and settlement impact across all US channels.',
     author: 'Emma Wilson',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Risk Reports',
     paymentRail: 'Cross-Rail (US)',
     regulatoryBody: 'OCC / Federal Reserve / FDIC',
@@ -296,8 +287,6 @@ window.mockReports = [
     updatedAt: '2026-04-18',
     tags: ['us-rails', 'security', 'incident', 'impact'],
     dataset: 'System Availability',
-    filters: [],
-    selectedFields: ['incident_id', 'impact_level', 'affected_channels']
   },
   {
     id: 'RPT-CROSS-US-016',
@@ -316,8 +305,6 @@ window.mockReports = [
     updatedAt: '2026-06-15',
     tags: ['us-rails', 'turnaround', 'sla', 'performance'],
     dataset: 'Payment Transactions',
-    filters: [],
-    selectedFields: ['transaction_id', 'processing_time', 'sla_status']
   },
   {
     id: 'RPT-CROSS-US-017',
@@ -336,15 +323,13 @@ window.mockReports = [
     updatedAt: '2026-07-02',
     tags: ['us-rails', 'latency', 'ancillary', 'performance'],
     dataset: 'System Availability',
-    filters: [],
-    selectedFields: ['service_name', 'latency_ms', 'timeout_count']
   },
   {
     id: 'RPT-CROSS-US-018',
     reportName: 'Cross-US Settlement and Reconciliation Break Report',
     description: 'Daily internal report detailing settlement references, posting statuses, reconciliation break types, and resolution owners across FedNow, Fedwire, and ACH rails.',
     author: 'Emma Wilson',
-    visibility: 'public',
+    visibility: 'private',
     category: 'Reconciliation Reports',
     paymentRail: 'Cross-Rail (US)',
     regulatoryBody: 'Federal Reserve Banks / Examiner',
@@ -356,8 +341,6 @@ window.mockReports = [
     updatedAt: '2026-07-22',
     tags: ['us-rails', 'reconciliation', 'breaks', 'settlement'],
     dataset: 'Settlement Entries',
-    filters: [],
-    selectedFields: ['break_id', 'rail', 'resolution_owner']
   },
   {
     id: 'RPT-CROSS-US-019',
@@ -376,8 +359,6 @@ window.mockReports = [
     updatedAt: '2026-06-28',
     tags: ['us-rails', 'liquidity', 'limits', 'breach'],
     dataset: 'Entitlements',
-    filters: [],
-    selectedFields: ['account_id', 'available_balance', 'breach_amount']
   },
   {
     id: 'RPT-CROSS-US-020',
@@ -396,7 +377,5 @@ window.mockReports = [
     updatedAt: '2026-07-10',
     tags: ['us-rails', 'rejection', 'root-cause', 'exceptions'],
     dataset: 'Exceptions',
-    filters: [],
-    selectedFields: ['root_cause', 'rejection_code', 'count']
   }
 ];
