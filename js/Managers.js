@@ -25,8 +25,8 @@ class BuilderManager {
     }
 
     init() {
-        // Subscribe to state changes if needed
-        // window.appState.subscribe(state => this.updateUI(state));
+        // Subscribe to state changes
+        window.appState.subscribe(state => this.updateUI(state));
         this.bindEvents();
         this.renderFieldsList();
         if (window.appCoreReportSelector) window.appCoreReportSelector.init();
@@ -91,15 +91,60 @@ class BuilderManager {
 
         window.appHistory.pushState();
 
+        let fields = [];
+        if (report.config && report.config.fields && report.config.fields.length > 0) {
+            fields = report.config.fields;
+        } else if (report.selectedFields && Array.isArray(report.selectedFields)) {
+            fields = report.selectedFields.map(f => {
+                if (typeof f === 'object') return f;
+                
+                let foundDb = 'Volpay_Payment_Engine';
+                let foundTable = 'AckTrace';
+                let foundType = 'string';
+                
+                if (window.VOLPAY_DB_SCHEMA) {
+                    let found = false;
+                    for (const db in window.VOLPAY_DB_SCHEMA) {
+                        for (const tb of window.VOLPAY_DB_SCHEMA[db]) {
+                            if (tb.fields.includes(f)) {
+                                foundDb = db;
+                                foundTable = tb.name;
+                                const ln = f.toLowerCase();
+                                if (/date|dob|timestamp|open_date|onboarding|value_date|business_date|as_of_date|cutoff_time/.test(ln)) foundType = 'date';
+                                else if (/amount|amt|balance|bal|fee|tax|charge|rate|score|risk|priority|age|settlement_amt|ledger_bal|avail_bal|match_score/.test(ln)) foundType = 'number';
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found) break;
+                    }
+                }
+                
+                return {
+                    id: `${foundDb}.${foundTable}.${f}`,
+                    name: f,
+                    tableName: foundTable,
+                    dbName: foundDb,
+                    category: foundTable,
+                    label: f,
+                    type: foundType,
+                    format: 'Text'
+                };
+            });
+        }
+
+        let parsedFields = fields;
+        const mode = report.type || 'core';
+
         const config = report.config || {
-            dataset: null,
-            fields: [],
-            filters: {},
-            conditions: [],
-            sorts: [],
-            groups: [],
-            summaries: [],
-            calculatedColumns: []
+            dataset: report.dataset || null,
+            fields: isClone ? [] : fields,
+            filters: isClone ? {} : (report.filters || {}),
+            conditions: isClone ? [] : (report.conditions || []),
+            sorts: isClone ? [] : (report.sorts || []),
+            groups: isClone ? [] : (report.groups || []),
+            summaries: isClone ? [] : (report.summaries || []),
+            calculatedColumns: isClone ? [] : (report.calculatedColumns || [])
         };
 
         window.appState.update(s => ({
@@ -107,9 +152,10 @@ class BuilderManager {
             currentBuilder: {
                 ...config,
                 pinnedFields: s.currentBuilder.pinnedFields || [],
-                mode: report.type,
-                wizardStep: report.type === 'core' ? 1 : 0,
-                editingId: isClone ? null : report.id
+                mode: mode,
+                wizardStep: mode === 'core' ? 1 : 0,
+                editingId: isClone ? null : report.id,
+                cloneAvailableFields: isClone ? parsedFields : null
             }
         }));
 
@@ -118,7 +164,18 @@ class BuilderManager {
 
         if (typeof switchView === 'function') switchView('builder');
         
-        this.renderWizardUI(report.type, report.type === 'core' ? 1 : 0);
+        // Also populate active databases in core selector based on parsedFields (only if not clone)
+        if (mode === 'core' && window.appCoreReportSelector) {
+            if (!isClone) {
+                const uniqueDbs = [...new Set(parsedFields.map(f => f.dbName).filter(Boolean))];
+                if (uniqueDbs.length > 0) {
+                    window.appCoreReportSelector.activeDatabaseSections = uniqueDbs.map(db => ({ dbName: db, instanceId: 'db_sect_' + Math.random().toString(36).substr(2, 9) }));
+                }
+            }
+            window.appCoreReportSelector.renderDatabaseSections();
+        }
+        
+        this.renderWizardUI(mode, mode === 'core' ? 1 : 0);
     }
 
     exportReport(reportId) {
@@ -161,7 +218,11 @@ class BuilderManager {
         // Show target step content
         const targetContent = document.getElementById(`step-${step}-content`);
         if (targetContent) {
-            targetContent.style.display = targetContent.id === 'step-6-content' ? 'flex' : 'block';
+            if (targetContent.id === 'step-1-content' || targetContent.id === 'step-6-content') {
+                targetContent.style.display = 'flex';
+            } else {
+                targetContent.style.display = 'block';
+            }
         }
 
         // Update active class on sidebar

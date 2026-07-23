@@ -93,6 +93,32 @@ class CoreReportSelector {
         const state = window.appState.get();
         const selectedFields = state.currentBuilder.fields || [];
 
+        if (state.currentBuilder.cloneAvailableFields && state.currentBuilder.cloneAvailableFields.length > 0) {
+            const fields = state.currentBuilder.cloneAvailableFields;
+            html += `<div style="padding: 16px; background: #fff; border-radius: 8px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="font-weight: 600; margin-bottom: 8px; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                    <div style="background: #e0e7ff; color: #4338ca; padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    Available Fields (Cloned)
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+            `;
+            fields.forEach(f => {
+                const isSelected = selectedFields.some(sf => sf.id === f.id);
+                html += `
+                    <div class="db-field-pill clone-field-pill ${isSelected ? 'selected' : ''}" style="cursor: pointer; user-select: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 6px 10px; border-radius: 6px; border: 1px solid ${isSelected ? '#bfdbfe' : '#e2e8f0'}; background: ${isSelected ? '#eff6ff' : '#f8fafc'}; color: ${isSelected ? '#1d4ed8' : '#475569'}; font-size: 0.85rem; font-weight: 500; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center;" onclick="window.appCoreReportSelector.toggleField('${f.dbName}', '${f.tableName}', '${f.name}')" title="${f.name}">
+                        <span>${f.name}</span>
+                        ${isSelected ? '<i data-lucide="check" style="width: 14px; height: 14px;"></i>' : ''}
+                    </div>
+                `;
+            });
+            html += `</div></div>`;
+            this.container.innerHTML = html;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            return;
+        }
+
         this.activeDatabaseSections.forEach((section) => {
             const tables = section.dbName ? (this.databases[section.dbName] || []) : [];
             
@@ -239,10 +265,14 @@ class CoreReportSelector {
         const fields = state.currentBuilder.fields || [];
         
         // 1. Re-render the database sections (preserves structure but we need a smarter way if we don't want accordions to collapse)
-        // To prevent full collapse on every click, we will ONLY update the pills and badges.
-        this.activeDatabaseSections.forEach((section) => {
-            const sectionCard = this.container.querySelector(`.db-section-card[data-instance-id="${section.instanceId}"]`);
-            if (sectionCard) {
+        // If it's a clone, just re-render completely to update the checkmarks simply
+        if (state.currentBuilder.cloneAvailableFields && state.currentBuilder.cloneAvailableFields.length > 0) {
+            this.renderDatabaseSections();
+        } else {
+            // To prevent full collapse on every click, we will ONLY update the pills and badges.
+            this.activeDatabaseSections.forEach((section) => {
+                const sectionCard = this.container.querySelector(`.db-section-card[data-instance-id="${section.instanceId}"]`);
+                if (sectionCard) {
                 // Update table badges
                 const tables = this.databases[section.dbName] || [];
                 tables.forEach(table => {
@@ -290,6 +320,7 @@ class CoreReportSelector {
                 });
             }
         });
+        }
         
         // 2. Render bottom "Selected Fields" list
         if (this.selectedCountEl) this.selectedCountEl.innerText = fields.length;
